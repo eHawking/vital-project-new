@@ -151,7 +151,7 @@
                 </div>
             @elseif(auth()->user()->kv == Status::KYC_PENDING)
                 <div class="alert alert--warning" role="alert">
-                    <div class="alert__icon"><i class="fas fa-user-check"></i></div>
+                    <div class="alert__icon"><i class="las la-user-check" style="z-index: 10;"></i></div>
                     <p class="alert__message">
                         <span class="fw-bold">@lang('KYC Verification Pending')</span><br>
                         <small>
@@ -204,7 +204,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->balance) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-wallet"></i></div>
+                            <div class="icon"><i class="las la-wallet" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -225,9 +225,9 @@
                         </div>
                         <div class="right-content">
                             @if(auth()->user()->plan_id == 1)
-                                <div class="icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="icon"><i class="las la-check-circle" style="z-index: 10;"></i></div>
                             @else
-                                <div class="icon"><i class="fas fa-times-circle"></i></div>
+                                <div class="icon"><i class="las la-times-circle" style="z-index: 10;"></i></div>
                             @endif
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->bv) }} BV</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-award"></i></div>
+                            <div class="icon"><i class="las la-trophy" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -252,13 +252,13 @@
                             <h3 class="ammount text--base">{{ getAmount(auth()->user()->pv) }} PV</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-gem"></i></div>
+                            <div class="icon"><i class="las la-gem" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                     @if (auth()->user()->pv >= 100)
                 <div id="generateButtonContainer" style="text-align: center; margin: 20px 0;">
                     <button type="button" class="btn btn-primary pulse" data-bs-toggle="modal" data-bs-target="#generateVoucherModal" style="background-color: #7e2afc; position: relative; overflow: hidden;">
-                        <i class="fas fa-gift" style="position: relative; z-index: 1;"></i> Generate DSP Gift Voucher
+                        <i class="las la-gift" style="position: relative; z-index: 1;"></i> Generate DSP Gift Voucher
                     </button>
                 </div>
             @else
@@ -335,7 +335,7 @@
                             <h3 class="ammount theme-one">{{ getAmount(auth()->user()->epin_credit) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-credit-card"></i></div>
+                            <div class="icon"><i class="las la-credit-card" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -349,7 +349,7 @@
                             <h3 class="ammount theme-one">{{ getAmount(auth()->user()->dsp_ref_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-clipboard-check"></i></div>
+                            <div class="icon"><i class="las la-clipboard-check" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -386,7 +386,7 @@
                             @endif
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-star"></i></div>
+                            <div class="icon"><i class="las la-star" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -400,7 +400,7 @@
                             <h3 class="ammount theme-one">{{ (auth()->user()->rewards) }}</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-gift"></i></div>
+                            <div class="icon"><i class="las la-gift" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -414,7 +414,7 @@
                             <h3 class="ammount theme-one">{{ getAmount(auth()->user()->pair_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="icon"><i class="las la-briefcase" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -428,7 +428,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->dds_ref_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-cart-plus"></i></div>
+                            <div class="icon"><i class="las la-cart-plus" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -442,7 +442,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->shop_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-shopping-bag"></i></div>
+                            <div class="icon"><i class="las la-shopping-bag" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -456,7 +456,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->shop_reference) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-shopping-basket"></i></div>
+                            <div class="icon"><i class="las la-shopping-basket" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -470,7 +470,7 @@
                             <h3 class="ammount theme-one">{{ getAmount(auth()->user()->franchise_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="icon"><i class="las la-briefcase" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -484,7 +484,7 @@
                             <h3 class="ammount theme-one">{{ getAmount(auth()->user()->franchise_ref_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-user-check"></i></div>
+                            <div class="icon"><i class="las la-user-check" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -498,7 +498,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->city_ref_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-building"></i></div>
+                            <div class="icon"><i class="las la-building" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -512,7 +512,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->weekly_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                            <div class="icon"><i class="las la-calendar-check" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -526,7 +526,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->product_partner_bonus) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-users"></i></div>
+                            <div class="icon"><i class="las la-users" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -540,7 +540,7 @@
                             <h3 class="ammount theme-two">{{ getAmount(auth()->user()->promo) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-gift"></i></div>
+                            <div class="icon"><i class="las la-gift" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -554,7 +554,7 @@
                             <h3 class="ammount theme-one">{{ getAmount(auth()->user()->total_invest) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-tag"></i></div>
+                            <div class="icon"><i class="las la-tag" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -568,7 +568,7 @@
                             <h3 class="ammount text--base">{{ getAmount($totalDeposit) }} PKR</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="icon"><i class="las la-money-bill" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -581,7 +581,7 @@
                             <h6 class="title">@lang('Total Withdraw')</h6>
                             <h3 class="ammount theme-one">{{ getAmount($totalWithdraw) }} PKR</h3>
                         </div>
-                        <div class="icon"><i class="fas fa-coins"></i></div>
+                        <div class="icon"><i class="las la-coins" style="z-index: 10;"></i></div>
                     </div>
                 </div>
             </div>
@@ -594,7 +594,7 @@
                             <h3 class="ammount theme-two">{{ getAmount($completeWithdraw) }}</h3>
                         </div>
                         <div class="right-content">
-                            <div class="icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="icon"><i class="las la-check-circle" style="z-index: 10;"></i></div>
                         </div>
                     </div>
                 </div>
@@ -607,7 +607,7 @@
                             <h6 class="title">@lang('Pending Withdraw')</h6>
                             <h3 class="ammount text--base">{{ getAmount($pendingWithdraw) }}</h3>
                         </div>
-                        <div class="icon"><i class="fas fa-history"></i></div>
+                        <div class="icon"><i class="las la-history" style="z-index: 10;"></i></div>
                     </div>
                 </div>
             </div>
@@ -726,7 +726,7 @@ $(document).ready(function(){
         navigator.clipboard.writeText($('#generatedVoucherCode').val()).then(() => {
             const button = $(this);
             const originalHtml = button.html();
-            button.html('<i class="fas fa-check"></i> Copied!').addClass('btn-success').removeClass('btn-outline-primary');
+            button.html('<i class="las la-check"></i> Copied!').addClass('btn-success').removeClass('btn-outline-primary');
             setTimeout(() => {
                 button.html(originalHtml).removeClass('btn-success').addClass('btn-outline-primary');
             }, 2000);

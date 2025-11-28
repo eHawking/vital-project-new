@@ -19,7 +19,7 @@
             @endphp
             @if (auth()->user()->kv == Status::KYC_UNVERIFIED && auth()->user()->kyc_rejection_reason)
                 <div class="alert alert--danger" role="alert" style="animation: slideInRight 0.5s ease;">
-                    <div class="alert__icon"><i class="fas fa-file-signature"></i></div>
+                    <div class="alert__icon"><i class="las la-money-bill" style="z-index: 10;"></i></div>
                     <p class="alert__message">
                         <span class="fw-bold">@lang('KYC Documents Rejected')</span><br>
                         <small>
@@ -36,7 +36,7 @@
                 </div>
             @elseif (auth()->user()->kv == Status::KYC_UNVERIFIED)
                 <div class="alert alert--info" role="alert" style="animation: slideInRight 0.5s ease;">
-                    <div class="alert__icon"><i class="fas fa-file-signature"></i></div>
+                    <div class="alert__icon"><i class="las la-money-bill" style="z-index: 10;"></i></div>
                     <p class="alert__message">
                         <span class="fw-bold">@lang('KYC Verification Required')</span><br>
                         <small>
@@ -50,7 +50,7 @@
                 </div>
             @elseif(auth()->user()->kv == Status::KYC_PENDING)
                 <div class="alert alert--warning" role="alert" style="animation: slideInRight 0.5s ease;">
-                    <div class="alert__icon"><i class="fas fa-user-check"></i></div>
+                    <div class="alert__icon"><i class="las la-user-check" style="z-index: 10;"></i></div>
                     <p class="alert__message">
                         <span class="fw-bold">@lang('KYC Verification Pending')</span><br>
                         <small>
@@ -84,15 +84,15 @@
                 <!-- Quick Actions -->
                 <div class="action-buttons">
                     <a href="{{ route('user.deposit.index') }}" class="action-btn">
-                        <i class="fas fa-download"></i>
+                        <i class="las la-download" style="z-index: 10;"></i>
                         <span>@lang('Deposit')</span>
                     </a>
                     <a href="{{ route('user.plan.index') }}" class="action-btn">
-                        <i class="fas fa-box"></i>
+                        <i class="las la-box" style="z-index: 10;"></i>
                         <span>@lang('Investment')</span>
                     </a>
                     <a href="{{ route('user.withdraw') }}" class="action-btn">
-                        <i class="fas fa-building"></i>
+                        <i class="las la-building" style="z-index: 10;"></i>
                         <span>@lang('Withdraw')</span>
                     </a>
                 </div>
@@ -101,32 +101,32 @@
             <!-- ALL NAVIGATIONS SECTION -->
             <div class="stats-section">
                 <div class="stats-header">
-                    <i class="fas fa-th"></i>
+                    <i class="las la-th" style="z-index: 10;"></i>
                     @lang('ALL NAVIGATIONS')
                 </div>
                 <div class="nav-grid">
                     <a href="{{ route('user.plan.index') }}" class="nav-item">
-                        <i class="fas fa-columns"></i>
+                        <i class="las la-columns" style="z-index: 10;"></i>
                         <span>@lang('Schemas')</span>
                     </a>
                     <a href="{{ route('user.plan.index') }}" class="nav-item">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="las la-chart-line" style="z-index: 10;"></i>
                         <span>@lang('Investment')</span>
                     </a>
                     <a href="{{ route('user.transactions') }}" class="nav-item">
-                        <i class="fas fa-exchange-alt"></i>
+                        <i class="las la-exchange-alt" style="z-index: 10;"></i>
                         <span>@lang('Transactions')</span>
                     </a>
                     <a href="{{ route('user.deposit.index') }}" class="nav-item">
-                        <i class="fas fa-download"></i>
+                        <i class="las la-download" style="z-index: 10;"></i>
                         <span>@lang('Deposit')</span>
                     </a>
                     <a href="{{ route('user.deposit.history') }}" class="nav-item">
-                        <i class="fas fa-history"></i>
+                        <i class="las la-history" style="z-index: 10;"></i>
                         <span>@lang('Deposit Log')</span>
                     </a>
                     <a href="{{ route('user.withdraw.history') }}" class="nav-item">
-                        <i class="fas fa-wallet"></i>
+                        <i class="las la-wallet" style="z-index: 10;"></i>
                         <span>@lang('Wallet Exch.')</span>
                     </a>
                 </div>
@@ -138,13 +138,13 @@
             <!-- ALL STATISTICS SECTION -->
             <div class="stats-section">
                 <div class="stats-header">
-                    <i class="fas fa-chart-bar"></i>
+                    <i class="las la-chart-bar" style="z-index: 10;"></i>
                     @lang('ALL STATISTIC')
                 </div>
                 
                 <div class="stat-card variant-1">
                     <div class="stat-icon">
-                        <i class="fas fa-exchange-alt"></i>
+                        <i class="las la-exchange-alt" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('All Transactions')</div>
@@ -154,7 +154,7 @@
 
                 <div class="stat-card variant-2">
                     <div class="stat-icon">
-                        <i class="fas fa-download"></i>
+                        <i class="las la-download" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Total Deposit')</div>
@@ -164,7 +164,7 @@
 
                 <div class="stat-card variant-3">
                     <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="las la-chart-line" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Total Investment')</div>
@@ -174,7 +174,7 @@
 
                 <div class="stat-card variant-4">
                     <div class="stat-icon">
-                        <i class="fas fa-building"></i>
+                        <i class="las la-building" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Total Withdraw')</div>
@@ -184,7 +184,7 @@
 
                 <div class="stat-card variant-5">
                     <div class="stat-icon">
-                        <i class="fas fa-star"></i>
+                        <i class="las la-star" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Total Profit')</div>
@@ -194,7 +194,7 @@
 
                 <div class="stat-card variant-6">
                     <div class="stat-icon">
-                        <i class="fas fa-trophy"></i>
+                        <i class="las la-trophy" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Total Referral Bonus')</div>
@@ -204,7 +204,7 @@
 
                 <div class="stat-card variant-1">
                     <div class="stat-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="las la-users" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Referral Bonus')</div>
@@ -214,7 +214,7 @@
 
                 <div class="stat-card variant-2">
                     <div class="stat-icon">
-                        <i class="fas fa-trophy"></i>
+                        <i class="las la-trophy" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Rank Achieved')</div>
@@ -224,7 +224,7 @@
 
                 <div class="stat-card variant-3">
                     <div class="stat-icon">
-                        <i class="fas fa-gift"></i>
+                        <i class="las la-gift" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Total Referral')</div>
@@ -234,7 +234,7 @@
 
                 <div class="stat-card variant-4">
                     <div class="stat-icon">
-                        <i class="fas fa-ticket-alt"></i>
+                        <i class="las la-ticket-alt" style="z-index: 10;"></i>
                     </div>
                     <div class="stat-content">
                         <div class="stat-label">@lang('Total Ticket')</div>
@@ -257,7 +257,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->balance) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-wallet"></i></div>
+                                <div class="icon"><i class="las la-wallet" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->epin_credit) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-credit-card"></i></div>
+                                <div class="icon"><i class="las la-credit-card" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->dsp_ref_bonus) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-clipboard-check"></i></div>
+                                <div class="icon"><i class="las la-clipboard-check" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -299,7 +299,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->royalty_bonus) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-star"></i></div>
+                                <div class="icon"><i class="las la-star" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -313,7 +313,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->pair_bonus) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-briefcase"></i></div>
+                                <div class="icon"><i class="las la-briefcase" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->dds_ref_bonus) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-cart-plus"></i></div>
+                                <div class="icon"><i class="las la-cart-plus" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -341,7 +341,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->shop_bonus) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-shopping-bag"></i></div>
+                                <div class="icon"><i class="las la-shopping-bag" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -355,7 +355,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->franchise_bonus) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-briefcase"></i></div>
+                                <div class="icon"><i class="las la-briefcase" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -369,7 +369,7 @@
                                 <h3 class="ammount">{{ getAmount(auth()->user()->weekly_bonus) }} PKR</h3>
                             </div>
                             <div class="right-content">
-                                <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                                <div class="icon"><i class="las la-calendar-check" style="z-index: 10;"></i></div>
                             </div>
                         </div>
                     </div>
@@ -379,14 +379,14 @@
             <!-- RECENT TRANSACTIONS SECTION -->
             <div class="transactions-section" style="margin-top: 30px;">
                 <div class="stats-header">
-                    <i class="fas fa-history"></i>
+                    <i class="las la-history" style="z-index: 10;"></i>
                     @lang('RECENT TRANSACTIONS')
                 </div>
                 
                 <div class="transaction-item">
                     <div class="transaction-left">
                         <div class="transaction-icon">
-                            <i class="fas fa-gift"></i>
+                            <i class="las la-gift" style="z-index: 10;"></i>
                         </div>
                         <div class="transaction-details">
                             <h6>@lang('Signup Bonus')</h6>
@@ -407,7 +407,7 @@
                 <div class="url-input-group">
                     <input type="text" readonly value="https://hyiprio.tdevs.co/register?invite=Z24mMILqJ" id="refUrlInput">
                     <button class="copy-btn" onclick="copyReferralUrl()">
-                        <i class="fas fa-clipboard"></i> @lang('Copy')
+                        <i class="las la-clipboard" style="z-index: 10;"></i> @lang('Copy')
                     </button>
                 </div>
                 <p class="text-muted" style="font-size: 12px; margin-top: 8px;">@lang('0 peoples are joined by using this URL')</p>
@@ -421,23 +421,23 @@
 <div class="bottom-nav d-md-none">
     <div class="bottom-nav-items">
         <a href="{{ route('user.home') }}" class="bottom-nav-item active">
-            <i class="fas fa-home"></i>
+            <i class="las la-home" style="z-index: 10;"></i>
             <span>@lang('Home')</span>
         </a>
         <a href="{{ route('user.transactions') }}" class="bottom-nav-item">
-            <i class="fas fa-exchange-alt"></i>
+            <i class="las la-exchange-alt" style="z-index: 10;"></i>
             <span>@lang('Activity')</span>
         </a>
         <a href="{{ route('user.my.ref') }}" class="bottom-nav-item">
-            <i class="fas fa-users"></i>
+            <i class="las la-users" style="z-index: 10;"></i>
             <span>@lang('Referral')</span>
         </a>
         <a href="{{ route('user.notifications') }}" class="bottom-nav-item">
-            <i class="fas fa-bell"></i>
+            <i class="las la-bell" style="z-index: 10;"></i>
             <span>@lang('Alerts')</span>
         </a>
         <a href="{{ route('user.profile.setting') }}" class="bottom-nav-item">
-            <i class="fas fa-user"></i>
+            <i class="las la-user" style="z-index: 10;"></i>
             <span>@lang('Profile')</span>
         </a>
     </div>
@@ -454,7 +454,7 @@ function copyReferralUrl() {
     
     const btn = event.target.closest('.copy-btn');
     const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    btn.innerHTML = '<i class="las la-check" style="z-index: 10;"></i> Copied!';
     btn.style.background = 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)';
     
     setTimeout(() => {
