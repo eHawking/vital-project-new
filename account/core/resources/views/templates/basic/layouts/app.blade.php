@@ -39,7 +39,7 @@
 
     @stack('modal')
 
-    <a class="scrollToTop active" href="#0"><i class="las la-chevron-up"></i></a>
+    {{-- <a class="scrollToTop active" href="#0"><i class="las la-chevron-up"></i></a> --}}
 
     @php
         $cookie = App\Models\Frontend::where('data_keys', 'cookie.data')->first();
