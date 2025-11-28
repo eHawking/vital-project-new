@@ -110,507 +110,224 @@
 	}
 </style>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="notice"></div>
+<div class="container-fluid px-4 py-4">
+    
+    <!-- KYC ALERTS (Preserved Original Logic) -->
+    <div class="row mb-4">
+        <div class="col-12">
             @php
                 $kyc = getContent('kyc.content', true);
             @endphp
             @if (auth()->user()->kv == Status::KYC_UNVERIFIED && auth()->user()->kyc_rejection_reason)
-                <div class="alert alert--danger" role="alert">
-                    <div class="alert__icon"><i class="fas fa-file-signature"></i></div>
-                    <p class="alert__message">
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <div class="icon-box variant-pink me-3 mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div>
+                    <div>
                         <span class="fw-bold">@lang('KYC Documents Rejected')</span><br>
                         <small>
-                            <i>
-                                {{ __(@$kyc->data_values->reject) }}
-                                <a class="link-color text--base" data-bs-toggle="modal" data-bs-target="#kycRejectionReason"
-                                    href="javascript::void(0)">@lang('Click here')</a> @lang('to show the reason').
-                                <a class="link-color text--base" href="{{ route('user.kyc.form') }}">@lang('Click Here')</a>
-                                @lang('to Re-submit Documents'). <br>
-
-                                <a class="link-color text--base mt-2" href="{{ route('user.kyc.data') }}">@lang('See KYC Data')</a>
-                            </i>
+                            {{ __(@$kyc->data_values->reject) }}
+                            <a class="fw-bold text-white" data-bs-toggle="modal" data-bs-target="#kycRejectionReason" href="javascript::void(0)">@lang('Click here')</a> @lang('to show reason').
+                            <a class="fw-bold text-white" href="{{ route('user.kyc.form') }}">@lang('Re-submit')</a>
                         </small>
-                    </p>
+                    </div>
                 </div>
             @elseif (auth()->user()->kv == Status::KYC_UNVERIFIED)
-                <div class="alert alert--info" role="alert">
-                    <div class="alert__icon"><i class="fas fa-file-signature"></i></div>
-                    <p class="alert__message">
+                <div class="alert alert-info d-flex align-items-center" role="alert">
+                    <div class="icon-box variant-blue me-3 mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg></div>
+                    <div>
                         <span class="fw-bold">@lang('KYC Verification Required')</span><br>
-                        <small>
-                            <i>
-                                {{ __(@$kyc->data_values->required) }}
-                                <a class="link-color text--base" href="{{ route('user.kyc.form') }}">@lang('Click here')</a>
-                                @lang('to submit KYC information').
-                            </i>
-                        </small>
-                    </p>
+                        <small>{{ __(@$kyc->data_values->required) }} <a class="fw-bold text-white" href="{{ route('user.kyc.form') }}">@lang('Click here')</a> @lang('to submit').</small>
+                    </div>
                 </div>
             @elseif(auth()->user()->kv == Status::KYC_PENDING)
-                <div class="alert alert--warning" role="alert">
-                    <div class="alert__icon"><i class="las la-user-check" style="z-index: 10;"></i></div>
-                    <p class="alert__message">
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <div class="icon-box variant-orange me-3 mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                    <div>
                         <span class="fw-bold">@lang('KYC Verification Pending')</span><br>
-                        <small>
-                            <i>
-                                {{ __(@$kyc->data_values->pending) }}
-                                <a class="link-color text--base" href="{{ route('user.kyc.data') }}">@lang('Click here')</a> @lang('to see your submitted information')
-                            </i>
-                        </small>
-                    </p>
-                </div>
-            @endif
-
-            @if (gs('notice'))
-                <div class="col-lg-12 col-sm-6 mt-4">
-                    <div>
-                        <div class="card-header">
-                            <h5 class="pb-2">@lang('Notice')</h5>
-                        </div>
-                        <div class="card-body">
-                            @if (gs('notice'))
-                                <p class="notice-text-inner">@php echo gs('notice') @endphp</p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if (gs('free_user_notice'))
-                <div class="col-lg-12 col-sm-6 mt-4">
-                    <div>
-                        <div class="card-header">
-                            <h5 class="pb-1">@lang('Free User Notice')</h5>
-                        </div>
-                        <div class="card-body">
-                            @if (gs('free_user_notice') != null)
-                                <p class="notice-text-inner"> @php echo gs('free_user_notice'); @endphp </p>
-                            @endif
-                        </div>
+                        <small>{{ __(@$kyc->data_values->pending) }} <a class="fw-bold text-white" href="{{ route('user.kyc.data') }}">@lang('View Data')</a></small>
                     </div>
                 </div>
             @endif
         </div>
+    </div>
 
-        <div class="row justify-content-center g-3">
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 mb-4">
-                <div class="dashboard-item mb-3">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Current Balance')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->balance) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-wallet" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
+    <!-- MAIN WALLET OVERVIEW -->
+    <div class="wallet-overview">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <div class="wallet-balance-title">@lang('Total Balance')</div>
+                <div class="wallet-balance-amount">{{ getAmount(auth()->user()->balance) }} <span style="font-size: 1.5rem">PKR</span></div>
+                <div class="wallet-balance-sub">≈ {{ getAmount(auth()->user()->balance * 0.35) }} USD</div>
+            </div>
+            <div class="text-end">
+                <span class="badge bg-light text-dark mb-2">@lang('Main Wallet')</span>
+                @if(auth()->user()->plan_id == 1)
+                    <br><span class="badge bg-success bg-opacity-75">@lang('Profit Active')</span>
+                @endif
+            </div>
+        </div>
 
-                <div class="dashboard-item mb-3">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">
-                                @lang('DSP Membership')
-                            </h6>
-                            <h3 class="ammount">
-                                @if(auth()->user()->plan_id == 1)
-                                    <h3 class="ammount theme-two">Active <span style="text-transform: uppercase;">{{ auth()->user()->dsp_username }}</span></h3>
-                                @else
-                                    <span class="text--danger">@lang('Inactive')</span>
-                                @endif
-                            </h3>
-                        </div>
-                        <div class="right-content">
-                            @if(auth()->user()->plan_id == 1)
-                                <div class="icon"><i class="las la-check-circle" style="z-index: 10;"></i></div>
-                            @else
-                                <div class="icon"><i class="las la-times-circle" style="z-index: 10;"></i></div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+        <!-- QUICK ACTIONS -->
+        <div class="quick-actions">
+            <a href="{{ route('user.deposit.index') }}" class="action-btn-premium">
+                <div class="icon-box variant-green mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg></div>
+                <span>@lang('Deposit')</span>
+            </a>
+            <a href="{{ route('user.withdraw') }}" class="action-btn-premium">
+                <div class="icon-box variant-orange mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg></div>
+                <span>@lang('Withdraw')</span>
+            </a>
+            <a href="{{ route('user.plan.index') }}" class="action-btn-premium">
+                <div class="icon-box variant-purple mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div>
+                <span>@lang('Invest')</span>
+            </a>
+            <a href="{{ route('user.transactions') }}" class="action-btn-premium">
+                <div class="icon-box variant-blue mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg></div>
+                <span>@lang('History')</span>
+            </a>
+        </div>
+    </div>
 
-                <div class="dashboard-item mb-3">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('BV (Bonus Value)')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->bv) }} BV</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-trophy" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
+    <!-- STATS GRID -->
+    <div class="stats-grid">
+        <!-- E-Pin Credit -->
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('E-Pin Credit')</h6>
+                <h3>{{ getAmount(auth()->user()->epin_credit) }} PKR</h3>
+            </div>
+            <div class="icon-box variant-blue mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+            </div>
+        </div>
 
-                <div class="dashboard-item mb-3">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('PV (Point Voucher)')</h6>
-                            <h3 class="ammount text--base">{{ getAmount(auth()->user()->pv) }} PV</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-gem" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                    @if (auth()->user()->pv >= 100)
-                <div id="generateButtonContainer" style="text-align: center; margin: 20px 0;">
-                    <button type="button" class="btn btn-primary pulse" data-bs-toggle="modal" data-bs-target="#generateVoucherModal" style="background-color: #7e2afc; position: relative; overflow: hidden;">
-                        <i class="las la-gift" style="position: relative; z-index: 1;"></i> Generate DSP Gift Voucher
-                    </button>
+        <!-- DSP Membership -->
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('DSP Membership')</h6>
+                <h3>
+                    @if(auth()->user()->plan_id == 1)
+                        <span class="text-success">Active</span>
+                    @else
+                        <span class="text-danger">Inactive</span>
+                    @endif
+                </h3>
+            </div>
+            <div class="icon-box {{ auth()->user()->plan_id == 1 ? 'variant-green' : 'variant-orange' }} mb-0">
+                @if(auth()->user()->plan_id == 1)
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                @else
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                @endif
+            </div>
+        </div>
+
+        <!-- BV Points -->
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Bonus Value (BV)')</h6>
+                <h3>{{ getAmount(auth()->user()->bv) }}</h3>
+            </div>
+            <div class="icon-box variant-purple mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" /></svg>
+            </div>
+        </div>
+
+        <!-- PV Points -->
+        <div class="premium-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="stat-info">
+                    <h6>@lang('Point Voucher (PV)')</h6>
+                    <h3>{{ getAmount(auth()->user()->pv) }}</h3>
                 </div>
+                <div class="icon-box variant-pink mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" /></svg>
+                </div>
+            </div>
+            
+            @if (auth()->user()->pv >= 100)
+                <button type="button" class="btn btn-primary w-100 btn-sm pulse-animation" data-bs-toggle="modal" data-bs-target="#generateVoucherModal">
+                    Generate Voucher
+                </button>
             @else
-                <div id="progressBarContainer" class="progress-bar-container" style="text-align: center; margin: 20px 0;">
-                    <p>You need <strong>{{ 100 - auth()->user()->pv }} PV</strong> to generate a DSP Voucher.</p>
-                    <div class="progress" style="height: 10px; border-radius: 10px;">
-                        <div class="progress-bar" role="progressbar" style="width: {{ (auth()->user()->pv / 100) * 100 }}%;" 
-                             aria-valuenow="{{ auth()->user()->pv }}" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
+                <div class="d-flex justify-content-between text-muted small mb-1">
+                    <span>Progress</span>
+                    <span>{{ (auth()->user()->pv / 100) * 100 }}%</span>
+                </div>
+                <div class="premium-progress">
+                    <div class="premium-progress-bar" style="width: {{ (auth()->user()->pv / 100) * 100 }}%;"></div>
                 </div>
             @endif
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <div class="dashboard-item card shadow-sm mb-4 rounded">
-                    <!-- Current Rank Section -->
-                    <div class="dashboard-item-header d-flex justify-content-between align-items-center mb-4">
-                        <div class="col-lg-10">
-                            <h6 class="title text-muted">Current Rank</h6>
-                            <h3 class="ammount mt-2 theme-two font-weight-bold text-primary">{{ $currentRank }}</h3>
-                        </div>
-                        <div class="col-lg-2 d-flex justify-content-end">
-                            <img src="{{ url('assets/images/user/ranks/' . $currentRankImage) }}" 
-                                 alt="Current Rank Image" 
-                                 class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
-                        </div>
-                    </div>
-
-                    <!-- Total Pairs and Progress Section -->
-                    <div class="col-lg-12 mb-4">
-                        <h3 class="ammount theme-two font-weight-bold text-primary">Total Pairs: {{ $pairs }}</h3>
-                        @if($progress < 100)
-                        <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-primary" role="progressbar" 
-                                 style="width: {{ $progress }}%;" 
-                                 aria-valuenow="{{ $progress }}" 
-                                 aria-valuemin="0" 
-                                 aria-valuemax="100">
-                            </div>
-                        </div>
-                        
-                        <!-- Additional information about progress -->
-                        <h6 class="amount theme-two bg-white rounded p-2 mt-2 shadow-sm">
-                            You need {{ $pairsRemaining }} more pairs to reach the <strong>{{ $nextRank }}</strong> rank and earn the <strong>{{ $nextReward }}</strong> reward.
-                        </h6>
-                        @endif
-                    </div>
-
-                    <!-- Next Rank and Reward Section -->
-                    <div class="dashboard-item-header d-flex justify-content-between align-items-center">
-                        <div class="col-lg-9">
-                            <h6 class="title text-muted">Next Rank: {{ $nextRank ?? 'N/A' }}</h6>
-                            <h6 class="title text-muted">Next Reward: {{ $nextReward ?? 'N/A' }}</h6>
-                        </div>
-                        <div class="col-lg-3 d-flex justify-content-end">
-                            <div class="rotating-images">
-                                <img style="width: 100px; margin: 0; border-radius: 8px;" src="" alt="Reward Image 1">
-                                <img style="width: 100px; margin: 0; border-radius: 8px;" src="" alt="Reward Image 2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <div class="row justify-content-center g-3 mt-2">
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('E-Pin Credit')</h6>
-                            <h3 class="ammount theme-one">{{ getAmount(auth()->user()->epin_credit) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-credit-card" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
+        <!-- RANK CARD -->
+        <div class="premium-card" style="grid-column: span 1; background: linear-gradient(145deg, rgba(30,41,59,0.8), rgba(15,23,42,0.9));">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h6 class="text-muted text-uppercase mb-1">Current Rank</h6>
+                    <h3 class="text-primary mb-0">{{ $currentRank }}</h3>
                 </div>
+                <img src="{{ url('assets/images/user/ranks/' . $currentRankImage) }}" class="rounded-circle" style="width: 60px; height: 60px; border: 2px solid var(--primary);">
             </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total DSP Ref Bonus')</h6>
-                            <h3 class="ammount theme-one">{{ getAmount(auth()->user()->dsp_ref_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-clipboard-check" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
+            
+            <div class="d-flex justify-content-between text-muted small mb-1">
+                <span>Total Pairs: {{ $pairs }}</span>
+                <span>Target: {{ $nextRank }}</span>
+            </div>
+            @if($progress < 100)
+                <div class="premium-progress mb-2">
+                    <div class="premium-progress-bar bg-info" style="width: {{ $progress }}%;"></div>
                 </div>
+                <small class="text-muted">Need {{ $pairsRemaining }} more pairs for next rank.</small>
+            @endif
+        </div>
+
+        <!-- Bonuses Grid -->
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('DSP Ref Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->dsp_ref_bonus) }}</h3>
             </div>
+            <div class="icon-box variant-green mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg></div>
+        </div>
 
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Royalty Bonus')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->royalty_bonus) }} PKR</h3>
-
-                            @if(auth()->user()->is_btp == 1)
-                                <!-- Progress Bar -->
-                                @php
-                                    $royaltyBonus = auth()->user()->royalty_bonus;
-                                    $target = 2600;
-                                    $progress = ($royaltyBonus / $target) * 100;
-                                    $progress = min($progress, 100); // Ensure progress does not exceed 100%
-                                @endphp
-
-                                <div class="progress" style="height: 10px; margin-top: 10px;">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%;" 
-                                         aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-
-                                <!-- Completion Message -->
-                                @if($royaltyBonus >= $target)
-                                    <p class="text-success mt-2">You have received the full Royalty Bonus of 2600 PKR from the company.</p>
-                                @else
-                                    <p class="text-muted mt-2">{{ number_format($target - $royaltyBonus, 2) }} PKR is remaining.</p>
-                                @endif
-                            @endif
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-star" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Royalty Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->royalty_bonus) }}</h3>
             </div>
+            <div class="icon-box variant-purple mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg></div>
+        </div>
 
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total earned Rewards')</h6>
-                            <h3 class="ammount theme-one">{{ (auth()->user()->rewards) }}</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-gift" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Pair Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->pair_bonus) }}</h3>
             </div>
+            <div class="icon-box variant-blue mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+        </div>
 
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Pair Bonus')</h6>
-                            <h3 class="ammount theme-one">{{ getAmount(auth()->user()->pair_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-briefcase" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Shop Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->shop_bonus) }}</h3>
             </div>
+            <div class="icon-box variant-orange mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg></div>
+        </div>
 
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total DDS Ref Bonus')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->dds_ref_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-cart-plus" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Total Rewards')</h6>
+                <h3>{{ auth()->user()->rewards }}</h3>
             </div>
+            <div class="icon-box variant-pink mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" /></svg></div>
+        </div>
 
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Shop Bonus')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->shop_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-shopping-bag" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Franchise Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->franchise_bonus) }}</h3>
             </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Shop Ref Bonus')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->shop_reference) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-shopping-basket" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Franchise Bonus')</h6>
-                            <h3 class="ammount theme-one">{{ getAmount(auth()->user()->franchise_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-briefcase" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Franchise Ref Bonus')</h6>
-                            <h3 class="ammount theme-one">{{ getAmount(auth()->user()->franchise_ref_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-user-check" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total City Reference')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->city_ref_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-building" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Weekly Bonus')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->weekly_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-calendar-check" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Product Partner Bonus')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->product_partner_bonus) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-users" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Promo Bonus')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount(auth()->user()->promo) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-gift" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total DSP Purchase')</h6>
-                            <h3 class="ammount theme-one">{{ getAmount(auth()->user()->total_invest) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-tag" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Deposit')</h6>
-                            <h3 class="ammount text--base">{{ getAmount($totalDeposit) }} PKR</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-money-bill" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Total Withdraw')</h6>
-                            <h3 class="ammount theme-one">{{ getAmount($totalWithdraw) }} PKR</h3>
-                        </div>
-                        <div class="icon"><i class="las la-coins" style="z-index: 10;"></i></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Complete Withdraw')</h6>
-                            <h3 class="ammount theme-two">{{ getAmount($completeWithdraw) }}</h3>
-                        </div>
-                        <div class="right-content">
-                            <div class="icon"><i class="las la-check-circle" style="z-index: 10;"></i></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="dashboard-item">
-                    <div class="dashboard-item-header">
-                        <div class="header-left">
-                            <h6 class="title">@lang('Pending Withdraw')</h6>
-                            <h3 class="ammount text--base">{{ getAmount($pendingWithdraw) }}</h3>
-                        </div>
-                        <div class="icon"><i class="las la-history" style="z-index: 10;"></i></div>
-                    </div>
-                </div>
-            </div>
+            <div class="icon-box variant-purple mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div>
         </div>
     </div>
 
