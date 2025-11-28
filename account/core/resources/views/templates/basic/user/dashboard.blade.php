@@ -329,6 +329,103 @@
             </div>
             <div class="icon-box variant-purple mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div>
         </div>
+
+        <!-- Added Missing Wallets -->
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('DDS Ref Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->dds_ref_bonus) }}</h3>
+            </div>
+            <div class="icon-box variant-blue mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Shop Ref Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->shop_reference) }}</h3>
+            </div>
+            <div class="icon-box variant-orange mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Franchise Ref Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->franchise_ref_bonus) }}</h3>
+            </div>
+            <div class="icon-box variant-green mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('City Reference')</h6>
+                <h3>{{ getAmount(auth()->user()->city_ref_bonus) }}</h3>
+            </div>
+            <div class="icon-box variant-pink mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Weekly Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->weekly_bonus) }}</h3>
+            </div>
+            <div class="icon-box variant-purple mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Product Partner Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->product_partner_bonus) }}</h3>
+            </div>
+            <div class="icon-box variant-blue mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Promo Bonus')</h6>
+                <h3>{{ getAmount(auth()->user()->promo) }}</h3>
+            </div>
+            <div class="icon-box variant-green mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Total DSP Purchase')</h6>
+                <h3>{{ getAmount(auth()->user()->total_invest) }}</h3>
+            </div>
+            <div class="icon-box variant-orange mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Total Deposit')</h6>
+                <h3>{{ getAmount($totalDeposit) }}</h3>
+            </div>
+            <div class="icon-box variant-purple mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Total Withdraw')</h6>
+                <h3>{{ getAmount($totalWithdraw) }}</h3>
+            </div>
+            <div class="icon-box variant-pink mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Completed Withdraw')</h6>
+                <h3>{{ getAmount($completeWithdraw) }}</h3>
+            </div>
+            <div class="icon-box variant-green mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+        </div>
+
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Pending Withdraw')</h6>
+                <h3>{{ getAmount($pendingWithdraw) }}</h3>
+            </div>
+            <div class="icon-box variant-orange mb-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+        </div>
     </div>
 
 </div>
