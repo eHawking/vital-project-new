@@ -10,6 +10,9 @@
 <!-- Include Theme Switcher -->
 @include($activeTemplate . 'partials.theme-switcher')
 
+<!-- Include Color Picker (Right Sidebar) -->
+@include($activeTemplate . 'partials.color-picker')
+
 <style>
     #generate-epin-btn {
         display: block;
