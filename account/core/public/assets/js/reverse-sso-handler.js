@@ -1,0 +1,76 @@
+/**
+ * Reverse SSO Handler - Auto-login to main script after account folder signup/login
+ */
+
+(function() {
+    'use strict';
+    
+    console.log('Reverse SSO Handler Loaded');
+    
+    // Check if there's a reverse SSO URL to process
+    function checkReverseSSO() {
+        // Check session storage for reverse SSO URL
+        const reverseSsoUrl = sessionStorage.getItem('reverse_sso_url');
+        
+        if (reverseSsoUrl) {
+            console.log('Reverse SSO: Found URL in storage:', reverseSsoUrl);
+            sessionStorage.removeItem('reverse_sso_url');
+            
+            // Create hidden iframe to trigger main script login
+            triggerMainScriptLogin(reverseSsoUrl);
+        }
+    }
+    
+    // Trigger main script login via iframe
+    function triggerMainScriptLogin(ssoUrl) {
+        console.log('Reverse SSO: Creating iframe for main script login');
+        
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = ssoUrl;
+        iframe.id = 'reverse-sso-iframe-' + Date.now();
+        
+        let loaded = false;
+        
+        iframe.onload = function() {
+            if (!loaded) {
+                loaded = true;
+                console.log('Reverse SSO: Main script login completed');
+                
+                // Remove iframe after SSO completes
+                setTimeout(function() {
+                    if (iframe.parentNode) {
+                        console.log('Reverse SSO: Removing iframe');
+                        iframe.parentNode.removeChild(iframe);
+                    }
+                }, 2000);
+            }
+        };
+        
+        iframe.onerror = function(error) {
+            console.error('Reverse SSO: Iframe error', error);
+            if (iframe.parentNode) {
+                iframe.parentNode.removeChild(iframe);
+            }
+        };
+        
+        // Timeout fallback
+        setTimeout(function() {
+            if (iframe.parentNode && !loaded) {
+                console.warn('Reverse SSO: Iframe timeout - removing');
+                iframe.parentNode.removeChild(iframe);
+            }
+        }, 10000);
+        
+        document.body.appendChild(iframe);
+        console.log('Reverse SSO: Iframe appended to body');
+    }
+    
+    // Run on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkReverseSSO);
+    } else {
+        checkReverseSSO();
+    }
+    
+})();

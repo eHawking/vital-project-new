@@ -1,0 +1,31 @@
+# ============================================
+# PLESK GIT DEPLOYMENT ACTIONS
+# ============================================
+# Copy and paste these commands into Plesk Git "Deploy Actions" field
+# Location: Plesk → Websites & Domains → dewdropskin.com → Git → Deploy Actions
+
+# Clear all Laravel caches
+php artisan config:clear
+php artisan cache:clear
+php artisan view:clear
+php artisan route:clear
+
+# Create AI images directory if not exists
+mkdir -p public/uploads/products/ai/2025/10
+
+# Set proper permissions for uploads directory
+chmod -R 755 public/uploads/products/ai
+
+# Set proper permissions for storage and cache
+chmod -R 775 storage bootstrap/cache
+
+# Optional: Run database migrations (uncomment if needed)
+# php artisan migrate --force
+
+# Optional: Optimize for production (uncomment if needed)
+# php artisan config:cache
+# php artisan route:cache
+# php artisan view:cache
+
+# Log deployment
+echo "✅ Deployment completed at $(date)" >> storage/logs/deployment.log
