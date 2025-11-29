@@ -8,9 +8,6 @@
 <!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<!-- Include Theme Switcher -->
-@include($activeTemplate . 'partials.theme-switcher')
-
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-lg-10">

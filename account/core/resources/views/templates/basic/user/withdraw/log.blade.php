@@ -8,9 +8,6 @@
 <!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<!-- Include Theme Switcher -->
-@include($activeTemplate . 'partials.theme-switcher')
-
 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
     <h4 class="text-white m-0"><i class="bi bi-clock-history"></i> @lang('Withdraw History')</h4>
     <div class="d-flex gap-3 align-items-center flex-wrap">

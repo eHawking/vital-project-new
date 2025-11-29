@@ -7,9 +7,6 @@
 <!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<!-- Include Theme Switcher -->
-@include($activeTemplate . 'partials.theme-switcher')
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">

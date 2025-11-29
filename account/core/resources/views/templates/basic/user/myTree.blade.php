@@ -8,10 +8,8 @@
 
 <!-- Include Modern Finance Theme CSS -->
 @include($activeTemplate . 'css.modern-finance-theme')
+<!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
-
-<!-- Include Theme Switcher -->
-@include($activeTemplate . 'partials.theme-switcher')
 
 <div class="container-fluid">
     <div class="row justify-content-center">
