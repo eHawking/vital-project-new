@@ -123,14 +123,21 @@
             margin-bottom: 10px;
         }
 
+        /* Outer container padding */
         .container-fluid.px-4 {
             padding-left: 10px !important;
             padding-right: 10px !important;
         }
+
+        /* Remove inner container padding to align with header */
+        .inner-dashboard-container {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
     }
 </style>
 
-<div class="container-fluid px-4 py-4">
+<div class="container-fluid px-4 py-4 inner-dashboard-container">
     
     <!-- KYC ALERTS (Preserved Original Logic) -->
     <div class="row mb-4">

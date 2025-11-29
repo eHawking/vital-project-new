@@ -51,7 +51,7 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    padding: 0 15px;
+    padding: 0 10px; /* Match dashboard padding */
     pointer-events: none; /* Allow clicks to pass through wrapper */
 }
 
@@ -70,7 +70,8 @@
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
     pointer-events: auto; /* Re-enable clicks */
     position: relative;
-    max-width: 500px;
+    max-width: 100%; /* Full width */
+    width: 100%;
     margin: 0 auto;
 }
 
