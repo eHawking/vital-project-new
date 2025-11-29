@@ -1,20 +1,28 @@
 @extends($activeTemplate . 'layouts.frontend')
 @section('content')
+    <!-- Include Modern Finance Theme CSS -->
+    @include($activeTemplate . 'css.modern-finance-theme')
+    @include($activeTemplate . 'css.mobile-fixes')
+
     <div class="container padding-bottom padding-top">
         <div class="row justify-content-center">
             <div class="col-md-8 col-xl-6">
-                <div class="card custom--card">
+                <div class="premium-card">
                     <div class="card-body">
+                        <div class="mb-4 text-center">
+                            <h4 class="text-white">@lang('Complete Your Profile')</h4>
+                            <p class="text-white-50">@lang('Please provide your details to continue')</p>
+                        </div>
                         <form method="POST" action="{{ route('user.data.submit') }}">
                             @csrf
-                            <div class="row">
+                            <div class="row g-3">
                                
                                 <div class="col-md-6">
-                                    <div class="form--group">
-                                        <label class="form--label">@lang('Country')</label>
-                                        <select name="country" class="form-control form--control select2" required>
+                                    <div class="form-group">
+                                        <label class="form-label text-white-50">@lang('Country')</label>
+                                        <select name="country" class="form-control bg-transparent text-white border-secondary select2" required>
                                             @foreach ($countries as $key => $country)
-                                                <option data-mobile_code="{{ $country->dial_code }}" value="{{ $country->country }}" data-code="{{ $key }}">{{ __($country->country) }}
+                                                <option data-mobile_code="{{ $country->dial_code }}" value="{{ $country->country }}" data-code="{{ $key }}" class="text-dark">{{ __($country->country) }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -22,52 +30,51 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="form--group">
-                                        <label class="form--label">@lang('Mobile')</label>
+                                    <div class="form-group">
+                                        <label class="form-label text-white-50">@lang('Mobile')</label>
                                         <div class="input-group ">
-                                            <span class="input-group-text mobile-code">
-
+                                            <span class="input-group-text mobile-code bg-transparent text-white border-secondary">
                                             </span>
                                             <input type="hidden" name="mobile_code">
                                             <input type="hidden" name="country_code">
-                                            <input type="number" name="mobile" value="{{ old('mobile') }}" class="form-control form--control checkUser"
+                                            <input type="number" name="mobile" value="{{ old('mobile') }}" class="form-control bg-transparent text-white border-secondary checkUser"
                                                 required>
                                         </div>
-                                        <small class="text--danger mobileExist"></small>
+                                        <small class="text-danger mobileExist"></small>
                                     </div>
                                 </div>
-                                <div class="form--group col-sm-12">
-                                    <label class="form--label">@lang('Address')</label>
-                                    <input type="text" class="form-control form--control" name="address" value="{{ old('address') }}" required>
+                                <div class="form-group col-sm-12">
+                                    <label class="form-label text-white-50">@lang('Address')</label>
+                                    <input type="text" class="form-control bg-transparent text-white border-secondary" name="address" value="{{ old('address') }}" required>
                                 </div>
-                                <div class="form--group col-sm-6">
-                                    <label class="form--label">@lang('State')</label>
-                                    <select name="state" class="form-control form--control select2" required>
-                                        <option value="" disabled selected>@lang('Select State/Province')</option>
-                                        <option value="Punjab" {{ old('state')=='Punjab' ? 'selected' : '' }}>Punjab</option>
-                                        <option value="Sindh" {{ old('state')=='Sindh' ? 'selected' : '' }}>Sindh</option>
-                                        <option value="Khyber Pakhtunkhwa" {{ old('state')=='Khyber Pakhtunkhwa' ? 'selected' : '' }}>Khyber Pakhtunkhwa</option>
-                                        <option value="Balochistan" {{ old('state')=='Balochistan' ? 'selected' : '' }}>Balochistan</option>
-                                        <option value="Islamabad Capital Territory" {{ old('state')=='Islamabad Capital Territory' ? 'selected' : '' }}>Islamabad Capital Territory</option>
-                                        <option value="Azad Jammu and Kashmir" {{ old('state')=='Azad Jammu and Kashmir' ? 'selected' : '' }}>Azad Jammu and Kashmir</option>
-                                        <option value="Gilgit-Baltistan" {{ old('state')=='Gilgit-Baltistan' ? 'selected' : '' }}>Gilgit-Baltistan</option>
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label text-white-50">@lang('State')</label>
+                                    <select name="state" class="form-control bg-transparent text-white border-secondary select2" required>
+                                        <option value="" disabled selected class="text-dark">@lang('Select State/Province')</option>
+                                        <option value="Punjab" {{ old('state')=='Punjab' ? 'selected' : '' }} class="text-dark">Punjab</option>
+                                        <option value="Sindh" {{ old('state')=='Sindh' ? 'selected' : '' }} class="text-dark">Sindh</option>
+                                        <option value="Khyber Pakhtunkhwa" {{ old('state')=='Khyber Pakhtunkhwa' ? 'selected' : '' }} class="text-dark">Khyber Pakhtunkhwa</option>
+                                        <option value="Balochistan" {{ old('state')=='Balochistan' ? 'selected' : '' }} class="text-dark">Balochistan</option>
+                                        <option value="Islamabad Capital Territory" {{ old('state')=='Islamabad Capital Territory' ? 'selected' : '' }} class="text-dark">Islamabad Capital Territory</option>
+                                        <option value="Azad Jammu and Kashmir" {{ old('state')=='Azad Jammu and Kashmir' ? 'selected' : '' }} class="text-dark">Azad Jammu and Kashmir</option>
+                                        <option value="Gilgit-Baltistan" {{ old('state')=='Gilgit-Baltistan' ? 'selected' : '' }} class="text-dark">Gilgit-Baltistan</option>
                                     </select>
                                 </div>
                                
-                                <div class="form--group col-sm-6">
-                                    <label class="form--label">@lang('City')</label>
-                                    <input type="text" class="form-control form--control" name="city" value="{{ old('city') }}" required>
+                                <div class="form-group col-sm-6">
+                                    <label class="form-label text-white-50">@lang('City')</label>
+                                    <input type="text" class="form-control bg-transparent text-white border-secondary" name="city" value="{{ old('city') }}" required>
                                 </div>
-                                <div class="form--group col-sm-12">
-                                    <label class="form--label">@lang('CNIC Number')</label>
+                                <div class="form-group col-sm-12">
+                                    <label class="form-label text-white-50">@lang('CNIC Number')</label>
                                     <div class="position-relative">
-                                        <input type="text" id="cnic_display" class="form-control form--control checkUser" placeholder="XXXXX-XXXXXXX-X" maxlength="15" autocomplete="off" required>
+                                        <input type="text" id="cnic_display" class="form-control bg-transparent text-white border-secondary checkUser" placeholder="XXXXX-XXXXXXX-X" maxlength="15" autocomplete="off" required>
                                         <input type="hidden" name="cnicnumber" id="cnicnumber" value="{{ old('cnicnumber') }}">
-                                        <small class="text--danger cnicExist"></small>
+                                        <small class="text-danger cnicExist"></small>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn--base w-100">
+                            <button type="submit" class="btn btn-primary w-100 pulse-animation mt-4" style="background: var(--grad-primary); border: none; padding: 12px; font-weight: 600;">
                                 @lang('Submit')
                             </button>
                         </form>
