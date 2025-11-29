@@ -284,12 +284,15 @@
             left: -280px;
             width: 280px;
             height: 100vh;
+            height: 100dvh; /* Dynamic viewport height */
             z-index: 99999; /* Extremely high z-index */
-            transition: all 0.3s ease;
-            overflow-y: auto;
+            transition: left 0.3s ease;
+            overflow-y: scroll; /* Force scroll */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling */
             background: var(--bg-card, #1e293b);
             box-shadow: 4px 0 25px rgba(0,0,0,0.3);
             display: block !important;
+            padding-bottom: 100px; /* Prevent cut-off */
         }
         
         .dashboard-sidebar.show-sidebar {
