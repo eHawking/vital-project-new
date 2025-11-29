@@ -246,12 +246,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-      // Close Button Logic
-      const closeSidebar = document.querySelector('.close-dashboard');
-      if(closeSidebar) {
-          closeSidebar.addEventListener('click', togglePremiumSidebar);
-      }
-
       // Ensure overlay exists but hidden
       if (!document.querySelector('.sidebar-overlay')) {
           const overlay = document.createElement('div');
@@ -305,11 +299,13 @@
         }
 
         .sidebar-scroll-wrapper {
-            height: 100%;
+            flex: 1;
+            min-height: 0; /* Crucial for flex scrolling */
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 120px;
+            padding-bottom: 150px; /* Extra padding to ensure last items are visible */
             width: 100%;
+            padding-top: 20px;
         }
 
         .premium-sidebar .user-dashboard-tab {
