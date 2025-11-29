@@ -34,6 +34,48 @@
     stroke: currentColor;
     margin-right: 10px;
 }
+
+/* Premium Mobile Header */
+.premium-mobile-header {
+    background: var(--grad-primary);
+    padding: 15px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.premium-mobile-header::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 100px; height: 100px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.header-icon-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.2);
+    border-radius: 12px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    backdrop-filter: blur(5px);
+}
+
+.header-icon-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}
 </style>
 
 <section class="user-dashboard" style="padding-top: 20px; padding-bottom: 50px;">
@@ -146,10 +188,19 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="user-toggler-wrapper d-flex d-lg-none mb-3">
-                    <h4 class="title m-0">{{ __($pageTitle) }}</h4>
-                    <div class="user-toggler">
-                        <i class="las la-sliders-h"></i>
+                <!-- Premium Mobile Header (Replaces Old Toggler) -->
+                <div class="user-toggler-wrapper d-flex d-lg-none align-items-center justify-content-between mb-4 premium-mobile-header">
+                    <h4 class="title m-0 text-white fw-bold">{{ __($pageTitle) }}</h4>
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Theme Toggle Button -->
+                        <button class="header-icon-btn theme-toggle-btn" id="dashboardThemeToggle" onclick="document.getElementById('themeSettingsToggle')?.click()">
+                            <i class="las la-adjust"></i>
+                        </button>
+                        
+                        <!-- Sidebar Toggle Button -->
+                        <div class="user-toggler header-icon-btn">
+                            <i class="las la-sliders-h"></i>
+                        </div>
                     </div>
                 </div>
 
