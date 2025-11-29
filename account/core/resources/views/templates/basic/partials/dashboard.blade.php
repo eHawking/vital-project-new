@@ -311,6 +311,20 @@
         .premium-sidebar .user-dashboard-tab {
             flex: 1;
         }
+
+        /* Full width sidebar items on mobile */
+        .premium-sidebar .user-dashboard-tab li {
+            margin-bottom: 0 !important;
+            width: 100%;
+        }
+
+        .premium-sidebar .user-dashboard-tab li a {
+            border-radius: 0 !important;
+            margin: 0 !important;
+            width: 100%;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 15px 20px !important;
+        }
         
         .premium-sidebar.show-sidebar {
             transform: translateX(0) !important; /* Slide in */

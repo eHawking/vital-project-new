@@ -108,6 +108,26 @@
 		margin: 0px;
 		padding: 0px;
 	}
+
+    /* Mobile Full Width Adjustments */
+    @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: 1fr !important;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stat-item, .premium-card {
+            width: 100% !important;
+            margin-bottom: 10px;
+        }
+
+        .container-fluid.px-4 {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+    }
 </style>
 
 <div class="container-fluid px-4 py-4">
