@@ -302,20 +302,13 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0,0,0,0.1); /* Significantly reduced opacity */
-            z-index: 99998; /* Just below sidebar */
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            backdrop-filter: blur(8px); /* Added strong blur effect */
-            -webkit-backdrop-filter: blur(8px);
-            pointer-events: none;
+            background: transparent; /* Removed dark overlay */
+            z-index: 99998;
+            display: none;
         }
         
         .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
+            display: block;
         }
 
         /* Close button positioning */
