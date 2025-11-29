@@ -82,7 +82,7 @@
     <div class="container-fluid px-4">
         <div class="row">
             <div class="col-lg-3">
-                <div class="dashboard-sidebar">
+                <div class="premium-sidebar dashboard-sidebar">
                     
                     <div class="close-dashboard d-lg-none">
                         <i class="las la-times text-white"></i>
@@ -198,7 +198,7 @@
                         </button>
                         
                         <!-- Sidebar Toggle Button -->
-                        <div class="user-toggler header-icon-btn" id="dashboardSidebarToggler" onclick="toggleDashboardSidebar()">
+                        <div class="user-toggler header-icon-btn" id="premiumSidebarToggler" onclick="togglePremiumSidebar()">
                             <i class="las la-bars"></i>
                         </div>
                     </div>
@@ -211,8 +211,8 @@
 </section>
 
 <script>
-  function toggleDashboardSidebar() {
-      const sidebar = document.querySelector('.dashboard-sidebar');
+  function togglePremiumSidebar() {
+      const sidebar = document.querySelector('.premium-sidebar');
       const overlay = document.querySelector('.sidebar-overlay');
       const body = document.body;
 
@@ -220,14 +220,18 @@
           sidebar.classList.toggle('show-sidebar');
           
           // Handle Overlay
-          if (overlay) {
-              overlay.classList.toggle('active');
-          } else {
-              // Create overlay if missing
+          if (!overlay) {
               const newOverlay = document.createElement('div');
-              newOverlay.className = 'sidebar-overlay active';
+              newOverlay.className = 'sidebar-overlay';
               document.body.appendChild(newOverlay);
-              newOverlay.addEventListener('click', toggleDashboardSidebar);
+              
+              // Force reflow
+              newOverlay.offsetHeight;
+              newOverlay.classList.add('active');
+              
+              newOverlay.addEventListener('click', togglePremiumSidebar);
+          } else {
+              overlay.classList.toggle('active');
           }
 
           // Body Overflow
@@ -240,23 +244,23 @@
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-      // Initialize Overlay if needed
+      // Close Button Logic
+      const closeSidebar = document.querySelector('.close-dashboard');
+      if(closeSidebar) {
+          closeSidebar.addEventListener('click', togglePremiumSidebar);
+      }
+
+      // Ensure overlay exists but hidden
       if (!document.querySelector('.sidebar-overlay')) {
           const overlay = document.createElement('div');
           overlay.className = 'sidebar-overlay';
           document.body.appendChild(overlay);
           overlay.addEventListener('click', function() {
-              const sidebar = document.querySelector('.dashboard-sidebar');
+              const sidebar = document.querySelector('.premium-sidebar');
               if(sidebar && sidebar.classList.contains('show-sidebar')) {
-                  toggleDashboardSidebar();
+                  togglePremiumSidebar();
               }
           });
-      }
-
-      // Close Button Logic
-      const closeSidebar = document.querySelector('.close-dashboard');
-      if(closeSidebar) {
-          closeSidebar.addEventListener('click', toggleDashboardSidebar);
       }
 
       // Existing Tooltip Logic
@@ -278,25 +282,27 @@
 <style>
     /* Sidebar Toggle Styles */
     @media (max-width: 991px) {
-        .dashboard-sidebar {
+        .premium-sidebar {
             position: fixed;
             top: 0;
-            left: -280px;
+            left: 0;
+            transform: translateX(-100%); /* Use transform for performance */
             width: 280px;
             height: 100vh;
-            height: 100dvh; /* Dynamic viewport height */
-            z-index: 99999; /* Extremely high z-index */
-            transition: left 0.3s ease;
-            overflow-y: scroll; /* Force scroll */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling */
+            height: 100dvh; 
+            z-index: 99999; 
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: scroll; 
+            -webkit-overflow-scrolling: touch; 
             background: var(--bg-card, #1e293b);
             box-shadow: 4px 0 25px rgba(0,0,0,0.3);
             display: block !important;
-            padding-bottom: 100px; /* Prevent cut-off */
+            padding-bottom: 100px;
+            will-change: transform;
         }
         
-        .dashboard-sidebar.show-sidebar {
-            left: 0 !important;
+        .premium-sidebar.show-sidebar {
+            transform: translateX(0) !important; /* Slide in */
         }
         
         .sidebar-overlay {
@@ -305,9 +311,10 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: transparent; /* Removed dark overlay */
+            background: transparent;
             z-index: 99998;
             display: none;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .sidebar-overlay.active {
