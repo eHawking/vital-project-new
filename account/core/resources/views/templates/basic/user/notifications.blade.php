@@ -4,40 +4,43 @@
 
 <!-- Include Modern Finance Theme CSS -->
 @include($activeTemplate . 'css.modern-finance-theme')
-
-<!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<!-- Include Theme Switcher -->
-@include($activeTemplate . 'partials.theme-switcher')
-
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <!-- Page Header -->
-            <div class="dashboard-header mb-4">
-                <h2 class="page-title">@lang('Live Notifications')</h2>
-                <p class="page-subtitle">@lang('Top performers and recent activities')</p>
+<div class="row mb-4">
+    <div class="col-12">
+        <!-- Page Header -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div>
+                <h4 class="text-white m-0">@lang('Live Notifications')</h4>
+                <p class="text-white-50 small m-0">@lang('Top performers and recent activities')</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
-<div class="row mb-4">
+<div class="row g-4 mb-4">
     {{-- Top Seller Card --}}
     @if($seller_user)
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="dashboard-item gradient-card-1">
-                <div class="dashboard-item-header d-flex align-items-center justify-content-between">
-                    <div class="flex-grow-1">
-                        <h6 class="title mb-2">@lang('Top Seller') 🏆</h6>
-                        <h4 class="ammount theme-two text-uppercase mb-1">{{ $seller_user->username }}</h4>
-                        <p class="text-white mb-1">{{ $seller_user->firstname . ' ' . $seller_user->lastname }}</p>
-                        <h5 class="ammount"><i class="bi bi-bag-check-fill"></i> {{ $top_seller->order_count }} @lang('Sales')</h5>
+        <div class="col-lg-4 col-md-6">
+            <div class="premium-card h-100 position-relative overflow-hidden" style="border: 1px solid rgba(255, 215, 0, 0.3);">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="flex-grow-1 z-index-1">
+                            <h6 class="text-warning mb-2">@lang('Top Seller') 🏆</h6>
+                            <h4 class="text-white text-uppercase mb-1">{{ $seller_user->username }}</h4>
+                            <p class="text-white-50 mb-2 small">{{ $seller_user->firstname . ' ' . $seller_user->lastname }}</p>
+                            <div class="d-inline-flex align-items-center px-2 py-1 rounded bg-warning bg-opacity-10 border border-warning border-opacity-25">
+                                <i class="bi bi-bag-check-fill text-warning me-2"></i>
+                                <span class="text-warning fw-bold">{{ $top_seller->order_count }} @lang('Sales')</span>
+                            </div>
+                        </div>
+                        <div class="user-thumb position-relative z-index-1">
+                            <img id="seller-output" src="{{ getImage('assets/images/user/profile/'. $seller_user->image, '350x300', true) }}" alt="top-seller" class="img-fluid rounded-circle border border-2 border-warning" style="width: 80px; height: 80px; object-fit: cover; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
+                        </div>
                     </div>
-                    <div class="user-thumb">
-                        <img id="seller-output" src="{{ getImage('assets/images/user/profile/'. $seller_user->image, '350x300', true) }}" alt="top-seller" class="img-fluid rounded-circle" style="width: 90px; height: 90px; border: 4px solid rgba(255, 255, 255, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+                    <!-- Decorative Background Element -->
+                    <div class="position-absolute top-0 end-0 opacity-10" style="font-size: 8rem; line-height: 1; transform: translate(20%, -20%); color: #ffd700;">
+                        <i class="bi bi-trophy-fill"></i>
                     </div>
                 </div>
             </div>
@@ -46,17 +49,26 @@
 
     {{-- Top Customer Card --}}
     @if($customer_user)
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="dashboard-item gradient-card-2">
-                <div class="dashboard-item-header d-flex align-items-center justify-content-between">
-                    <div class="flex-grow-1">
-                        <h6 class="title mb-2">@lang('Top Customer') 👑</h6>
-                        <h4 class="ammount theme-two text-uppercase mb-1">{{ $customer_user->username }}</h4>
-                        <p class="text-white mb-1">{{ $customer_user->firstname . ' ' . $customer_user->lastname }}</p>
-                        <h5 class="ammount"><i class="bi bi-cart-check-fill"></i> {{ $top_customer->order_count }} @lang('Purchases')</h5>
+        <div class="col-lg-4 col-md-6">
+            <div class="premium-card h-100 position-relative overflow-hidden" style="border: 1px solid rgba(13, 202, 240, 0.3);">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="flex-grow-1 z-index-1">
+                            <h6 class="text-info mb-2">@lang('Top Customer') 👑</h6>
+                            <h4 class="text-white text-uppercase mb-1">{{ $customer_user->username }}</h4>
+                            <p class="text-white-50 mb-2 small">{{ $customer_user->firstname . ' ' . $customer_user->lastname }}</p>
+                            <div class="d-inline-flex align-items-center px-2 py-1 rounded bg-info bg-opacity-10 border border-info border-opacity-25">
+                                <i class="bi bi-cart-check-fill text-info me-2"></i>
+                                <span class="text-info fw-bold">{{ $top_customer->order_count }} @lang('Purchases')</span>
+                            </div>
+                        </div>
+                        <div class="user-thumb position-relative z-index-1">
+                            <img id="customer-output" src="{{ getImage('assets/images/user/profile/'. $customer_user->image, '350x300', true) }}" alt="top-customer" class="img-fluid rounded-circle border border-2 border-info" style="width: 80px; height: 80px; object-fit: cover; box-shadow: 0 0 15px rgba(13, 202, 240, 0.3);">
+                        </div>
                     </div>
-                    <div class="user-thumb">
-                        <img id="customer-output" src="{{ getImage('assets/images/user/profile/'. $customer_user->image, '350x300', true) }}" alt="top-customer" class="img-fluid rounded-circle" style="width: 90px; height: 90px; border: 4px solid rgba(255, 255, 255, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+                    <!-- Decorative Background Element -->
+                    <div class="position-absolute top-0 end-0 opacity-10" style="font-size: 8rem; line-height: 1; transform: translate(20%, -20%); color: #0dcaf0;">
+                        <i class="bi bi-crown"></i>
                     </div>
                 </div>
             </div>
@@ -65,80 +77,77 @@
 
     {{-- Recent User Card --}}
     @if($recent_entry)
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="dashboard-item gradient-card-3">
-                <div class="dashboard-item-header d-flex align-items-center justify-content-between">
-                    <div class="flex-grow-1">
-                        <h6 class="title mb-2">@lang('Recent User') ⭐</h6>
-                        <h4 class="ammount theme-two text-uppercase mb-1">{{ $recent_entry->username }}</h4>
-                        <p class="text-white mb-1">{{ $recent_entry->firstname . ' ' . $recent_entry->lastname }}</p>
-                        <p class="text-white mb-1"><i class="bi bi-geo-alt-fill"></i> {{ $recent_entry->city }}</p>
-                        <h6 class="ammount"><i class="bi bi-calendar-event"></i> {{ date('j F Y', strtotime($recent_entry->created_at)) }}</h6>
+        <div class="col-lg-4 col-md-6">
+            <div class="premium-card h-100 position-relative overflow-hidden" style="border: 1px solid rgba(32, 201, 151, 0.3);">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="flex-grow-1 z-index-1">
+                            <h6 class="text-success mb-2">@lang('Recent User') ⭐</h6>
+                            <h4 class="text-white text-uppercase mb-1">{{ $recent_entry->username }}</h4>
+                            <p class="text-white-50 mb-1 small">{{ $recent_entry->firstname . ' ' . $recent_entry->lastname }}</p>
+                            <div class="d-flex flex-column gap-1">
+                                <small class="text-white-50"><i class="bi bi-geo-alt-fill text-success me-1"></i> {{ $recent_entry->city }}</small>
+                                <small class="text-white-50"><i class="bi bi-calendar-event text-success me-1"></i> {{ date('j F Y', strtotime($recent_entry->created_at)) }}</small>
+                            </div>
+                        </div>
+                        <div class="user-thumb position-relative z-index-1">
+                            <img id="recent-output" src="{{ getImage('assets/images/user/profile/'. $recent_entry->image, '350x300', true) }}" alt="recent-user" class="img-fluid rounded-circle border border-2 border-success" style="width: 80px; height: 80px; object-fit: cover; box-shadow: 0 0 15px rgba(32, 201, 151, 0.3);">
+                        </div>
                     </div>
-                    <div class="user-thumb">
-                        <img id="recent-output" src="{{ getImage('assets/images/user/profile/'. $recent_entry->image, '350x300', true) }}" alt="recent-user" class="img-fluid rounded-circle" style="width: 90px; height: 90px; border: 4px solid rgba(255, 255, 255, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+                    <!-- Decorative Background Element -->
+                    <div class="position-absolute top-0 end-0 opacity-10" style="font-size: 8rem; line-height: 1; transform: translate(20%, -20%); color: #20c997;">
+                        <i class="bi bi-star-fill"></i>
                     </div>
                 </div>
             </div>
         </div>
     @endif
 </div>
-</div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="dashboard-item mb-4">
-                <div class="dashboard-item-header mb-3">
-                    <h4 class="title"><i class="bi bi-clock-history"></i> @lang('Transactions in the Last 7 Days')</h4>
-                </div>
-                <div class="table-responsive">
-                    <table class="transection-table-2">
-    <thead>
-        <tr>
-            <th scope="col">@lang('Date & Time')</th>
-            <th scope="col">@lang('User Details')</th>
-            <th scope="col">@lang('City')</th>
-            <th scope="col">@lang('Transaction Details')</th>
-            <th scope="col">@lang('Amount')</th>
-        </tr>
-    </thead>
-    <tbody>
-        @forelse($transactions as $transaction)
-            <tr style="margin-bottom:20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                <td data-label="@lang('Date & Time')">
-                    <i class="las la-calendar"></i> {{ date('d M Y h:i A', strtotime($transaction->created_at)) }}
-                </td>
-                <td data-label="@lang('User Details')">
-                    <div>{{ $transaction->username }}</div>
-                    <div>{{ $transaction->name }}</div>
-                </td>
-                <td data-label="@lang('City')">{{ $transaction->city }}</td>
-                <td data-label="@lang('Transaction Details')">{{ $transaction->details }}</td>
-                <td data-label="@lang('Amount')">{{ number_format($transaction->amount, 2) }}</td>
-            </tr>
-        @empty
-            <tr>
-                <td colspan="5" class="text-center">@lang('No transactions found in the last 7 days')!</td>
-            </tr>
-        @endforelse
-    </tbody>
-                    </table>
-                </div>
-            </div>
+<div class="premium-card mb-4">
+    <div class="card-header bg-transparent border-bottom border-secondary border-opacity-25 p-3">
+        <h5 class="title text-white m-0"><i class="bi bi-clock-history"></i> @lang('Transactions in the Last 7 Days')</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table transection-table-2">
+                <thead>
+                    <tr>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Date & Time')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('User Details')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('City')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Transaction Details')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Amount')</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($transactions as $transaction)
+                        <tr style="background: rgba(255,255,255,0.05);">
+                            <td data-label="@lang('Date & Time')" class="text-white">
+                                <i class="las la-calendar text-white-50"></i> {{ date('d M Y h:i A', strtotime($transaction->created_at)) }}
+                            </td>
+                            <td data-label="@lang('User Details')" class="text-white">
+                                <div class="fw-bold text-info">{{ $transaction->username }}</div>
+                                <div class="small text-white-50">{{ $transaction->name }}</div>
+                            </td>
+                            <td data-label="@lang('City')" class="text-white">{{ $transaction->city }}</td>
+                            <td data-label="@lang('Transaction Details')" class="text-white">{{ $transaction->details }}</td>
+                            <td data-label="@lang('Amount')" class="fw-bold text-success">{{ number_format($transaction->amount, 2) }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-white-50">@lang('No transactions found in the last 7 days')!</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 @if ($transactions->hasPages())
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="mt-4">
-                    {{ paginateLinks($transactions) }}
-                </div>
-            </div>
-        </div>
+    <div class="mt-4">
+        {{ paginateLinks($transactions) }}
     </div>
 @endif
 
@@ -150,154 +159,4 @@
 @push('script')
 <!-- Include Icon Enhancer -->
 @include($activeTemplate . 'js.icon-enhancer')
-
-<style>
-/* Notifications Page Custom Styles */
-.dashboard-header {
-    text-align: center;
-    padding: 20px 0;
-}
-
-.page-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.page-subtitle {
-    font-size: 16px;
-    color: var(--text-secondary);
-    opacity: 0.8;
-}
-
-/* User Cards Enhanced Styling */
-.user-thumb {
-    flex-shrink: 0;
-}
-
-.user-thumb img {
-    transition: all 0.3s ease;
-}
-
-.dashboard-item:hover .user-thumb img {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* Transaction Table Styling */
-.transection-table-2 {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-}
-
-.transection-table-2 thead th {
-    background: var(--gradient-purple-blue);
-    color: #ffffff;
-    padding: 15px;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    border: none;
-}
-
-.transection-table-2 thead th:first-child {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.transection-table-2 thead th:last-child {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.transection-table-2 tbody tr {
-    background: var(--card-bg);
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.transection-table-2 tbody tr:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.transection-table-2 tbody td {
-    padding: 15px;
-    color: var(--text-primary);
-    border: none;
-    vertical-align: middle;
-}
-
-.transection-table-2 tbody td:first-child {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.transection-table-2 tbody td:last-child {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    font-weight: 700;
-    color: var(--accent-blue);
-}
-
-.transection-table-2 tbody td i {
-    color: var(--accent-cyan);
-    margin-right: 5px;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .page-title {
-        font-size: 24px;
-    }
-    
-    .user-thumb img {
-        width: 70px !important;
-        height: 70px !important;
-    }
-    
-    .transection-table-2 {
-        border-spacing: 0;
-    }
-    
-    .transection-table-2 thead {
-        display: none;
-    }
-    
-    .transection-table-2 tbody tr {
-        display: block;
-        margin-bottom: 15px;
-        border-radius: 10px;
-    }
-    
-    .transection-table-2 tbody td {
-        display: block;
-        text-align: right;
-        padding: 10px 15px;
-        border-radius: 0 !important;
-    }
-    
-    .transection-table-2 tbody td:first-child {
-        border-top-left-radius: 10px !important;
-        border-top-right-radius: 10px !important;
-    }
-    
-    .transection-table-2 tbody td:last-child {
-        border-bottom-left-radius: 10px !important;
-        border-bottom-right-radius: 10px !important;
-    }
-    
-    .transection-table-2 tbody td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: 600;
-        color: var(--text-secondary);
-    }
-}
-</style>
 @endpush
