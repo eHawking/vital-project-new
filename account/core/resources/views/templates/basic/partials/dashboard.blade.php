@@ -189,7 +189,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-9 dashboard-main-col">
                 <!-- Premium Mobile Header (Replaces Old Toggler) -->
                 <div class="user-toggler-wrapper d-flex d-lg-none align-items-center justify-content-between mb-4 premium-mobile-header">
                     <h4 class="title m-0 text-white fw-bold">{{ __($pageTitle) }}</h4>
@@ -347,6 +347,12 @@
         
         .premium-sidebar.show-sidebar {
             transform: translateX(0) !important; /* Slide in */
+        }
+        
+        /* Remove padding from main column on mobile to align content */
+        .dashboard-main-col {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
         }
         
         .sidebar-overlay {
