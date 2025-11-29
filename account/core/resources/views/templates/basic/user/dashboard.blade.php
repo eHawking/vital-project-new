@@ -134,6 +134,17 @@
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
+        
+        /* Reset Row and Column for perfect alignment */
+        .user-dashboard .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        
+        .dashboard-main-col {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
     }
 </style>
 
