@@ -213,64 +213,82 @@
 </section>
 
 <script>
-  function togglePremiumSidebar() {
-      const sidebar = document.querySelector('.premium-sidebar');
-      const overlay = document.querySelector('.sidebar-overlay');
-      const body = document.body;
-
-      if (sidebar) {
-          sidebar.classList.toggle('show-sidebar');
-          
-          // Handle Overlay
-          if (!overlay) {
-              const newOverlay = document.createElement('div');
-              newOverlay.className = 'sidebar-overlay';
-              document.body.appendChild(newOverlay);
-              
-              // Force reflow
-              newOverlay.offsetHeight;
-              newOverlay.classList.add('active');
-              
-              newOverlay.addEventListener('click', togglePremiumSidebar);
-          } else {
-              overlay.classList.toggle('active');
-          }
-
-          // Body Overflow
-          if (sidebar.classList.contains('show-sidebar')) {
-              body.style.overflow = 'hidden';
-          } else {
-              body.style.overflow = '';
-          }
-      }
-  }
-
   document.addEventListener('DOMContentLoaded', function() {
-      // Ensure overlay exists but hidden
-      if (!document.querySelector('.sidebar-overlay')) {
-          const overlay = document.createElement('div');
+      // --- NEW SIDEBAR LOGIC ---
+      const sidebar = document.querySelector('.premium-sidebar');
+      const toggleBtn = document.getElementById('premiumSidebarToggler');
+      const closeBtn = document.querySelector('.close-dashboard');
+      const body = document.body;
+      
+      // Create or Select Overlay
+      let overlay = document.querySelector('.sidebar-overlay');
+      if (!overlay) {
+          overlay = document.createElement('div');
           overlay.className = 'sidebar-overlay';
           document.body.appendChild(overlay);
-          overlay.addEventListener('click', function() {
-              const sidebar = document.querySelector('.premium-sidebar');
-              if(sidebar && sidebar.classList.contains('show-sidebar')) {
-                  togglePremiumSidebar();
+      }
+
+      // Function to Open Sidebar
+      function openSidebar() {
+          sidebar.classList.add('show-sidebar');
+          overlay.classList.add('active');
+          body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+
+      // Function to Close Sidebar
+      function closeSidebar() {
+          sidebar.classList.remove('show-sidebar');
+          overlay.classList.remove('active');
+          body.style.overflow = ''; // Restore background scrolling
+      }
+
+      // Toggle Event
+      if (toggleBtn) {
+          toggleBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              if (sidebar.classList.contains('show-sidebar')) {
+                  closeSidebar();
+              } else {
+                  openSidebar();
               }
           });
       }
 
-      // Existing Tooltip Logic
+      // Close Button Event
+      if (closeBtn) {
+          closeBtn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              closeSidebar();
+          });
+      }
+
+      // Overlay Click Event
+      overlay.addEventListener('click', function(e) {
+          closeSidebar();
+      });
+
+      // Swipe to Close (Optional simple implementation)
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      document.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].screenX;
+      }, {passive: true});
+
+      document.addEventListener('touchend', e => {
+          touchEndX = e.changedTouches[0].screenX;
+          if (touchStartX - touchEndX > 100 && sidebar.classList.contains('show-sidebar')) {
+              closeSidebar(); // Swipe Left to close
+          }
+      }, {passive: true});
+
+      // --- TOOLTIP LOGIC ---
       const checkIcon = document.getElementById("checkIcon");
       const popup = document.getElementById("popup");
       
       if(checkIcon && popup) {
-          checkIcon.addEventListener("mouseenter", function() {
-            popup.style.display = "block";
-          });
-
-          checkIcon.addEventListener("mouseleave", function() {
-            popup.style.display = "none";
-          });
+          checkIcon.addEventListener("mouseenter", () => popup.style.display = "block");
+          checkIcon.addEventListener("mouseleave", () => popup.style.display = "none");
       }
   });
 </script>
@@ -306,6 +324,7 @@
             padding-bottom: 150px; /* Extra padding to ensure last items are visible */
             width: 100%;
             padding-top: 20px;
+            touch-action: pan-y; /* Allow vertical scroll, prevent horizontal */
         }
 
         .premium-sidebar .user-dashboard-tab {
