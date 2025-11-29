@@ -123,27 +123,28 @@
             margin-bottom: 10px;
         }
 
-        /* Outer container padding */
+        /* Outer container padding RESET */
         .container-fluid.px-4 {
-            padding-left: 10px !important;
-            padding-right: 10px !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
         }
 
-        /* Remove inner container padding to align with header */
+        /* Remove inner container padding */
         .inner-dashboard-container {
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
         
-        /* Reset Row and Column for perfect alignment */
+        /* Reset Row margins */
         .user-dashboard .row {
             margin-left: 0 !important;
             margin-right: 0 !important;
         }
         
+        /* Apply strict 10px padding to the main column only */
         .dashboard-main-col {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
         }
     }
 </style>
