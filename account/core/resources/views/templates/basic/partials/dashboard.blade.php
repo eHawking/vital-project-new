@@ -307,7 +307,6 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s;
-            backdrop-filter: blur(3px);
             pointer-events: none;
         }
         
