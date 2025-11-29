@@ -1,38 +1,68 @@
 @extends($activeTemplate . 'layouts.master')
 
 @section('content')
-    <div class="row">
+    <!-- Include Modern Finance Theme CSS -->
+    @include($activeTemplate . 'css.modern-finance-theme')
+    @include($activeTemplate . 'css.mobile-fixes')
+
+    <div class="row justify-content-center g-4">
         @foreach ($plans as $data)
-            <div class="col-xl-4 col-md-4 mb-30 mb-4">
-                <div class="card custom--card">
-                    <div class="card-body">
-                        <div class="pricing-table mb-4 text-center">
-                            <h2 class="package-name text- mb-20"><strong>{{ __(strtoupper($data->name)) }}</strong></h2>
-                            <span class="price text--dark font-weight-bold d-block">{{ showAmount($data->price) }}</span>
-                            <hr>
-                            <ul class="package-features-list mt-30">
-                                <li>
-                                    <i class="las la-business-time __plan_info text--primary" data="bv"></i> <span>@lang('Business Volume (BV)'):
-                                        {{ getAmount($data->bv) }}</span>
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <div class="premium-card h-100 d-flex flex-column">
+                    <div class="card-body p-0">
+                        <div class="pricing-table text-center mb-4">
+                            <h2 class="package-name mb-3" style="font-size: 1.8rem; background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">
+                                {{ __(strtoupper($data->name)) }}
+                            </h2>
+                            <div class="price mb-4">
+                                <span class="text-white display-4 fw-bold">{{ showAmount($data->price) }}</span>
+                            </div>
+                            
+                            <div class="divider my-4" style="height: 1px; background: rgba(255,255,255,0.1);"></div>
+                            
+                            <ul class="package-features-list text-start d-inline-block mx-auto">
+                                <li class="mb-3 d-flex align-items-center text-white-50">
+                                    <div class="icon-box variant-green me-3" style="width: 32px; height: 32px; font-size: 14px;">
+                                        <i class="las la-check"></i>
+                                    </div>
+                                    <div>
+                                        <span class="d-block text-white small">@lang('Business Volume (BV)')</span>
+                                        <strong class="text-primary">{{ getAmount($data->bv) }}</strong>
+                                        <i class="las la-info-circle __plan_info text-muted ms-1 cursor-pointer" data="bv" style="font-size: 12px;"></i>
+                                    </div>
                                 </li>
-                                <li>
-                                    <i class="las la-comment-dollar __plan_info text--primary" data="ref_com"></i><span> @lang('Referral Commission'):
-                                        {{ gs('cur_sym') }}{{ getAmount($data->ref_com) }}
-                                    </span>
+                                <li class="mb-3 d-flex align-items-center text-white-50">
+                                    <div class="icon-box variant-blue me-3" style="width: 32px; height: 32px; font-size: 14px;">
+                                        <i class="las la-users"></i>
+                                    </div>
+                                    <div>
+                                        <span class="d-block text-white small">@lang('Referral Commission')</span>
+                                        <strong class="text-info">{{ gs('cur_sym') }}{{ getAmount($data->ref_com) }}</strong>
+                                        <i class="las la-info-circle __plan_info text-muted ms-1 cursor-pointer" data="ref_com" style="font-size: 12px;"></i>
+                                    </div>
                                 </li>
-                                <li>
-                                    <i class="las la-comments-dollar __plan_info text--primary" data="tree_com"></i>
-                                    <span>@lang('Tree Commission'):
-                                        {{ gs('cur_sym') }}{{ getAmount($data->tree_com) }}
-                                    </span>
+                                <li class="d-flex align-items-center text-white-50">
+                                    <div class="icon-box variant-purple me-3" style="width: 32px; height: 32px; font-size: 14px;">
+                                        <i class="las la-project-diagram"></i>
+                                    </div>
+                                    <div>
+                                        <span class="d-block text-white small">@lang('Tree Commission')</span>
+                                        <strong class="text-warning">{{ gs('cur_sym') }}{{ getAmount($data->tree_com) }}</strong>
+                                        <i class="las la-info-circle __plan_info text-muted ms-1 cursor-pointer" data="tree_com" style="font-size: 12px;"></i>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
-                        <div class="text-center">
+                        
+                        <div class="mt-auto text-center">
                             @if (auth()->user()->plan_id != $data->id)
-                                <a class="cmn--btn active __subscribe" data-id="{{ $data->id }}" href="#"><span>@lang('Subscribe')</span></a>
+                                <button class="btn btn-primary w-100 pulse-animation __subscribe" data-id="{{ $data->id }}" style="background: var(--grad-primary); border: none; padding: 12px; border-radius: 12px; font-weight: 600;">
+                                    @lang('Subscribe Now')
+                                </button>
                             @else
-                                <a class="cmn--btn active"><span>@lang('Already Subscribe')</span></a>
+                                <button class="btn btn-secondary w-100" disabled style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px;">
+                                    @lang('Current Plan')
+                                </button>
                             @endif
                         </div>
                     </div>
@@ -43,47 +73,39 @@
 @endsection
 
 @push('modal')
-    <div class="modal fade" id="plan_info_modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="plan_info_modal_title">@lang('Commission to tree info')</h5>
+    <div class="modal fade" id="plan_info_modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: #1e293b; border: 1px solid rgba(255,255,255,0.1);">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="plan_info_modal_title">@lang('Commission Info')</h5>
+                    <button type="button" class="btn-close btn-close-white" id="__modal_close"></button>
                 </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer text-right">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <button class="btn btn--dark btn--sm" id="__modal_close" type="button">@lang('Close')</button>
-                        </div>
-                    </div>
+                <div class="modal-body text-white-50">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="subscribe_modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">@lang('Confirm Purchase')?</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <i class="las la-times"></i>
-                        </button>
+    <div class="modal fade" id="subscribe_modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: #1e293b; border: 1px solid rgba(255,255,255,0.1);">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white">@lang('Confirm Purchase')</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <h5>@lang('Are you sure to purchase this plan?')</h5>
+                    <p class="text-white-50">@lang('Are you sure you want to subscribe to this plan?')</p>
                 </div>
-
-                <div class="modal-footer">
-                    <form method="post" action="{{ route('user.plan.purchase') }}">
+                <div class="modal-footer border-0">
+                    <form method="post" action="{{ route('user.plan.purchase') }}" class="w-100">
                         @csrf
-                        <input class="form-control form--control" class="d-none" id="plan_id" name="plan_id" type="hidden">
-                        <button class="btn btn--dark btn--sm" data-bs-dismiss="modal" type="button">@lang('Close')</button>
-                        <button class="btn btn--base btn--sm" type="submit"> @lang('Subscribe')</button>
+                        <input id="plan_id" name="plan_id" type="hidden">
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-light flex-fill" data-bs-dismiss="modal" type="button">@lang('Cancel')</button>
+                            <button class="btn btn-primary flex-fill" type="submit" style="background: var(--grad-primary); border: none;">@lang('Confirm')</button>
+                        </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

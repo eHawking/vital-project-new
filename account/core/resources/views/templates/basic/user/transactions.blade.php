@@ -32,35 +32,35 @@
             </div>
             
             <!-- Filter Card -->
-            <div class="dashboard-item responsive-filter-card mb-4" style="display: none;">
+            <div class="premium-card responsive-filter-card mb-4" style="display: none;">
                 <div class="dashboard-item-header mb-3">
-                    <h5 class="title"><i class="bi bi-funnel-fill"></i> @lang('Filter Options')</h5>
+                    <h5 class="title text-white"><i class="bi bi-funnel-fill"></i> @lang('Filter Options')</h5>
                 </div>
                 <form>
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <label class="form-label"><i class="bi bi-search"></i> @lang('Transaction Number')</label>
-                            <input class="form-control" name="search" type="search" value="{{ request()->search }}" placeholder="@lang('Search TRX...')">
+                            <label class="form-label text-white-50"><i class="bi bi-search"></i> @lang('Transaction Number')</label>
+                            <input class="form-control bg-transparent text-white border-secondary" name="search" type="search" value="{{ request()->search }}" placeholder="@lang('Search TRX...')">
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label"><i class="bi bi-plus-slash-minus"></i> @lang('Type')</label>
-                            <select class="form-control select2" name="trx_type" data-minimum-results-for-search="-1">
-                                <option value="">@lang('All Types')</option>
-                                <option value="+" @selected(request()->trx_type == '+')>@lang('➕ Plus (Credit)')</option>
-                                <option value="-" @selected(request()->trx_type == '-')>@lang('➖ Minus (Debit)')</option>
+                            <label class="form-label text-white-50"><i class="bi bi-plus-slash-minus"></i> @lang('Type')</label>
+                            <select class="form-control select2 bg-transparent text-white border-secondary" name="trx_type" data-minimum-results-for-search="-1">
+                                <option value="" class="text-dark">@lang('All Types')</option>
+                                <option value="+" class="text-dark" @selected(request()->trx_type == '+')>@lang('➕ Plus (Credit)')</option>
+                                <option value="-" class="text-dark" @selected(request()->trx_type == '-')>@lang('➖ Minus (Debit)')</option>
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label"><i class="bi bi-tag"></i> @lang('Remark')</label>
-                            <select class="form-control select2" name="remark" data-minimum-results-for-search="-1">
-                                <option value="">@lang('All Remarks')</option>
+                            <label class="form-label text-white-50"><i class="bi bi-tag"></i> @lang('Remark')</label>
+                            <select class="form-control select2 bg-transparent text-white border-secondary" name="remark" data-minimum-results-for-search="-1">
+                                <option value="" class="text-dark">@lang('All Remarks')</option>
                                 @foreach ($remarks as $remark)
-                                    <option value="{{ $remark->remark }}" @selected(request()->remark == $remark->remark)>{{ __(keyToTitle($remark->remark)) }}</option>
+                                    <option value="{{ $remark->remark }}" class="text-dark" @selected(request()->remark == $remark->remark)>{{ __(keyToTitle($remark->remark)) }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-2 d-flex align-items-end">
-                            <button class="btn btn-primary w-100" type="submit">
+                            <button class="btn btn-primary w-100" type="submit" style="background: var(--grad-primary); border: none;">
                                 <i class="bi bi-funnel"></i> @lang('Apply')
                             </button>
                         </div>
@@ -68,34 +68,34 @@
                 </form>
             </div>
             <!-- Transactions Table -->
-            <div class="dashboard-item mb-4">
+            <div class="premium-card mb-4">
                 <div class="dashboard-item-header mb-3">
-                    <h4 class="title"><i class="bi bi-list-ul"></i> @lang('Transaction History')</h4>
+                    <h4 class="title text-white"><i class="bi bi-list-ul"></i> @lang('Transaction History')</h4>
                 </div>
                 <div class="table-responsive">
                     <table class="transection-table-2">
                         <thead>
                             <tr>
-                                <th><i class="bi bi-hash"></i> @lang('TRX')</th>
-                                <th><i class="bi bi-calendar-event"></i> @lang('Date & Time')</th>
-                                <th><i class="bi bi-cash-coin"></i> @lang('Amount')</th>
-                                <th><i class="bi bi-wallet2"></i> @lang('Balance')</th>
-                                <th><i class="bi bi-info-circle"></i> @lang('Details')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-hash"></i> @lang('TRX')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-calendar-event"></i> @lang('Date & Time')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-cash-coin"></i> @lang('Amount')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-wallet2"></i> @lang('Balance')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-info-circle"></i> @lang('Details')</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($transactions as $trx)
-                                <tr>
-                                    <td data-label="@lang('TRX')">
-                                        <code class="trx-code">{{ $trx->trx }}</code>
+                                <tr style="background: rgba(255,255,255,0.05);">
+                                    <td data-label="@lang('TRX')" class="text-white">
+                                        <code class="trx-code text-info bg-transparent border border-info">{{ $trx->trx }}</code>
                                     </td>
 
-                                    <td data-label="@lang('Date & Time')">
+                                    <td data-label="@lang('Date & Time')" class="text-white">
                                         <small>{{ showDateTime($trx->created_at, 'd M Y, h:i A') }}</small><br>
-                                        <small class="text-muted">{{ diffForHumans($trx->created_at) }}</small>
+                                        <small class="text-white-50">{{ diffForHumans($trx->created_at) }}</small>
                                     </td>
 
-                                    <td data-label="@lang('Amount')">
+                                    <td data-label="@lang('Amount')" class="text-white">
                                         <div>
                                             <span class="fw-bold @if ($trx->trx_type == '+') text-success @else text-danger @endif">
                                                 {{ $trx->trx_type == '+' ? '+' : '-' }} {{ showAmount($trx->amount) }}
@@ -106,17 +106,17 @@
                                         </div>
                                     </td>
 
-                                    <td data-label="@lang('Balance')">
+                                    <td data-label="@lang('Balance')" class="text-white">
                                         <strong>{{ showAmount($trx->post_balance) }}</strong>
                                     </td>
 
-                                    <td data-label="@lang('Details')">
-                                        <span class="badge badge--primary">{{ __($trx->details) }}</span>
+                                    <td data-label="@lang('Details')" class="text-white">
+                                        <span class="badge badge--primary" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);">{{ __($trx->details) }}</span>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">
+                                    <td colspan="5" class="text-center text-white-50">
                                         <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>
                                         {{ __($emptyMessage) }}
                                     </td>
