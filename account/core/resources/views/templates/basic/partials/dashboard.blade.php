@@ -198,7 +198,7 @@
                         </button>
                         
                         <!-- Sidebar Toggle Button -->
-                        <div class="user-toggler header-icon-btn">
+                        <div class="user-toggler header-icon-btn" id="dashboardSidebarToggler" onclick="toggleDashboardSidebar()">
                             <i class="las la-bars"></i>
                         </div>
                     </div>
@@ -211,39 +211,52 @@
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      // Sidebar Toggle Logic
-      const sidebarToggler = document.querySelector('.user-toggler');
+  function toggleDashboardSidebar() {
       const sidebar = document.querySelector('.dashboard-sidebar');
-      const closeSidebar = document.querySelector('.close-dashboard');
+      const overlay = document.querySelector('.sidebar-overlay');
       const body = document.body;
-      
-      if(sidebarToggler && sidebar) {
-          // Create overlay
-          let overlay = document.querySelector('.sidebar-overlay');
-          if (!overlay) {
-              overlay = document.createElement('div');
-              overlay.className = 'sidebar-overlay';
-              document.body.appendChild(overlay);
-          }
 
-          function toggleSidebar() {
-              sidebar.classList.toggle('show-sidebar');
+      if (sidebar) {
+          sidebar.classList.toggle('show-sidebar');
+          
+          // Handle Overlay
+          if (overlay) {
               overlay.classList.toggle('active');
-              body.style.overflow = sidebar.classList.contains('show-sidebar') ? 'hidden' : '';
+          } else {
+              // Create overlay if missing
+              const newOverlay = document.createElement('div');
+              newOverlay.className = 'sidebar-overlay active';
+              document.body.appendChild(newOverlay);
+              newOverlay.addEventListener('click', toggleDashboardSidebar);
           }
 
-          sidebarToggler.addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleSidebar();
+          // Body Overflow
+          if (sidebar.classList.contains('show-sidebar')) {
+              body.style.overflow = 'hidden';
+          } else {
+              body.style.overflow = '';
+          }
+      }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Overlay if needed
+      if (!document.querySelector('.sidebar-overlay')) {
+          const overlay = document.createElement('div');
+          overlay.className = 'sidebar-overlay';
+          document.body.appendChild(overlay);
+          overlay.addEventListener('click', function() {
+              const sidebar = document.querySelector('.dashboard-sidebar');
+              if(sidebar && sidebar.classList.contains('show-sidebar')) {
+                  toggleDashboardSidebar();
+              }
           });
+      }
 
-          if(closeSidebar) {
-              closeSidebar.addEventListener('click', toggleSidebar);
-          }
-
-          overlay.addEventListener('click', toggleSidebar);
+      // Close Button Logic
+      const closeSidebar = document.querySelector('.close-dashboard');
+      if(closeSidebar) {
+          closeSidebar.addEventListener('click', toggleDashboardSidebar);
       }
 
       // Existing Tooltip Logic
@@ -271,34 +284,37 @@
             left: -280px;
             width: 280px;
             height: 100vh;
-            z-index: 9999;
+            z-index: 99999; /* Extremely high z-index */
             transition: all 0.3s ease;
             overflow-y: auto;
-            background: var(--bg-card, #1e293b); /* Fallback color */
+            background: var(--bg-card, #1e293b);
             box-shadow: 4px 0 25px rgba(0,0,0,0.3);
+            display: block !important;
         }
         
         .dashboard-sidebar.show-sidebar {
-            left: 0;
+            left: 0 !important;
         }
         
         .sidebar-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: rgba(0,0,0,0.6);
-            z-index: 9998;
+            z-index: 99998; /* Just below sidebar */
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s;
             backdrop-filter: blur(3px);
+            pointer-events: none;
         }
         
         .sidebar-overlay.active {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
 
         /* Close button positioning */
@@ -314,7 +330,7 @@
             background: rgba(255,255,255,0.1);
             border-radius: 50%;
             cursor: pointer;
-            z-index: 10000;
+            z-index: 100000;
         }
     }
 </style>
