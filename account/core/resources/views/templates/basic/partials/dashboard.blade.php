@@ -349,12 +349,6 @@
             transform: translateX(0) !important; /* Slide in */
         }
         
-        /* Remove padding from main column on mobile to align content */
-        .dashboard-main-col {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-        
         .sidebar-overlay {
             position: fixed;
             top: 0;
