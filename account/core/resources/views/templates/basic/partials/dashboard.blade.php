@@ -199,7 +199,7 @@
                         
                         <!-- Sidebar Toggle Button -->
                         <div class="user-toggler header-icon-btn">
-                            <i class="las la-sliders-h"></i>
+                            <i class="las la-bars"></i>
                         </div>
                     </div>
                 </div>
@@ -212,6 +212,41 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+      // Sidebar Toggle Logic
+      const sidebarToggler = document.querySelector('.user-toggler');
+      const sidebar = document.querySelector('.dashboard-sidebar');
+      const closeSidebar = document.querySelector('.close-dashboard');
+      const body = document.body;
+      
+      if(sidebarToggler && sidebar) {
+          // Create overlay
+          let overlay = document.querySelector('.sidebar-overlay');
+          if (!overlay) {
+              overlay = document.createElement('div');
+              overlay.className = 'sidebar-overlay';
+              document.body.appendChild(overlay);
+          }
+
+          function toggleSidebar() {
+              sidebar.classList.toggle('show-sidebar');
+              overlay.classList.toggle('active');
+              body.style.overflow = sidebar.classList.contains('show-sidebar') ? 'hidden' : '';
+          }
+
+          sidebarToggler.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleSidebar();
+          });
+
+          if(closeSidebar) {
+              closeSidebar.addEventListener('click', toggleSidebar);
+          }
+
+          overlay.addEventListener('click', toggleSidebar);
+      }
+
+      // Existing Tooltip Logic
       const checkIcon = document.getElementById("checkIcon");
       const popup = document.getElementById("popup");
       
@@ -226,3 +261,60 @@
       }
   });
 </script>
+
+<style>
+    /* Sidebar Toggle Styles */
+    @media (max-width: 991px) {
+        .dashboard-sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            background: var(--bg-card, #1e293b); /* Fallback color */
+            box-shadow: 4px 0 25px rgba(0,0,0,0.3);
+        }
+        
+        .dashboard-sidebar.show-sidebar {
+            left: 0;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            backdrop-filter: blur(3px);
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Close button positioning */
+        .close-dashboard {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10000;
+        }
+    }
+</style>

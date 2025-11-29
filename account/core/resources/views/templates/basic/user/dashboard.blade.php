@@ -7,9 +7,6 @@
 <!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<!-- Include Theme Switcher -->
-@include($activeTemplate . 'partials.theme-switcher')
-
 <!-- Include Color Picker (Right Sidebar) -->
 @include($activeTemplate . 'partials.color-picker')
 
