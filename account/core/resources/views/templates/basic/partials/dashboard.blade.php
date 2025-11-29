@@ -233,13 +233,8 @@
           } else {
               overlay.classList.toggle('active');
           }
-
-          // Body Overflow
-          if (sidebar.classList.contains('show-sidebar')) {
-              body.style.overflow = 'hidden';
-          } else {
-              body.style.overflow = '';
-          }
+          
+          // Removed body scroll lock to prevent mobile scroll conflicts
       }
   }
 
@@ -287,13 +282,16 @@
             top: 0;
             left: 0;
             transform: translateX(-100%); /* Use transform for performance */
-            width: 280px;
+            width: 320px; /* Increased width */
+            max-width: 85vw; /* Safety max width */
             height: 100vh;
             height: 100dvh; 
             z-index: 99999; 
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: scroll; 
+            overflow-y: auto; /* Better for touch than scroll */
             -webkit-overflow-scrolling: touch; 
+            touch-action: pan-y; /* Allow vertical scrolling */
+            overscroll-behavior: contain; /* Prevent body scroll when sidebar ends */
             background: var(--bg-card, #1e293b);
             box-shadow: 4px 0 25px rgba(0,0,0,0.3);
             display: block !important;
