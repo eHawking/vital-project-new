@@ -18,6 +18,9 @@
                 <button class="theme-option" data-theme-color="sunset-orange" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></button>
                 <button class="theme-option" data-theme-color="ruby-red" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></button>
                 <button class="theme-option" data-theme-color="luxury-gold" style="background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);"></button>
+                <button class="theme-option" data-theme-color="neon-pink" style="background: linear-gradient(135deg, #ec4899, #db2777);"></button>
+                <button class="theme-option" data-theme-color="electric-cyan" style="background: linear-gradient(135deg, #06b6d4, #0891b2);"></button>
+                <button class="theme-option" data-theme-color="cyber-lime" style="background: linear-gradient(135deg, #84cc16, #65a30d);"></button>
             </div>
         </div>
         
@@ -231,6 +234,24 @@
             secondary: '#b38728',
             grad: 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #b38728 100%)',
             glow: 'radial-gradient(circle at top right, rgba(191, 149, 63, 0.15), transparent 40%)'
+        },
+        'neon-pink': {
+            primary: '#ec4899',
+            secondary: '#db2777',
+            grad: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(236, 72, 153, 0.15), transparent 40%)'
+        },
+        'electric-cyan': {
+            primary: '#06b6d4',
+            secondary: '#0891b2',
+            grad: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(6, 182, 212, 0.15), transparent 40%)'
+        },
+        'cyber-lime': {
+            primary: '#84cc16',
+            secondary: '#65a30d',
+            grad: 'linear-gradient(135deg, #84cc16 0%, #65a30d 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(132, 204, 22, 0.15), transparent 40%)'
         }
     };
     
