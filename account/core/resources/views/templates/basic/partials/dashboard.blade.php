@@ -99,11 +99,11 @@
                                 </div>
                                 
                                 <div class="user-thumb" style="border: 4px solid #2ecc71;">
-                                    <img src="/storage/app/public/profile/{{ auth()->user()->image }}" alt="profile">
+                                    <img src="{{ getImage(getFilePath('userProfile') . '/' . auth()->user()->image, null, true) }}" alt="profile">
                                 </div>
                             @else
                                 <div class="user-thumb">
-                                    <img src="/storage/app/public/profile/{{ auth()->user()->image }}" alt="profile">
+                                    <img src="{{ getImage(getFilePath('userProfile') . '/' . auth()->user()->image, null, true) }}" alt="profile">
                                 </div>
                             @endif
                             

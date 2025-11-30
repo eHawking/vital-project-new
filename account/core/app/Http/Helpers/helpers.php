@@ -738,7 +738,7 @@ function showSingleUserinTree($user)
             $userType = "paid-user";
             $stShow   = "Paid";
         }
-        $img   = getImage('assets/images/user/profile/' . $user->image, '120x120', true);
+        $img   = getImage(getFilePath('userProfile') . '/' . $user->image, '120x120', true);
 		
     if ($user->ref_by) {
     // Get the direct referrer
@@ -802,7 +802,7 @@ function showSingleUserinTree($user)
         $res       .= "<img src=\"$img\" alt=\"*\"  class=\"$userType\">";
         $res       .= "<p class=\"user-name\">$user->username</p>";
     } else {
-        $img = getImage('assets/images/user/profile/', '120x120', true);
+        $img = getImage(getFilePath('userProfile'), '120x120', true);
 
         $res .= "<div class=\"user\" type=\"button\">";
         $res .= "<img src=\"$img\" alt=\"*\"  class=\"no-user\">";
