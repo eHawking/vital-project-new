@@ -6,14 +6,27 @@
 
 .premium-notification {
     position: relative;
-    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0));
-    border-left: 3px solid #ffd700 !important;
+    overflow: hidden; /* Prevent overflow */
+    border-radius: 10px; /* Match menu style */
+    margin-bottom: 5px;
 }
 
 .premium-notification a {
-    color: #ffd700 !important;
+    color: var(--color-primary) !important;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.premium-notification::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(var(--rgb-primary), 0.1), transparent);
+    z-index: 0;
 }
 
 .premium-notification::after {
@@ -23,14 +36,16 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-    animation: shimmer 2s infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
     pointer-events: none;
+    z-index: 0;
 }
 
 @keyframes shimmer {
     0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    50%, 100% { transform: translateX(100%); }
 }
 
 /* Sidebar Icons */
@@ -259,11 +274,6 @@
               closeSidebar();
           });
       }
-
-      // Overlay Click Event
-      overlay.addEventListener('click', function(e) {
-          closeSidebar();
-      });
 
       // Swipe to Close (Optional simple implementation)
       let touchStartX = 0;
