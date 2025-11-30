@@ -6,46 +6,68 @@
 
 .premium-notification {
     position: relative;
-    overflow: hidden; /* Prevent overflow */
-    border-radius: 10px; /* Match menu style */
+    overflow: hidden;
+    border-radius: 10px;
     margin-bottom: 5px;
+    background: rgba(var(--rgb-primary), 0.05);
+    border: 1px solid rgba(var(--rgb-primary), 0.1);
+    transition: all 0.3s ease;
+}
+
+.premium-notification:hover {
+    background: rgba(var(--rgb-primary), 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--rgb-primary), 0.15);
 }
 
 .premium-notification a {
     color: var(--color-primary) !important;
-    font-weight: bold;
+    font-weight: 700;
     position: relative;
-    z-index: 1;
+    z-index: 2; /* Ensure text is above animations */
+    display: flex;
+    align-items: center;
 }
 
-.premium-notification::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(var(--rgb-primary), 0.1), transparent);
-    z-index: 0;
+.premium-notification a svg {
+    color: var(--color-primary); /* Ensure icon matches */
+    animation: premium-ring 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    transform-origin: top center;
+    filter: drop-shadow(0 0 2px rgba(var(--rgb-primary), 0.4));
 }
 
 .premium-notification::after {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: -100%;
+    width: 50%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    animation: shimmer 3s infinite;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transform: skewX(-20deg);
+    animation: premium-shine 3s infinite;
     pointer-events: none;
-    z-index: 0;
+    z-index: 1;
 }
 
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    50%, 100% { transform: translateX(100%); }
+@keyframes premium-shine {
+    0% { left: -100%; opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { left: 200%; opacity: 0; }
+}
+
+@keyframes premium-ring {
+    0% { transform: rotate(0); }
+    5% { transform: rotate(15deg); }
+    10% { transform: rotate(-10deg); }
+    15% { transform: rotate(5deg); }
+    20% { transform: rotate(0); }
+    100% { transform: rotate(0); }
 }
 
 /* Sidebar Icons */
