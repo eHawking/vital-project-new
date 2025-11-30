@@ -147,98 +147,10 @@
             padding-right: 10px !important;
         }
     }
-
-    /* Future Plan Premium Styles */
-    .future-plan-card {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .future-plan-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #ffd700, transparent);
-        animation: shine 2s linear infinite;
-    }
-
-    @keyframes shine {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
-    }
-
-    .countdown-timer {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        margin-top: 15px;
-    }
-
-    .timer-block {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 8px;
-        border-radius: 8px;
-        text-align: center;
-        min-width: 60px;
-        border: 1px solid rgba(255, 215, 0, 0.2);
-    }
-
-    .timer-value {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #ffd700;
-        display: block;
-    }
-
-    .timer-label {
-        font-size: 0.7rem;
-        color: rgba(255, 255, 255, 0.7);
-        text-transform: uppercase;
-    }
-    
-    .cashback-amount {
-        font-size: 1.8rem;
-        font-weight: 800;
-        background: linear-gradient(45deg, #ffd700, #fff, #ffd700);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        margin: 10px 0;
-    }
 </style>
 
 <div class="container-fluid px-4 py-4 inner-dashboard-container">
     
-    <!-- Future Plan Widget -->
-    @if(auth()->user()->future_plan == 1)
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="premium-card future-plan-card p-4 text-center">
-                <div class="mb-2">
-                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold">
-                        <i class="las la-crown"></i> PREMIUM FUTURE PLAN ACTIVE
-                    </span>
-                </div>
-                <h3 class="text-white mt-3 mb-1">Future Cashback Amount</h3>
-                <div class="cashback-amount">400,000 PKR</div>
-                
-                <div class="countdown-timer" id="futurePlanTimer">
-                    <!-- Timer will be injected here -->
-                </div>
-                
-                <div class="mt-3 text-white-50 small">
-                    <i class="las la-clock"></i> Maturing on: {{ \Carbon\Carbon::parse(auth()->user()->future_plan_date)->addMonths(24)->format('d M, Y') }}
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-
     <!-- KYC ALERTS (Preserved Original Logic) -->
     <div class="row mb-4">
         <div class="col-12">
@@ -347,6 +259,23 @@
                 @endif
             </div>
         </div>
+
+        <!-- Bright Future Plan (Conditional) -->
+        @if(auth()->user()->bright_future_plan == 1)
+        <div class="premium-card stat-item">
+            <div class="stat-info">
+                <h6>@lang('Bright Future Plan')</h6>
+                <h3>{{ getAmount(auth()->user()->bright_future_balance) }}</h3>
+            </div>
+            <div class="icon-box variant-green mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <div class="progress mt-3" style="height: 6px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small class="text-muted mt-1 d-block">Status: <span class="text-success">Active</span></small>
+        </div>
+        @endif
 
         <!-- BV Points -->
         <div class="premium-card stat-item">
@@ -694,46 +623,6 @@ $(document).ready(function(){
         setInterval(rotateImages, 3000);
         rotateImages();
     }
-
-    // Future Plan Timer
-    @if(auth()->user()->future_plan == 1 && auth()->user()->future_plan_date)
-    const futureDate = new Date("{{ \Carbon\Carbon::parse(auth()->user()->future_plan_date)->addMonths(24)->toIso8601String() }}").getTime();
-    
-    const timerInterval = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = futureDate - now;
-        
-        if (distance < 0) {
-            clearInterval(timerInterval);
-            document.getElementById("futurePlanTimer").innerHTML = "<div class='text-success fw-bold'>MATURED - READY FOR CLAIM</div>";
-            return;
-        }
-        
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-        document.getElementById("futurePlanTimer").innerHTML = `
-            <div class="timer-block">
-                <span class="timer-value">${days}</span>
-                <span class="timer-label">Days</span>
-            </div>
-            <div class="timer-block">
-                <span class="timer-value">${hours}</span>
-                <span class="timer-label">Hours</span>
-            </div>
-            <div class="timer-block">
-                <span class="timer-value">${minutes}</span>
-                <span class="timer-label">Mins</span>
-            </div>
-            <div class="timer-block">
-                <span class="timer-value">${seconds}</span>
-                <span class="timer-label">Secs</span>
-            </div>
-        `;
-    }, 1000);
-    @endif
 });
 </script>
 @endpush

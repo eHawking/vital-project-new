@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('future_plan')->default(0);
-            $table->timestamp('future_plan_date')->nullable();
+            $table->boolean('bright_future_plan')->default(0)->after('is_share');
+            $table->decimal('bright_future_balance', 28, 8)->default(0)->after('bright_future_plan');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('future_plan');
-            $table->dropColumn('future_plan_date');
+            $table->dropColumn('bright_future_plan');
+            $table->dropColumn('bright_future_balance');
         });
     }
 };

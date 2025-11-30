@@ -243,57 +243,10 @@ class Order extends Model
         return $this->hasMany(OrderDeliveryVerification::class,'order_id');
     }
 
+
     protected static function boot(): void
     {
         parent::boot();
-        
-        static::updated(function ($order) {
-            if ($order->order_status == 'delivered' && $order->payment_status == 'paid') {
-                $futurePlanProductId = \App\Models\BusinessSetting::where('type', 'future_plan_product_id')->value('value');
-                
-                if ($futurePlanProductId) {
-                    $hasFuturePlanProduct = $order->details()->where('product_id', $futurePlanProductId)->exists();
-                    
-                    if ($hasFuturePlanProduct) {
-                        try {
-                            // Connect to the secondary database
-                            $secondaryUser = \Illuminate\Support\Facades\DB::connection('mysql2')
-                                ->table('users')
-                                ->where('username', $order->customer->f_name . ' ' . $order->customer->l_name) // Assuming username match logic, ideally it should be a unique identifier like email or phone if possible, but request says username
-                                ->orWhere('email', $order->customer->email)
-                                ->orWhere('username', $order->customer->phone) // Fallback matches
-                                ->first();
-
-                            // Ideally, we should match by a specific unique field. The prompt says "match username". 
-                            // In the main script User model, let's see what 'username' equivalent is.
-                            // Looking at User model, there is no 'username' field, only f_name, l_name, email, phone.
-                            // The secondary script has 'username'.
-                            // Let's try to match 'email' as it is unique. Or if the main script 'customer' table has a 'username' (it does not seem to in the migration shown earlier, wait, the migration was for the secondary script).
-                            // The main script is the marketplace. Let's assume the username in the secondary script matches the email or phone of the main script user, OR the main script user has a username column that I missed.
-                            // Let's check `app/Models/User.php` of main script again.
-                            
-                            // Wait, I will assume for now that the secondary DB user 'username' might be the same as the main DB user 'email' or 'phone' or we need to find a common identifier. 
-                            // The prompt says: "match username of which purchase product with second script users table username".
-                            // If the purchaser is a guest, we might use the guest info.
-                            // Let's assume the logged-in user.
-                            
-                            if ($order->customer) {
-                                 \Illuminate\Support\Facades\DB::connection('mysql2')
-                                    ->table('users')
-                                    ->where('username', $order->customer->email) // Trying email as username first
-                                    ->orWhere('email', $order->customer->email)
-                                    ->update([
-                                        'future_plan' => 1,
-                                        'future_plan_date' => now()
-                                    ]);
-                            }
-                        } catch (\Exception $e) {
-                            // Log error or ignore
-                            \Illuminate\Support\Facades\Log::error('Future Plan Update Failed: ' . $e->getMessage());
-                        }
-                    }
-                }
-            }
-        });
+        //static::addGlobalScope(new RememberScope);
     }
 }

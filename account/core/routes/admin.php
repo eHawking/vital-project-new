@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UsersSummeryController;
 use App\Http\Controllers\Admin\BonusManagementController;
 use App\Http\Controllers\Admin\PairsManagementController;
 use App\Http\Controllers\Admin\BonusHistoryController;
+use App\Http\Controllers\Admin\BrightFutureController;
 
 
 
@@ -103,6 +104,11 @@ Route::middleware('admin')->group(function () {
 	
 	// Bonus History Route
     Route::get('bonus-history', [BonusHistoryController::class, 'index'])->name('bonus.history');
+
+    // Bright Future Plan
+    Route::controller(BrightFutureController::class)->prefix('bright-future')->name('bright.future.')->group(function () {
+        Route::get('users', 'activeUsers')->name('users');
+    });
 	
 	Route::controller(PairsManagementController::class)->prefix('pairs-management')->name('pairs.management.')->group(function () {
         Route::get('/', 'index')->name('index');

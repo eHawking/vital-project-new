@@ -266,7 +266,24 @@
             }
         ]
     },
-		 "users_summary": {
+    "bright_future": {
+        "title": "Bright Future",
+        "icon": "las la-lightbulb",
+        "menu_active": "admin.bright.future*",
+        "submenu": [
+            {
+                "keyword": [
+                    "Bright Future Users",
+                    "Active Users",
+                    "Plan Users"
+                ],
+                "title": "Active Users",
+                "route_name": "admin.bright.future.users",
+                "menu_active": "admin.bright.future.users"
+            }
+        ]
+    },
+    "users_summary": {
 
         "keyword": [
 

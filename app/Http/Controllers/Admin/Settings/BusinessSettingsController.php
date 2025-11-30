@@ -142,7 +142,6 @@ class BusinessSettingsController extends BaseController
         $this->businessSettingRepo->updateOrInsert(type: 'country_code', value: $request['country_code']);
         $this->businessSettingRepo->updateOrInsert(type: 'shop_address', value: $request['shop_address']);
         $this->businessSettingRepo->updateOrInsert(type: 'pagination_limit', value: $request['pagination_limit']);
-        $this->businessSettingRepo->updateOrInsert(type: 'future_plan_product_id', value: $request['future_plan_product_id']);
 
         $appAppleStore = json_encode(['status' => $request['app_store_download_status'] ?? 0, 'link' => $request['app_store_download_url']]);
         $this->businessSettingRepo->updateOrInsert(type: 'download_app_apple_store', value: $appAppleStore);

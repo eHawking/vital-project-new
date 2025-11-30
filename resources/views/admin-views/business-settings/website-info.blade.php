@@ -378,37 +378,6 @@
 
                         <div class="card card-sm shadow-1">
                             <div class="card-header">
-                                <h3>{{ translate('Future_Plan_Setup') }}</h3>
-                                <p class="mb-0 fs-12">
-                                    {{ translate('select_product_to_activate_future_plan_for_customers') }}
-                                </p>
-                            </div>
-                            <div class="card-body">
-                                <div class="p-12 p-sm-20 bg-section rounded">
-                                    <div class="form-group">
-                                        <label class="form-label mb-3" for="future_plan_product">
-                                            {{ translate('Select_Product') }}
-                                            <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="right"
-                                                aria-label="{{ translate('search_and_select_product') }}"
-                                                data-bs-title="{{ translate('search_and_select_product') }}">
-                                                <i class="fi fi-sr-info"></i>
-                                            </span>
-                                        </label>
-                                        <select class="form-control product-search-selection" id="future_plan_product" name="future_plan_product_id" data-placeholder="{{ translate('Search_Product') }}">
-                                            @if(isset($businessSetting['future_plan_product_id']))
-                                                @php($product = \App\Models\Product::find($businessSetting['future_plan_product_id']))
-                                                @if($product)
-                                                    <option value="{{ $product->id }}" selected>{{ $product->name }}</option>
-                                                @endif
-                                            @endif
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card card-sm shadow-1">
-                            <div class="card-header">
                                 <h3>{{ translate('Business_Model_Setup') }}</h3>
                                 <p class="mb-0 fs-12">
                                     {{ translate('here_you_can_setup_which_type_of_business_model_you_want_to_sell_your_products_you_can_choose_only_one_option_at_a_time.') }}
@@ -679,33 +648,4 @@
     <script src="{{ dynamicAsset(path: 'public/assets/new/back-end/js/maintenance-mode-setting.js') }}"></script>
     <script src="{{ dynamicAsset(path: 'public/assets/backend/admin/js/business-settings/business-general-setting.js') }}"></script>
     <script src="{{ dynamicAsset(path: 'public/assets/backend/admin/js/business-settings/general-page.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('.product-search-selection').select2({
-                ajax: {
-                    url: '{{ route('admin.products.search-products') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            name: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data.result, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                },
-                minimumInputLength: 1
-            });
-        });
-    </script>
 @endpush

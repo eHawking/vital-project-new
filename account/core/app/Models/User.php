@@ -21,11 +21,11 @@ class User extends Authenticatable
         'password', 'remember_token', 'ver_code', 'balance', 'kyc_data'
     ];
 
-    protected $fillable = [
-        'is_share',
-        'future_plan',
-        'future_plan_date',
-    ];
+	protected $fillable = [
+    'is_share',
+    'bright_future_plan',
+    'bright_future_balance'
+];
 
     /**
      * The attributes that should be cast to native types.
@@ -35,8 +35,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'kyc_data' => 'object',
-        'ver_code_send_at' => 'datetime',
-        'future_plan_date' => 'datetime'
+        'ver_code_send_at' => 'datetime'
     ];
 
 
