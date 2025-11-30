@@ -1,5 +1,7 @@
 <div class="theme-settings-drawer" id="themeSettingsDrawer">
-    <!-- Floating Toggle Removed per User Request -->
+    <div class="theme-settings-toggle" id="themeSettingsToggle">
+        <i class="bi bi-palette-fill"></i>
+    </div>
     
     <div class="theme-settings-header">
         <h5>Theme Settings</h5>
@@ -19,14 +21,10 @@
                 <button class="theme-option" data-theme-color="deep-space" style="background: linear-gradient(135deg, #0f172a, #334155); border: 1px solid rgba(255,255,255,0.2);"></button>
                 <button class="theme-option" data-theme-color="neon-cyber" style="background: linear-gradient(135deg, #ff00cc, #333399);"></button>
                 <button class="theme-option" data-theme-color="midnight-rose" style="background: linear-gradient(135deg, #881111, #550000);"></button>
-                
-                <!-- Super Premium Colors -->
-                <button class="theme-option" data-theme-color="electric-violet" style="background: linear-gradient(135deg, #7c3aed, #db2777);"></button>
-                <button class="theme-option" data-theme-color="crimson-tide" style="background: linear-gradient(135deg, #991b1b, #7f1d1d);"></button>
-                <button class="theme-option" data-theme-color="solar-flare" style="background: linear-gradient(135deg, #fbbf24, #ea580c);"></button>
-                <button class="theme-option" data-theme-color="toxic-lime" style="background: linear-gradient(135deg, #a3e635, #15803d);"></button>
-                <button class="theme-option" data-theme-color="frozen-ice" style="background: linear-gradient(135deg, #e0f2fe, #0ea5e9);"></button>
-                <button class="theme-option" data-theme-color="mystic-grape" style="background: linear-gradient(135deg, #a855f7, #4c1d95);"></button>
+                <button class="theme-option" data-theme-color="aurum-prestige" style="background: linear-gradient(135deg, #e5e4e2, #ffd700);"></button>
+                <button class="theme-option" data-theme-color="mystic-amethyst" style="background: linear-gradient(135deg, #9d4edd, #3c096c);"></button>
+                <button class="theme-option" data-theme-color="volcanic-ash" style="background: linear-gradient(135deg, #2d2d2d, #ff4500); border: 1px solid rgba(255,255,255,0.2);"></button>
+                <button class="theme-option" data-theme-color="cosmic-teal" style="background: linear-gradient(135deg, #00f260, #0575e6);"></button>
             </div>
         </div>
         
@@ -253,41 +251,29 @@
             grad: 'linear-gradient(135deg, #881111 0%, #550000 100%)',
             glow: 'radial-gradient(circle at top right, rgba(244, 63, 94, 0.15), transparent 40%)'
         },
-        'electric-violet': {
-            primary: '#a855f7',
-            secondary: '#7c3aed',
-            grad: 'linear-gradient(135deg, #7c3aed 0%, #db2777 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(168, 85, 247, 0.2), transparent 40%)'
+        'aurum-prestige': {
+            primary: '#d4af37',
+            secondary: '#c0c0c0',
+            grad: 'linear-gradient(135deg, #e5e4e2 0%, #ffd700 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(212, 175, 55, 0.2), transparent 40%)'
         },
-        'crimson-tide': {
-            primary: '#ef4444',
-            secondary: '#7f1d1d',
-            grad: 'linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(239, 68, 68, 0.2), transparent 40%)'
+        'mystic-amethyst': {
+            primary: '#9d4edd',
+            secondary: '#3c096c',
+            grad: 'linear-gradient(135deg, #9d4edd 0%, #3c096c 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(157, 78, 221, 0.2), transparent 40%)'
         },
-        'solar-flare': {
-            primary: '#f59e0b',
-            secondary: '#ea580c',
-            grad: 'linear-gradient(135deg, #fbbf24 0%, #ea580c 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(245, 158, 11, 0.2), transparent 40%)'
+        'volcanic-ash': {
+            primary: '#ff4500',
+            secondary: '#2d2d2d',
+            grad: 'linear-gradient(135deg, #2d2d2d 0%, #ff4500 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(255, 69, 0, 0.15), transparent 40%)'
         },
-        'toxic-lime': {
-            primary: '#84cc16',
-            secondary: '#15803d',
-            grad: 'linear-gradient(135deg, #a3e635 0%, #15803d 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(132, 204, 22, 0.2), transparent 40%)'
-        },
-        'frozen-ice': {
-            primary: '#38bdf8',
-            secondary: '#0ea5e9',
-            grad: 'linear-gradient(135deg, #e0f2fe 0%, #0ea5e9 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(56, 189, 248, 0.2), transparent 40%)'
-        },
-        'mystic-grape': {
-            primary: '#c084fc',
-            secondary: '#4c1d95',
-            grad: 'linear-gradient(135deg, #a855f7 0%, #4c1d95 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(192, 132, 252, 0.2), transparent 40%)'
+        'cosmic-teal': {
+            primary: '#00f260',
+            secondary: '#0575e6',
+            grad: 'linear-gradient(135deg, #00f260 0%, #0575e6 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(0, 242, 96, 0.15), transparent 40%)'
         }
     };
     
