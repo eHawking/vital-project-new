@@ -578,21 +578,6 @@ class ProductController extends BaseController
                 'message' => translate('Product_not_found'),
             ]);
         }
-
-        $status = $request->has('status') ? 1 : 0;
-        $this->productRepo->update($request->id, ['manual' => $status]);
-
-        return response()->json([
-            'status' => true,
-            'message' => translate('Manual_status_updated_successfully'),
-        ]);
-    }
-
-    public function updateVerifiedStatus(Request $request): JsonResponse
-    {
-        $product = $this->productRepo->getFirstWhere(['id' => $request->id]);
-        if ($product) {
-            $status = $request->has('is_verified') ? 1 : 0;
             $this->productRepo->update($request->id, ['is_verified' => $status]);
             return response()->json(['status' => true, 'message' => translate('verified_status_updated_successfully')]);
         }
@@ -648,21 +633,11 @@ class ProductController extends BaseController
         $status = $request['status'];
         $productId = $request['id'];
         $product = $this->productRepo->getFirstWhere(params: ['id' => $productId]);
-        $updateData = [
-            'featured' => is_null($product['featured']) || $product['featured'] == 0 ? 1 : 0
-        ];
-        $this->productRepo->update(id: $productId, data: $updateData);
         return response()->json([
-            'status' => true,
-            'message' => translate('update_successfully')
+            'result' => $products
         ]);
     }
-
-    public function updateStatus(Request $request): JsonResponse
-    {
-        $status = $request->get('status', 0);
-        $productId = $request['id'];
-        $product = $this->productRepo->getFirstWhere(params: ['id' => $productId]);
+}
 
         $success = 1;
         if ($status == 1) {
@@ -1250,4 +1225,19 @@ class ProductController extends BaseController
 		ToastMagic::success(count($productIds) . ' products have been deactivated due to incomplete data.');
 		return response()->json(['success' => true, 'message' => 'Products deactivated successfully.']);
 	}
+
+    public function getSearchedProducts(Request $request): JsonResponse
+    {
+        $searchValue = $request['name'];
+        $products = $this->productRepo->getListWhere(
+            orderBy: ['name' => 'asc'],
+            searchValue: $searchValue,
+            filters: ['status' => 1],
+            dataLimit: 20
+        );
+
+        return response()->json([
+            'result' => $products
+        ]);
+    }
 }

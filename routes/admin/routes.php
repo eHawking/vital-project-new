@@ -325,6 +325,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     Route::group(['prefix' => 'products', 'as' => 'products.', 'middleware' => ['module:product_management']], function () {
         Route::controller(ProductController::class)->group(function () {
+            Route::get('search-products', 'getSearchedProducts')->name('search-products');
             Route::get('list/{type}', 'index')->name('list');
             Route::get('add', 'getAddView')->name('add');
             Route::post('add', 'add')->name('store');
