@@ -4,29 +4,12 @@
 .dashboard-user::before { display: none; }
 .name { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-/* Bell Animation */
-@keyframes shake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(15deg); }
-    50% { transform: rotate(-15deg); }
-    75% { transform: rotate(5deg); }
-    100% { transform: rotate(0deg); }
-}
-
 .premium-notification {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
     margin-bottom: 5px;
-    background: linear-gradient(45deg, rgba(var(--rgb-primary), 0.15), rgba(var(--rgb-primary), 0.05));
-    border: 1px solid rgba(var(--rgb-primary), 0.2);
-    box-shadow: 0 0 15px rgba(var(--rgb-primary), 0.2);
-    animation: pulse-glow 2s infinite alternate;
-}
-
-@keyframes pulse-glow {
-    from { box-shadow: 0 0 5px rgba(var(--rgb-primary), 0.1); }
-    to { box-shadow: 0 0 20px rgba(var(--rgb-primary), 0.4); }
+    animation: gentleShake 5s infinite;
 }
 
 .premium-notification a {
@@ -38,10 +21,28 @@
     align-items: center;
 }
 
-.premium-notification .bell-icon {
-    animation: shake 1.5s ease-in-out infinite;
-    color: var(--color-primary);
-    filter: drop-shadow(0 0 5px var(--color-primary));
+/* Bell Icon Animation */
+.premium-bell {
+    animation: ring-premium 2s ease-in-out infinite;
+    transform-origin: top center;
+}
+
+@keyframes ring-premium {
+    0% { transform: rotate(0); }
+    5% { transform: rotate(15deg); }
+    10% { transform: rotate(-15deg); }
+    15% { transform: rotate(15deg); }
+    20% { transform: rotate(0); }
+    100% { transform: rotate(0); }
+}
+
+@keyframes gentleShake {
+    0%, 100% { transform: translateX(0); }
+    90% { transform: translateX(0); }
+    92% { transform: translateX(-2px); }
+    94% { transform: translateX(2px); }
+    96% { transform: translateX(-2px); }
+    98% { transform: translateX(2px); }
 }
 
 .premium-notification::before {
@@ -51,16 +52,49 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    animation: shimmer 3s infinite;
-    pointer-events: none;
+    background: linear-gradient(90deg, rgba(var(--rgb-primary), 0.15), transparent);
+    z-index: 0;
+    border-left: 3px solid var(--color-primary);
+}
+
+.premium-notification::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shine-premium 3s infinite;
+    transform: skewX(-20deg);
     z-index: 0;
 }
 
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    50%, 100% { transform: translateX(100%); }
+@keyframes shine-premium {
+    0% { left: -100%; opacity: 0; }
+    20% { left: 200%; opacity: 1; }
+    100% { left: 200%; opacity: 0; }
+}
+
+/* Marketplace Button */
+.btn-marketplace {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    border: none;
+    color: white !important;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-marketplace:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
 }
 
 /* Sidebar Icons */
@@ -129,15 +163,16 @@
                     <div class="sidebar-scroll-wrapper">
                         <div class="dashboard-user">
                             @if(auth()->user()->plan_id == 1)
-                                <div style="position: relative;">
-                                    <i id="checkIcon" class="fas fa-check-circle" style="font-size: 24px; position: absolute; top: -10px; right: -10px; background: white; color: blue; border-radius: 50%; z-index: 10;"></i>
-                                    <div id="popup" style="display: none; position: absolute; top: -40px; right: -60px; background: white; padding: 5px 10px; border: 1px solid blue; border-radius: 6px; z-index: 20; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: black; white-space: nowrap; font-size: 12px;">
-                                        Verified Paid <span class="text-uppercase fw-bold">{{ auth()->user()->dsp_username }}</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="user-thumb" style="border: 4px solid #2ecc71;">
+                                <div class="user-thumb" style="border: 4px solid #2ecc71; position: relative;">
                                     <img src="{{ getImage(getFilePath('userProfile') . '/' . auth()->user()->image, null, true) }}" alt="profile">
+                                    
+                                    <!-- Verified Icon (Center Bottom) -->
+                                    <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); z-index: 10;">
+                                        <i id="checkIcon" class="fas fa-check-circle" style="font-size: 24px; background: white; color: blue; border-radius: 50%;"></i>
+                                        <div id="popup" style="display: none; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); background: white; padding: 5px 10px; border: 1px solid blue; border-radius: 6px; z-index: 20; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: black; white-space: nowrap; font-size: 12px;">
+                                            Verified Paid <span class="text-uppercase fw-bold">{{ auth()->user()->dsp_username }}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             @else
                                 <div class="user-thumb">
@@ -157,7 +192,7 @@
                                 </div>
                             </div>
                             
-                            <a class="btn btn-light btn-sm w-100 mt-3 fw-bold text-primary" href="https://dewdropskin.com">
+                            <a class="btn-marketplace w-100 mt-3 fw-bold" href="https://dewdropskin.com">
                                 <i class="las la-store me-1"></i> @lang('Back to Marketplace')
                             </a>
                         </div>
@@ -171,7 +206,7 @@
                             </li>
                             <li class="premium-notification">
                                 <a class="{{menuActive('user.notifications')}}" href="{{route('user.notifications')}}">
-                                    <svg viewBox="0 0 24 24" class="bell-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg> 
+                                    <svg viewBox="0 0 24 24" class="premium-bell"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg> 
                                     @lang('LIVE Notifications')
                                 </a>
                             </li>
