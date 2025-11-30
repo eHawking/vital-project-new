@@ -4,70 +4,63 @@
 .dashboard-user::before { display: none; }
 .name { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
+/* Bell Animation */
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    50% { transform: rotate(-15deg); }
+    75% { transform: rotate(5deg); }
+    100% { transform: rotate(0deg); }
+}
+
 .premium-notification {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
     margin-bottom: 5px;
-    background: rgba(var(--rgb-primary), 0.05);
-    border: 1px solid rgba(var(--rgb-primary), 0.1);
-    transition: all 0.3s ease;
+    background: linear-gradient(45deg, rgba(var(--rgb-primary), 0.15), rgba(var(--rgb-primary), 0.05));
+    border: 1px solid rgba(var(--rgb-primary), 0.2);
+    box-shadow: 0 0 15px rgba(var(--rgb-primary), 0.2);
+    animation: pulse-glow 2s infinite alternate;
 }
 
-.premium-notification:hover {
-    background: rgba(var(--rgb-primary), 0.1);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(var(--rgb-primary), 0.15);
+@keyframes pulse-glow {
+    from { box-shadow: 0 0 5px rgba(var(--rgb-primary), 0.1); }
+    to { box-shadow: 0 0 20px rgba(var(--rgb-primary), 0.4); }
 }
 
 .premium-notification a {
     color: var(--color-primary) !important;
-    font-weight: 700;
+    font-weight: bold;
     position: relative;
-    z-index: 2; /* Ensure text is above animations */
+    z-index: 1;
     display: flex;
     align-items: center;
 }
 
-.premium-notification a svg {
-    color: var(--color-primary); /* Ensure icon matches */
-    animation: premium-ring 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    transform-origin: top center;
-    filter: drop-shadow(0 0 2px rgba(var(--rgb-primary), 0.4));
+.premium-notification .bell-icon {
+    animation: shake 1.5s ease-in-out infinite;
+    color: var(--color-primary);
+    filter: drop-shadow(0 0 5px var(--color-primary));
 }
 
-.premium-notification::after {
+.premium-notification::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 50%;
+    left: 0;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-    );
-    transform: skewX(-20deg);
-    animation: premium-shine 3s infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
 }
 
-@keyframes premium-shine {
-    0% { left: -100%; opacity: 0; }
-    50% { opacity: 0.5; }
-    100% { left: 200%; opacity: 0; }
-}
-
-@keyframes premium-ring {
-    0% { transform: rotate(0); }
-    5% { transform: rotate(15deg); }
-    10% { transform: rotate(-10deg); }
-    15% { transform: rotate(5deg); }
-    20% { transform: rotate(0); }
-    100% { transform: rotate(0); }
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    50%, 100% { transform: translateX(100%); }
 }
 
 /* Sidebar Icons */
@@ -178,7 +171,7 @@
                             </li>
                             <li class="premium-notification">
                                 <a class="{{menuActive('user.notifications')}}" href="{{route('user.notifications')}}">
-                                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg> 
+                                    <svg viewBox="0 0 24 24" class="bell-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg> 
                                     @lang('LIVE Notifications')
                                 </a>
                             </li>
