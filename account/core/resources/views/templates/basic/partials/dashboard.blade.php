@@ -4,26 +4,34 @@
 .dashboard-user::before { display: none; }
 .name { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-/* Bell Animation */
-@keyframes ring {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(15deg); }
-    50% { transform: rotate(-15deg); }
-    75% { transform: rotate(5deg); }
-    100% { transform: rotate(0deg); }
-}
-.bell-icon {
-    display: inline-block;
-    color: var(--color-danger);
-    animation: ring 1s ease-in-out infinite;
+.premium-notification {
+    position: relative;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0));
+    border-left: 3px solid #ffd700 !important;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+.premium-notification a {
+    color: #ffd700 !important;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
-.pulse-animation { animation: pulse 1s infinite; }
+
+.premium-notification::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+    animation: shimmer 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 
 /* Sidebar Icons */
 .user-dashboard-tab li a svg {
@@ -131,9 +139,9 @@
                                     @lang('Dashboard')
                                 </a>
                             </li>
-                            <li class="pulse-animation">
+                            <li class="premium-notification">
                                 <a class="{{menuActive('user.notifications')}}" href="{{route('user.notifications')}}">
-                                    <svg viewBox="0 0 24 24" class="bell-icon"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg> 
+                                    <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg> 
                                     @lang('LIVE Notifications')
                                 </a>
                             </li>
@@ -319,20 +327,6 @@
 
         .premium-sidebar .user-dashboard-tab {
             flex: 1;
-        }
-
-        /* Full width sidebar items on mobile */
-        .premium-sidebar .user-dashboard-tab li {
-            margin-bottom: 0 !important;
-            width: 100%;
-        }
-
-        .premium-sidebar .user-dashboard-tab li a {
-            border-radius: 0 !important;
-            margin: 0 !important;
-            width: 100%;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 15px 20px !important;
         }
         
         .premium-sidebar.show-sidebar {
