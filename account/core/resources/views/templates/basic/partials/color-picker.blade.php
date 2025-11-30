@@ -18,6 +18,9 @@
                 <button class="theme-option" data-theme-color="sunset-orange" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></button>
                 <button class="theme-option" data-theme-color="ruby-red" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></button>
                 <button class="theme-option" data-theme-color="luxury-gold" style="background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);"></button>
+                <button class="theme-option" data-theme-color="deep-space" style="background: linear-gradient(135deg, #0f172a, #334155); border: 1px solid rgba(255,255,255,0.2);"></button>
+                <button class="theme-option" data-theme-color="neon-cyber" style="background: linear-gradient(135deg, #ff00cc, #333399);"></button>
+                <button class="theme-option" data-theme-color="midnight-rose" style="background: linear-gradient(135deg, #881111, #550000);"></button>
             </div>
         </div>
         
@@ -38,7 +41,7 @@
         right: -300px;
         width: 300px;
         height: 100vh;
-        background: var(--bg-sidebar, rgba(15, 23, 42, 0.95));
+        background: var(--bg-card, #1e293b); /* Match menu sidebar */
         backdrop-filter: blur(20px);
         box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
         z-index: 10000;
@@ -46,6 +49,13 @@
         border-left: 1px solid var(--border-card, rgba(255,255,255,0.1));
         display: flex;
         flex-direction: column;
+    }
+
+    @media (max-width: 768px) {
+        .theme-settings-drawer {
+            width: 100%;
+            right: -100%;
+        }
     }
     
     .theme-settings-drawer.open {
@@ -218,6 +228,24 @@
             secondary: '#b38728',
             grad: 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #b38728 100%)',
             glow: 'radial-gradient(circle at top right, rgba(191, 149, 63, 0.15), transparent 40%)'
+        },
+        'deep-space': {
+            primary: '#3b82f6', /* Fallback blue for visibility against dark */
+            secondary: '#1e293b',
+            grad: 'linear-gradient(135deg, #0f172a 0%, #334155 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 40%)'
+        },
+        'neon-cyber': {
+            primary: '#d946ef',
+            secondary: '#8b5cf6',
+            grad: 'linear-gradient(135deg, #ff00cc 0%, #333399 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(217, 70, 239, 0.2), transparent 40%)'
+        },
+        'midnight-rose': {
+            primary: '#f43f5e',
+            secondary: '#881337',
+            grad: 'linear-gradient(135deg, #881111 0%, #550000 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(244, 63, 94, 0.15), transparent 40%)'
         }
     };
     

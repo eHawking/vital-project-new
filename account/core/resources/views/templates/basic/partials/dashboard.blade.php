@@ -372,6 +372,7 @@
             flex-direction: column;
             padding-bottom: 0 !important;
             will-change: transform;
+            border-radius: 0 !important; /* No radius on phone */
         }
 
         .sidebar-scroll-wrapper {
