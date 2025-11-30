@@ -35,19 +35,27 @@
     .theme-settings-drawer {
         position: fixed;
         top: 0;
-        right: -300px;
-        width: 300px;
+        right: -350px; /* Increased width */
+        width: 350px;
         height: 100vh;
-        background: var(--bg-sidebar, rgba(15, 23, 42, 0.95));
-        backdrop-filter: blur(20px);
+        background: var(--bg-sidebar, #1e293b); /* Match sidebar exactly */
         box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
         z-index: 10000;
         transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border-left: 1px solid var(--border-card, rgba(255,255,255,0.1));
         display: flex;
         flex-direction: column;
+        border-radius: 0 !important; /* Remove radius */
     }
     
+    /* Mobile Full Width */
+    @media (max-width: 768px) {
+        .theme-settings-drawer {
+            width: 100%;
+            right: -100%;
+        }
+    }
+
     .theme-settings-drawer.open {
         right: 0;
     }
@@ -119,23 +127,19 @@
         width: 100%;
         aspect-ratio: 1;
         border-radius: 50%;
-        border: 3px solid transparent; /* Transparent border for layout stability */
+        border: 3px solid transparent;
         cursor: pointer;
-        transition: transform 0.2s, border-color 0.3s;
+        transition: transform 0.2s;
         position: relative;
-        overflow: hidden; /* Ensures the gradient stays within the circle */
-        padding: 0; /* Reset default button padding */
     }
-
+    
     .theme-option:hover {
         transform: scale(1.1);
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
-
+    
     .theme-option.active {
         border-color: var(--text-primary);
         transform: scale(1.1);
-        box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
     
     .mode-switch-container {

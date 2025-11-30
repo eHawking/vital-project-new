@@ -107,11 +107,16 @@
     margin-right: 10px;
 }
 
+/* Premium Sidebar (No Radius) */
+.premium-sidebar, .dashboard-sidebar {
+    border-radius: 0 !important;
+}
+
 /* Premium Mobile Header */
 .premium-mobile-header {
     background: var(--grad-primary);
     padding: 15px 20px;
-    border-radius: 20px;
+    border-radius: 0; /* Remove radius */
     box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
     position: relative;
     overflow: hidden;
