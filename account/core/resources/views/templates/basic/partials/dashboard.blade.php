@@ -220,25 +220,15 @@
       const closeBtn = document.querySelector('.close-dashboard');
       const body = document.body;
       
-      // Create or Select Overlay
-      let overlay = document.querySelector('.sidebar-overlay');
-      if (!overlay) {
-          overlay = document.createElement('div');
-          overlay.className = 'sidebar-overlay';
-          document.body.appendChild(overlay);
-      }
-
       // Function to Open Sidebar
       function openSidebar() {
           sidebar.classList.add('show-sidebar');
-          overlay.classList.add('active');
           body.style.overflow = 'hidden'; // Prevent background scrolling
       }
 
       // Function to Close Sidebar
       function closeSidebar() {
           sidebar.classList.remove('show-sidebar');
-          overlay.classList.remove('active');
           body.style.overflow = ''; // Restore background scrolling
       }
 
@@ -349,22 +339,6 @@
             transform: translateX(0) !important; /* Slide in */
         }
         
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: transparent;
-            z-index: 99998;
-            display: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .sidebar-overlay.active {
-            display: block;
-        }
-
         /* Close button positioning */
         .close-dashboard {
             position: absolute;
