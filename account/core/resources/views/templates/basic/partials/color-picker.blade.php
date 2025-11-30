@@ -18,13 +18,6 @@
                 <button class="theme-option" data-theme-color="sunset-orange" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></button>
                 <button class="theme-option" data-theme-color="ruby-red" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></button>
                 <button class="theme-option" data-theme-color="luxury-gold" style="background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);"></button>
-                <button class="theme-option" data-theme-color="deep-space" style="background: linear-gradient(135deg, #0f172a, #334155); border: 1px solid rgba(255,255,255,0.2);"></button>
-                <button class="theme-option" data-theme-color="neon-cyber" style="background: linear-gradient(135deg, #ff00cc, #333399);"></button>
-                <button class="theme-option" data-theme-color="midnight-rose" style="background: linear-gradient(135deg, #881111, #550000);"></button>
-                <button class="theme-option" data-theme-color="aurum-prestige" style="background: linear-gradient(135deg, #e5e4e2, #ffd700);"></button>
-                <button class="theme-option" data-theme-color="mystic-amethyst" style="background: linear-gradient(135deg, #9d4edd, #3c096c);"></button>
-                <button class="theme-option" data-theme-color="volcanic-ash" style="background: linear-gradient(135deg, #2d2d2d, #ff4500); border: 1px solid rgba(255,255,255,0.2);"></button>
-                <button class="theme-option" data-theme-color="cosmic-teal" style="background: linear-gradient(135deg, #00f260, #0575e6);"></button>
             </div>
         </div>
         
@@ -45,7 +38,7 @@
         right: -300px;
         width: 300px;
         height: 100vh;
-        background: var(--bg-card, #1e293b); /* Match menu sidebar */
+        background: var(--bg-sidebar, rgba(15, 23, 42, 0.95));
         backdrop-filter: blur(20px);
         box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
         z-index: 10000;
@@ -53,13 +46,6 @@
         border-left: 1px solid var(--border-card, rgba(255,255,255,0.1));
         display: flex;
         flex-direction: column;
-    }
-
-    @media (max-width: 768px) {
-        .theme-settings-drawer {
-            width: 100%;
-            right: -100%;
-        }
     }
     
     .theme-settings-drawer.open {
@@ -133,19 +119,23 @@
         width: 100%;
         aspect-ratio: 1;
         border-radius: 50%;
-        border: 3px solid transparent;
+        border: 3px solid transparent; /* Transparent border for layout stability */
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: transform 0.2s, border-color 0.3s;
         position: relative;
+        overflow: hidden; /* Ensures the gradient stays within the circle */
+        padding: 0; /* Reset default button padding */
     }
-    
+
     .theme-option:hover {
         transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
-    
+
     .theme-option.active {
         border-color: var(--text-primary);
         transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
     
     .mode-switch-container {
@@ -232,48 +222,6 @@
             secondary: '#b38728',
             grad: 'linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #b38728 100%)',
             glow: 'radial-gradient(circle at top right, rgba(191, 149, 63, 0.15), transparent 40%)'
-        },
-        'deep-space': {
-            primary: '#3b82f6', /* Fallback blue for visibility against dark */
-            secondary: '#1e293b',
-            grad: 'linear-gradient(135deg, #0f172a 0%, #334155 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 40%)'
-        },
-        'neon-cyber': {
-            primary: '#d946ef',
-            secondary: '#8b5cf6',
-            grad: 'linear-gradient(135deg, #ff00cc 0%, #333399 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(217, 70, 239, 0.2), transparent 40%)'
-        },
-        'midnight-rose': {
-            primary: '#f43f5e',
-            secondary: '#881337',
-            grad: 'linear-gradient(135deg, #881111 0%, #550000 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(244, 63, 94, 0.15), transparent 40%)'
-        },
-        'aurum-prestige': {
-            primary: '#d4af37',
-            secondary: '#c0c0c0',
-            grad: 'linear-gradient(135deg, #e5e4e2 0%, #ffd700 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(212, 175, 55, 0.2), transparent 40%)'
-        },
-        'mystic-amethyst': {
-            primary: '#9d4edd',
-            secondary: '#3c096c',
-            grad: 'linear-gradient(135deg, #9d4edd 0%, #3c096c 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(157, 78, 221, 0.2), transparent 40%)'
-        },
-        'volcanic-ash': {
-            primary: '#ff4500',
-            secondary: '#2d2d2d',
-            grad: 'linear-gradient(135deg, #2d2d2d 0%, #ff4500 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(255, 69, 0, 0.15), transparent 40%)'
-        },
-        'cosmic-teal': {
-            primary: '#00f260',
-            secondary: '#0575e6',
-            grad: 'linear-gradient(135deg, #00f260 0%, #0575e6 100%)',
-            glow: 'radial-gradient(circle at top right, rgba(0, 242, 96, 0.15), transparent 40%)'
         }
     };
     
