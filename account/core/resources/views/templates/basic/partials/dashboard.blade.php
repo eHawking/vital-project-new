@@ -47,8 +47,35 @@
     100% { box-shadow: 0 0 0 0 rgba(var(--rgb-primary), 0); }
 }
 
+@keyframes ring-premium {
+    0% { transform: rotate(0); }
+    1% { transform: rotate(30deg); }
+    3% { transform: rotate(-28deg); }
+    5% { transform: rotate(34deg); }
+    7% { transform: rotate(-32deg); }
+    9% { transform: rotate(30deg); }
+    11% { transform: rotate(-28deg); }
+    13% { transform: rotate(26deg); }
+    15% { transform: rotate(-24deg); }
+    17% { transform: rotate(22deg); }
+    19% { transform: rotate(-20deg); }
+    21% { transform: rotate(18deg); }
+    23% { transform: rotate(-16deg); }
+    25% { transform: rotate(14deg); }
+    27% { transform: rotate(-12deg); }
+    29% { transform: rotate(10deg); }
+    31% { transform: rotate(-8deg); }
+    33% { transform: rotate(6deg); }
+    35% { transform: rotate(-4deg); }
+    37% { transform: rotate(2deg); }
+    39% { transform: rotate(-1deg); }
+    41% { transform: rotate(1deg); }
+    43% { transform: rotate(0); }
+    100% { transform: rotate(0); }
+}
+
 .premium-bell {
-    animation: ring-premium 3s ease-in-out infinite;
+    animation: ring-premium 4s ease-in-out infinite;
     transform-origin: top center;
     filter: drop-shadow(0 0 5px rgba(var(--rgb-primary), 0.4));
 }
@@ -192,8 +219,10 @@
                     <div class="sidebar-scroll-wrapper">
                         <div class="dashboard-user">
                             @if(auth()->user()->plan_id == 1)
-                                <div class="user-thumb" style="border: 4px solid #2ecc71; position: relative; margin-bottom: 25px;">
-                                    <img src="{{ getImage(getFilePath('userProfile') . '/' . auth()->user()->image, null, true) }}" alt="profile">
+                                <div style="position: relative; display: inline-block; margin-bottom: 25px;">
+                                    <div class="user-thumb" style="border: 4px solid #2ecc71; margin-bottom: 0;">
+                                        <img src="{{ getImage(getFilePath('userProfile') . '/' . auth()->user()->image, null, true) }}" alt="profile">
+                                    </div>
                                     
                                     <!-- Verified Icon (Outside Circle Bottom) -->
                                     <div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); z-index: 10;">
