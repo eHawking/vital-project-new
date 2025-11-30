@@ -1,71 +1,56 @@
-<div class="theme-settings-drawer" id="themeSettingsDrawer">
-    <div class="theme-settings-toggle" id="themeSettingsToggle">
-        <i class="bi bi-palette-fill"></i>
-    </div>
-    
-    <div class="theme-settings-header">
-        <h5>Theme Settings</h5>
-        <button class="close-btn" id="closeThemeSettings"><i class="bi bi-x-lg"></i></button>
-    </div>
-    
-    <div class="theme-settings-body">
-        <div class="setting-group">
-            <h6>Color Theme</h6>
-            <div class="theme-options">
-                <button class="theme-option active" data-theme-color="royal-purple" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);"></button>
-                <button class="theme-option" data-theme-color="ocean-blue" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);"></button>
-                <button class="theme-option" data-theme-color="emerald-green" style="background: linear-gradient(135deg, #10b981, #059669);"></button>
-                <button class="theme-option" data-theme-color="sunset-orange" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></button>
-                <button class="theme-option" data-theme-color="ruby-red" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></button>
-                <button class="theme-option" data-theme-color="luxury-gold" style="background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);"></button>
-                <button class="theme-option" data-theme-color="deep-space" style="background: linear-gradient(135deg, #0f172a, #334155); border: 1px solid rgba(255,255,255,0.2);"></button>
-                <button class="theme-option" data-theme-color="neon-cyber" style="background: linear-gradient(135deg, #ff00cc, #333399);"></button>
-                <button class="theme-option" data-theme-color="midnight-rose" style="background: linear-gradient(135deg, #881111, #550000);"></button>
+<!-- Theme Settings Modal (Replaces Drawer) -->
+<div class="modal fade" id="themeSettingsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: var(--bg-card, #1e293b); border: 1px solid var(--border-card, rgba(255,255,255,0.1)); backdrop-filter: blur(20px);">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-white">Theme Settings</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-        
-        <div class="setting-group">
-            <h6>Mode</h6>
-            <div class="mode-switch-container">
-                <button class="mode-btn active" data-mode="dark"><i class="bi bi-moon-stars-fill"></i> Dark</button>
-                <button class="mode-btn" data-mode="light"><i class="bi bi-sun-fill"></i> Light</button>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <h6 class="text-white-50 mb-3 text-uppercase small ls-1">Color Theme</h6>
+                    <div class="theme-options">
+                        <button class="theme-option active" data-theme-color="royal-purple" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);"></button>
+                        <button class="theme-option" data-theme-color="ocean-blue" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);"></button>
+                        <button class="theme-option" data-theme-color="emerald-green" style="background: linear-gradient(135deg, #10b981, #059669);"></button>
+                        <button class="theme-option" data-theme-color="sunset-orange" style="background: linear-gradient(135deg, #f59e0b, #d97706);"></button>
+                        <button class="theme-option" data-theme-color="ruby-red" style="background: linear-gradient(135deg, #ef4444, #dc2626);"></button>
+                        <button class="theme-option" data-theme-color="luxury-gold" style="background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);"></button>
+                        <button class="theme-option" data-theme-color="deep-space" style="background: linear-gradient(135deg, #0f172a, #334155); border: 1px solid rgba(255,255,255,0.2);"></button>
+                        <button class="theme-option" data-theme-color="neon-cyber" style="background: linear-gradient(135deg, #ff00cc, #333399);"></button>
+                        <button class="theme-option" data-theme-color="midnight-rose" style="background: linear-gradient(135deg, #881111, #550000);"></button>
+                        
+                        <!-- Super Premium Colors -->
+                        <button class="theme-option" data-theme-color="aurora" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></button>
+                        <button class="theme-option" data-theme-color="plasma" style="background: linear-gradient(135deg, #4b6cb7, #182848);"></button>
+                        <button class="theme-option" data-theme-color="golden-hour" style="background: linear-gradient(135deg, #ff512f, #f09819);"></button>
+                        <button class="theme-option" data-theme-color="crimson-king" style="background: linear-gradient(135deg, #bdc3c7, #2c3e50);"></button>
+                    </div>
+                </div>
+                
+                <div class="setting-group mt-4">
+                    <h6 class="text-white-50 mb-3 text-uppercase small ls-1">Mode</h6>
+                    <div class="mode-switch-container">
+                        <button class="mode-btn active" data-mode="dark"><i class="bi bi-moon-stars-fill"></i> Dark</button>
+                        <button class="mode-btn" data-mode="light"><i class="bi bi-sun-fill"></i> Light</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    .theme-settings-drawer {
-        position: fixed;
-        top: 0;
-        right: -300px;
-        width: 300px;
-        height: 100vh;
-        background: var(--bg-card, #1e293b); /* Match menu sidebar */
-        backdrop-filter: blur(20px);
-        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
-        z-index: 10000;
-        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border-left: 1px solid var(--border-card, rgba(255,255,255,0.1));
-        display: flex;
-        flex-direction: column;
-    }
+<!-- Fixed Toggle Button -->
+<div class="theme-settings-toggle" id="themeSettingsToggle">
+    <i class="bi bi-palette-fill"></i>
+</div>
 
-    @media (max-width: 768px) {
-        .theme-settings-drawer {
-            width: 100%;
-            right: -100%;
-        }
-    }
-    
-    .theme-settings-drawer.open {
-        right: 0;
-    }
-    
+<style>
     .theme-settings-toggle {
-        position: absolute;
-        left: -50px;
-        top: 200px;
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
         width: 50px;
         height: 50px;
         background: var(--color-primary, #6366f1);
@@ -77,51 +62,17 @@
         box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
         color: white;
         font-size: 1.2rem;
+        z-index: 9999;
+        transition: all 0.3s ease;
     }
-    
-    .theme-settings-header {
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid var(--border-card, rgba(255,255,255,0.1));
-    }
-    
-    .theme-settings-header h5 {
-        margin: 0;
-        color: var(--text-primary);
-        font-weight: 700;
-    }
-    
-    .close-btn {
-        background: none;
-        border: none;
-        color: var(--text-secondary);
-        cursor: pointer;
-        font-size: 1.2rem;
-    }
-    
-    .theme-settings-body {
-        padding: 20px;
-        flex: 1;
-        overflow-y: auto;
-    }
-    
-    .setting-group {
-        margin-bottom: 30px;
-    }
-    
-    .setting-group h6 {
-        color: var(--text-secondary);
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        letter-spacing: 1px;
-        margin-bottom: 15px;
+
+    .theme-settings-toggle:hover {
+        padding-right: 10px;
     }
     
     .theme-options {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 15px;
     }
     
@@ -133,6 +84,7 @@
         cursor: pointer;
         transition: transform 0.2s;
         position: relative;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
     
     .theme-option:hover {
@@ -140,8 +92,9 @@
     }
     
     .theme-option.active {
-        border-color: var(--text-primary);
+        border-color: white;
         transform: scale(1.1);
+        box-shadow: 0 0 15px var(--color-primary);
     }
     
     .mode-switch-container {
@@ -169,7 +122,7 @@
     }
     
     .mode-btn.active {
-        background: var(--bg-card);
+        background: var(--bg-body);
         color: var(--color-primary);
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
@@ -177,19 +130,34 @@
 
 <script>
 (function() {
-    const drawer = document.getElementById('themeSettingsDrawer');
     const toggle = document.getElementById('themeSettingsToggle');
-    const closeBtn = document.getElementById('closeThemeSettings');
     const themeBtns = document.querySelectorAll('.theme-option');
     const modeBtns = document.querySelectorAll('.mode-btn');
-    
-    // Drawer Toggle
-    function toggleDrawer() {
-        drawer.classList.toggle('open');
+    let modal = null;
+
+    // Initialize Modal
+    function getModal() {
+        if (!modal && window.bootstrap) {
+            const el = document.getElementById('themeSettingsModal');
+            if (el) modal = new bootstrap.Modal(el);
+        }
+        return modal;
     }
     
-    if(toggle) toggle.addEventListener('click', toggleDrawer);
-    if(closeBtn) closeBtn.addEventListener('click', toggleDrawer);
+    if(toggle) {
+        toggle.addEventListener('click', function() {
+            const m = getModal();
+            if (m) m.show();
+        });
+    }
+
+    // Allow external triggers (like from dashboard header)
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('#dashboardThemeToggle')) {
+            const m = getModal();
+            if (m) m.show();
+        }
+    });
     
     // Theme Color Selection
     const themes = {
@@ -230,7 +198,7 @@
             glow: 'radial-gradient(circle at top right, rgba(191, 149, 63, 0.15), transparent 40%)'
         },
         'deep-space': {
-            primary: '#3b82f6', /* Fallback blue for visibility against dark */
+            primary: '#3b82f6',
             secondary: '#1e293b',
             grad: 'linear-gradient(135deg, #0f172a 0%, #334155 100%)',
             glow: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 40%)'
@@ -246,6 +214,30 @@
             secondary: '#881337',
             grad: 'linear-gradient(135deg, #881111 0%, #550000 100%)',
             glow: 'radial-gradient(circle at top right, rgba(244, 63, 94, 0.15), transparent 40%)'
+        },
+        'aurora': {
+            primary: '#00c6ff',
+            secondary: '#0072ff',
+            grad: 'linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(0, 198, 255, 0.2), transparent 40%)'
+        },
+        'plasma': {
+            primary: '#4b6cb7',
+            secondary: '#182848',
+            grad: 'linear-gradient(135deg, #4b6cb7 0%, #182848 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(75, 108, 183, 0.2), transparent 40%)'
+        },
+        'golden-hour': {
+            primary: '#ff512f',
+            secondary: '#f09819',
+            grad: 'linear-gradient(135deg, #ff512f 0%, #f09819 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(255, 81, 47, 0.2), transparent 40%)'
+        },
+        'crimson-king': {
+            primary: '#bdc3c7',
+            secondary: '#2c3e50',
+            grad: 'linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)',
+            glow: 'radial-gradient(circle at top right, rgba(189, 195, 199, 0.2), transparent 40%)'
         }
     };
     
@@ -274,7 +266,7 @@
     const savedTheme = localStorage.getItem('user-theme-color');
     if (savedTheme) applyTheme(savedTheme);
     
-    // Mode Switch (Integration with existing theme switcher)
+    // Mode Switch
     modeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const mode = btn.dataset.mode;
@@ -282,22 +274,19 @@
             const currentTheme = htmlElement.getAttribute('data-theme');
             
             if (currentTheme !== mode) {
-                // Trigger existing theme switcher if available
                 const existingSwitcher = document.getElementById('themeSwitcher');
                 if (existingSwitcher) existingSwitcher.click();
                 else {
-                    // Fallback manual switch
                     htmlElement.setAttribute('data-theme', mode);
                     localStorage.setItem('theme', mode);
                 }
             }
             
-            // Update active states
             modeBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
         });
     });
     
-    // Sync mode buttons with current theme
+    // Sync mode buttons
     const currentTheme = localStorage.getItem('theme') || 'dark';
     modeBtns.forEach(b => b.classList.toggle('active', b.dataset.mode === currentTheme));
 })();
