@@ -6,95 +6,124 @@
 
 .premium-notification {
     position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    animation: gentleShake 5s infinite;
+    overflow: visible; /* Allow pulse to show */
+    border-radius: 12px;
+    margin-bottom: 8px;
+    background: rgba(var(--rgb-primary), 0.05);
+    border: 1px solid rgba(var(--rgb-primary), 0.1);
 }
 
 .premium-notification a {
     color: var(--color-primary) !important;
-    font-weight: bold;
+    font-weight: 700;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     align-items: center;
+    padding: 10px 15px;
+    letter-spacing: 0.5px;
 }
 
-/* Bell Icon Animation */
-.premium-bell {
-    animation: ring-premium 2s ease-in-out infinite;
-    transform-origin: top center;
-}
-
-@keyframes ring-premium {
-    0% { transform: rotate(0); }
-    5% { transform: rotate(15deg); }
-    10% { transform: rotate(-15deg); }
-    15% { transform: rotate(15deg); }
-    20% { transform: rotate(0); }
-    100% { transform: rotate(0); }
-}
-
-@keyframes gentleShake {
-    0%, 100% { transform: translateX(0); }
-    90% { transform: translateX(0); }
-    92% { transform: translateX(-2px); }
-    94% { transform: translateX(2px); }
-    96% { transform: translateX(-2px); }
-    98% { transform: translateX(2px); }
-}
-
+/* Live Pulse Effect */
 .premium-notification::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(var(--rgb-primary), 0.15), transparent);
-    z-index: 0;
-    border-left: 3px solid var(--color-primary);
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(var(--rgb-primary), 0.4);
+    animation: pulse-red 2s infinite;
+    display: none; /* Hide default dot if we use icon */
 }
 
-.premium-notification::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: shine-premium 3s infinite;
-    transform: skewX(-20deg);
-    z-index: 0;
+/* Premium Radar Animation */
+@keyframes pulse-radar {
+    0% { box-shadow: 0 0 0 0 rgba(var(--rgb-primary), 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(var(--rgb-primary), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--rgb-primary), 0); }
 }
 
-@keyframes shine-premium {
-    0% { left: -100%; opacity: 0; }
-    20% { left: 200%; opacity: 1; }
-    100% { left: 200%; opacity: 0; }
+.premium-bell {
+    animation: ring-premium 3s ease-in-out infinite;
+    transform-origin: top center;
+    filter: drop-shadow(0 0 5px rgba(var(--rgb-primary), 0.4));
 }
 
-/* Marketplace Button */
-.btn-marketplace {
-    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-    border: none;
-    color: white !important;
-    border-radius: 12px;
-    padding: 12px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+/* Portal Card (Marketplace) */
+.portal-card {
+    position: relative;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none !important;
+    display: block;
+}
+
+.portal-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 20px -5px rgba(var(--rgb-primary), 0.3);
+}
+
+.portal-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.portal-info h6 {
+    color: white;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.portal-info span {
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.portal-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--grad-primary);
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.btn-marketplace:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+/* Portal Background Animation */
+.portal-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(var(--rgb-primary), 0.1) 0%, transparent 70%);
+    animation: rotate-bg 10s linear infinite;
+    z-index: 1;
+}
+
+@keyframes rotate-bg {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Sidebar Icons */
@@ -163,14 +192,14 @@
                     <div class="sidebar-scroll-wrapper">
                         <div class="dashboard-user">
                             @if(auth()->user()->plan_id == 1)
-                                <div class="user-thumb" style="border: 4px solid #2ecc71; position: relative;">
+                                <div class="user-thumb" style="border: 4px solid #2ecc71; position: relative; margin-bottom: 25px;">
                                     <img src="{{ getImage(getFilePath('userProfile') . '/' . auth()->user()->image, null, true) }}" alt="profile">
                                     
-                                    <!-- Verified Icon (Center Bottom) -->
-                                    <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); z-index: 10;">
-                                        <i id="checkIcon" class="fas fa-check-circle" style="font-size: 24px; background: white; color: blue; border-radius: 50%;"></i>
-                                        <div id="popup" style="display: none; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); background: white; padding: 5px 10px; border: 1px solid blue; border-radius: 6px; z-index: 20; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: black; white-space: nowrap; font-size: 12px;">
-                                            Verified Paid <span class="text-uppercase fw-bold">{{ auth()->user()->dsp_username }}</span>
+                                    <!-- Verified Icon (Outside Circle Bottom) -->
+                                    <div style="position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); z-index: 10;">
+                                        <i id="checkIcon" class="fas fa-check-circle" style="font-size: 28px; background: white; color: #2ecc71; border-radius: 50%; border: 3px solid var(--bg-card);"></i>
+                                        <div id="popup" style="display: none; position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); background: white; padding: 6px 12px; border-radius: 8px; z-index: 20; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2); color: #1e293b; white-space: nowrap; font-size: 12px; font-weight: 700; border: 1px solid #e2e8f0;">
+                                            Verified Paid <span class="text-uppercase text-primary">{{ auth()->user()->dsp_username }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -192,8 +221,17 @@
                                 </div>
                             </div>
                             
-                            <a class="btn-marketplace w-100 mt-3 fw-bold" href="https://dewdropskin.com">
-                                <i class="las la-store me-1"></i> @lang('Back to Marketplace')
+                            <!-- Creative Marketplace Portal Card -->
+                            <a href="https://dewdropskin.com" class="portal-card">
+                                <div class="portal-content">
+                                    <div class="portal-info">
+                                        <h6>Marketplace</h6>
+                                        <span>Go to Store <i class="las la-arrow-right ms-1"></i></span>
+                                    </div>
+                                    <div class="portal-icon">
+                                        <i class="las la-store-alt"></i>
+                                    </div>
+                                </div>
                             </a>
                         </div>
 
