@@ -243,11 +243,6 @@ class Order extends Model
         return $this->hasMany(OrderDeliveryVerification::class,'order_id');
     }
 
-    public function verificationImages(): HasMany
-    {
-        return $this->hasMany(OrderDeliveryVerification::class,'order_id');
-    }
-
     protected static function boot(): void
     {
         parent::boot();
