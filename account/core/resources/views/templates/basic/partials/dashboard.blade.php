@@ -107,16 +107,11 @@
     margin-right: 10px;
 }
 
-/* Premium Sidebar (No Radius) */
-.premium-sidebar, .dashboard-sidebar {
-    border-radius: 0 !important;
-}
-
 /* Premium Mobile Header */
 .premium-mobile-header {
     background: var(--grad-primary);
     padding: 15px 20px;
-    border-radius: 0; /* Remove radius */
+    border-radius: 20px;
     box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4);
     position: relative;
     overflow: hidden;
@@ -152,6 +147,11 @@
 .header-icon-btn:hover {
     background: rgba(255,255,255,0.3);
     transform: translateY(-2px);
+}
+
+/* Remove Radius from Menu Sidebar */
+.premium-sidebar, .dashboard-sidebar {
+    border-radius: 0 !important;
 }
 </style>
 
