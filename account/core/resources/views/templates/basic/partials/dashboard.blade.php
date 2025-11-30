@@ -333,6 +333,14 @@
             width: 100%;
             padding-top: 20px;
             touch-action: pan-y; /* Allow vertical scroll, prevent horizontal */
+            
+            /* Hide Scrollbar */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .sidebar-scroll-wrapper::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
 
         .premium-sidebar .user-dashboard-tab {
