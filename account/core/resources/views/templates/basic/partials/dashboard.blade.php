@@ -148,11 +148,6 @@
     background: rgba(255,255,255,0.3);
     transform: translateY(-2px);
 }
-
-/* Remove Radius from Menu Sidebar */
-.premium-sidebar, .dashboard-sidebar {
-    border-radius: 0 !important;
-}
 </style>
 
 <section class="user-dashboard" style="padding-top: 20px; padding-bottom: 50px;">
@@ -377,6 +372,7 @@
             flex-direction: column;
             padding-bottom: 0 !important;
             will-change: transform;
+            border-radius: 0 !important; /* Remove radius on phone */
         }
 
         .sidebar-scroll-wrapper {
