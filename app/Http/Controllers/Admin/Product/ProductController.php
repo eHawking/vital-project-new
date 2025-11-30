@@ -1237,7 +1237,7 @@ class ProductController extends BaseController
         );
 
         return response()->json([
-            'result' => $products
+            'result' => $products->items()
         ]);
     }
 }
