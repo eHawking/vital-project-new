@@ -301,9 +301,42 @@
             </div>
             
             @if (auth()->user()->pv >= 100)
-                <button type="button" class="btn btn-primary w-100 btn-sm pulse-animation d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#generateVoucherModal">
-                    <i class="las la-ticket-alt fs-6"></i> Generate Voucher
+                <button type="button" class="btn btn-primary w-100 premium-btn-custom pulse-animation" data-bs-toggle="modal" data-bs-target="#generateVoucherModal">
+                    <i class="las la-magic me-2"></i> @lang('Generate Voucher')
                 </button>
+                <style>
+                    .premium-btn-custom {
+                        background: var(--grad-primary);
+                        border: none;
+                        padding: 12px;
+                        border-radius: 12px;
+                        font-weight: 700;
+                        letter-spacing: 0.5px;
+                        box-shadow: 0 4px 15px rgba(var(--rgb-primary), 0.4);
+                        transition: all 0.3s ease;
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    .premium-btn-custom:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 8px 25px rgba(var(--rgb-primary), 0.6);
+                    }
+                    .premium-btn-custom::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: -100%;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+                        animation: shine 3s infinite;
+                    }
+                    @keyframes shine {
+                        0% { left: -100%; }
+                        20% { left: 100%; }
+                        100% { left: 100%; }
+                    }
+                </style>
             @else
                 <div class="d-flex justify-content-between text-muted small mb-1">
                     <span>Progress</span>
