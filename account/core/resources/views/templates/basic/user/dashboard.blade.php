@@ -301,8 +301,8 @@
             </div>
             
             @if (auth()->user()->pv >= 100)
-                <button type="button" class="btn btn-primary w-100 btn-sm pulse-animation" data-bs-toggle="modal" data-bs-target="#generateVoucherModal">
-                    Generate Voucher
+                <button type="button" class="btn btn-primary w-100 btn-sm pulse-animation d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#generateVoucherModal">
+                    <i class="las la-ticket-alt fs-6"></i> Generate Voucher
                 </button>
             @else
                 <div class="d-flex justify-content-between text-muted small mb-1">
