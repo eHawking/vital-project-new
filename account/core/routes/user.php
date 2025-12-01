@@ -10,6 +10,8 @@ use App\Http\Controllers\VoucherController;
 
 Route::namespace('User\Auth')->name('user.')->middleware('guest')->group(function () {
     Route::controller('LoginController')->group(function () {
+        Route::get('login', 'showLoginForm')->name('login');
+        Route::post('login', 'login');
         Route::get('logout', 'logout')->middleware('auth')->withoutMiddleware('guest')->name('logout');
     });
 	
