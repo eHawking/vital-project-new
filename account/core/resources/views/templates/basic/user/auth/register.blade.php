@@ -369,7 +369,7 @@
                                             <button class="account--btn" type="submit" {{ session()->has('notify') ? 'disabled' : '' }}>@lang('Create Account')</button>
                                             
                                             <div class="text-center mt-3">
-                                                <p class="text-white-50 mb-2">@lang('Already have an account?') <a href="{{ route('user.login') }}" class="text-primary fw-bold">@lang('Sign In')</a></p>
+                                                <p class="text-white-50 mb-2">@lang('Already have an account?') <a href="https://dewdropskin.com" class="text-primary fw-bold">@lang('Sign In')</a></p>
                                                 <a class="custom--btn" href="https://dewdropskin.com">
                                                     <i class="las la-store me-1"></i> <span>@lang('Back to Marketplace')</span>
                                                 </a>
