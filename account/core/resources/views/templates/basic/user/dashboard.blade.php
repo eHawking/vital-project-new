@@ -517,13 +517,13 @@
         </div>
     </div>
 
-</div>
+    <!-- Voucher Modals (Included inside content to ensure rendering) -->
+    @include($activeTemplate . 'partials.voucher_modals')
 
-<!-- Mobile Bottom Navigation -->
-@include($activeTemplate . 'partials.mobile-bottom-nav')
+    <!-- Mobile Bottom Navigation -->
+    @include($activeTemplate . 'partials.mobile-bottom-nav')
 
 @endsection
-@include($activeTemplate.'partials.voucher_modals')
 @if (auth()->user()->kv == Status::KYC_UNVERIFIED && auth()->user()->kyc_rejection_reason)
     <div class="modal fade" id="kycRejectionReason">
         <div class="modal-dialog" role="document">
