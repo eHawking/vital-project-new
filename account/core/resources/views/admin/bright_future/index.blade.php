@@ -78,5 +78,6 @@ table.style--two tbody tr:hover {
 @endsection
 
 @push('breadcrumb-plugins')
+    <a href="{{ route('admin.bright.future.manual.profit') }}" class="btn btn-sm btn-outline--primary"><i class="las la-plus"></i> @lang('Manual Record Profit')</a>
     <x-search-form placeholder="Search users" />
 @endpush
