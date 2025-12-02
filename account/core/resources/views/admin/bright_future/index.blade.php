@@ -75,15 +75,14 @@ table.style--two tbody tr:hover {
             </div>
         </div>
     </div>
-
-    {{-- Manual Profit Modal --}}
-    <div id="manualProfitModal" class="modal fade" tabindex="-1" role="dialog">
+    <!-- Manual Profit Modal -->
+    <div class="modal fade" id="manualProfitModal" tabindex="-1" role="dialog" aria-labelledby="manualProfitModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@lang('Manual Record Profit')</h5>
+                    <h5 class="modal-title" id="manualProfitModalLabel">@lang('Manual Record Profit')</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="las la-times"></i>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="{{ route('admin.bright.future.manual.profit') }}" method="POST">
@@ -91,12 +90,12 @@ table.style--two tbody tr:hover {
                     <div class="modal-body">
                         <div class="form-group">
                             <label>@lang('Username')</label>
-                            <input type="text" name="username" class="form-control" required placeholder="@lang('Enter username')">
+                            <input type="text" name="username" class="form-control" required placeholder="@lang('Enter Username')">
                         </div>
                         <div class="form-group">
                             <label>@lang('Profit Amount')</label>
                             <div class="input-group">
-                                <input type="number" step="any" name="amount" class="form-control" required placeholder="@lang('Enter amount')">
+                                <input type="number" step="any" name="amount" class="form-control" required placeholder="@lang('Enter Amount')">
                                 <span class="input-group-text">{{ gs('cur_text') }}</span>
                             </div>
                         </div>
@@ -116,7 +115,7 @@ table.style--two tbody tr:hover {
 @endsection
 
 @push('breadcrumb-plugins')
-    <button class="btn btn-sm btn-outline--primary me-2" data-bs-toggle="modal" data-bs-target="#manualProfitModal">
+    <button class="btn btn-sm btn-outline--primary" data-bs-toggle="modal" data-bs-target="#manualProfitModal">
         <i class="las la-plus"></i> @lang('Manual Record Profit')
     </button>
     <x-search-form placeholder="Search users" />

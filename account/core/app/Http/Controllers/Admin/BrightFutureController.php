@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BrightFutureController extends Controller
 {
@@ -16,23 +17,25 @@ class BrightFutureController extends Controller
         return view('admin.bright_future.index', compact('pageTitle', 'users'));
     }
 
-    public function storeManualProfit(Request $request)
+    public function manualProfit(Request $request)
     {
         $request->validate([
             'username' => 'required|exists:users,username',
             'amount' => 'required|numeric|gt:0',
-            'date' => 'required|date_format:Y-m-d\TH:i',
+            'date' => 'required|date',
         ]);
 
-        $user = User::where('username', $request->username)->firstOrFail();
+        $user = User::where('username', $request->username)->first();
 
         if ($user->bright_future_plan != 1) {
-            $notify[] = ['error', 'User is not subscribed to the Bright Future Plan'];
+            $notify[] = ['error', 'User does not have Bright Future Plan active'];
             return back()->withNotify($notify);
         }
 
         $user->bright_future_balance += $request->amount;
         $user->save();
+
+        $date = Carbon::parse($request->date);
 
         $trx = new Transaction();
         $trx->user_id = $user->id;
@@ -40,21 +43,13 @@ class BrightFutureController extends Controller
         $trx->post_balance = $user->bright_future_balance;
         $trx->charge = 0;
         $trx->trx_type = '+';
-        
-        $date = \Carbon\Carbon::parse($request->date);
-        $formattedDate = $date->format('d F Y');
-        
-        // "USERNAME has been credited with a daily profit of AMOUNT WITH CURRENCY under the PLAN_NAME for DATE MONTH."
-        $details = $user->username . ' has been credited with a daily profit of ' . showAmount($request->amount) . ' ' . gs()->cur_text . ' under the Bright Future Plan for ' . $formattedDate . '.';
-        
-        $trx->details = $details;
+        $trx->details = $user->username . ' has been credited with a daily profit of ' . showAmount($request->amount) . ' under the Bright Future Plan for ' . $date->format('d F Y');
         $trx->remark = 'bright_future_profit_manual';
         $trx->trx = getTrx();
-        $trx->created_at = $date;
-        $trx->updated_at = $date;
+        $trx->created_at = $date; // Set the created_at to the selected date
         $trx->save();
 
-        $notify[] = ['success', 'Manual profit added successfully'];
+        $notify[] = ['success', 'Profit added successfully'];
         return back()->withNotify($notify);
     }
 }
