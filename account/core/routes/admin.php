@@ -108,8 +108,7 @@ Route::middleware('admin')->group(function () {
     // Bright Future Plan
     Route::controller(BrightFutureController::class)->prefix('bright-future')->name('bright.future.')->group(function () {
         Route::get('users', 'activeUsers')->name('users');
-        Route::get('manual-profit', 'manualProfit')->name('manual.profit');
-        Route::post('manual-profit', 'manualProfitSubmit')->name('manual.profit.submit');
+        Route::post('manual-profit', 'storeManualProfit')->name('manual.profit');
     });
 	
 	Route::controller(PairsManagementController::class)->prefix('pairs-management')->name('pairs.management.')->group(function () {

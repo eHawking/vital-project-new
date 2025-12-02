@@ -75,9 +75,49 @@ table.style--two tbody tr:hover {
             </div>
         </div>
     </div>
+
+    {{-- Manual Profit Modal --}}
+    <div id="manualProfitModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@lang('Manual Record Profit')</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="las la-times"></i>
+                    </button>
+                </div>
+                <form action="{{ route('admin.bright.future.manual.profit') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>@lang('Username')</label>
+                            <input type="text" name="username" class="form-control" required placeholder="@lang('Enter username')">
+                        </div>
+                        <div class="form-group">
+                            <label>@lang('Profit Amount')</label>
+                            <div class="input-group">
+                                <input type="number" step="any" name="amount" class="form-control" required placeholder="@lang('Enter amount')">
+                                <span class="input-group-text">{{ gs('cur_text') }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>@lang('Date and Time')</label>
+                            <input type="datetime-local" name="date" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn--primary">@lang('Submit')</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('breadcrumb-plugins')
-    <a href="{{ route('admin.bright.future.manual.profit') }}" class="btn btn-sm btn-outline--primary"><i class="las la-plus"></i> @lang('Manual Record Profit')</a>
+    <button class="btn btn-sm btn-outline--primary me-2" data-bs-toggle="modal" data-bs-target="#manualProfitModal">
+        <i class="las la-plus"></i> @lang('Manual Record Profit')
+    </button>
     <x-search-form placeholder="Search users" />
 @endpush
