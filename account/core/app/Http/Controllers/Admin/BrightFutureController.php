@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class BrightFutureController extends Controller
 {
@@ -15,48 +13,5 @@ class BrightFutureController extends Controller
         $pageTitle = 'Bright Future Plan Users';
         $users = User::where('bright_future_plan', 1)->orderBy('id', 'desc')->paginate(getPaginate());
         return view('admin.bright_future.index', compact('pageTitle', 'users'));
-    }
-
-    public function manualProfit()
-    {
-        $pageTitle = 'Manual Profit Distribution';
-        return view('admin.bright_future.manual_profit', compact('pageTitle'));
-    }
-
-    public function manualProfitSubmit(Request $request)
-    {
-        $request->validate([
-            'username' => 'required|exists:users,username',
-            'amount' => 'required|numeric|gt:0',
-            'date' => 'required|date',
-        ]);
-
-        $user = User::where('username', $request->username)->firstOrFail();
-
-        if ($user->bright_future_plan != 1) {
-            $notify[] = ['error', 'User is not in Bright Future Plan'];
-            return back()->withNotify($notify);
-        }
-
-        $amount = $request->amount;
-        $date = Carbon::parse($request->date);
-
-        $user->bright_future_balance += $amount;
-        $user->save();
-
-        $trx = new Transaction();
-        $trx->user_id = $user->id;
-        $trx->amount = $amount;
-        $trx->post_balance = $user->bright_future_balance;
-        $trx->charge = 0;
-        $trx->trx_type = '+';
-        $trx->details = $user->username . ' has been credited with a daily profit of ' . showAmount($amount) . ' under the Bright Future Plan for ' . $date->format('d F');
-        $trx->remark = 'bright_future_profit_manual';
-        $trx->trx = getTrx();
-        $trx->created_at = $date;
-        $trx->save();
-
-        $notify[] = ['success', 'Profit distributed successfully'];
-        return back()->withNotify($notify);
     }
 }
