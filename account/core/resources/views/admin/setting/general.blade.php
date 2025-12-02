@@ -71,6 +71,15 @@
                             </div>
 
                             <div class="form-group col-sm-6">
+                                <label> @lang('Bright Future Daily Profit')</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="bright_future_daily_profit" type="number"
+                                        value="{{ getAmount(gs('bright_future_daily_profit')) }}" step="any">
+                                    <span class="input-group-text">{{ gs('cur_text') }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-6">
                                 <label> @lang('Balance Transfer Fixed Charge')</label>
                                 <div class="input-group">
                                     <input class="form-control" name="bal_trans_fixed_charge" type="number"

@@ -36,6 +36,7 @@ class GeneralSettingController extends Controller
             'paginate_number'=>'required|integer',
             'bal_trans_fixed_charge'=>'required|numeric|gte:0',
             'bal_trans_per_charge'=>'required|numeric|gte:0',
+            'bright_future_daily_profit' => 'required|numeric|gte:0',
         ]);
 
         $timezones = timezone_identifiers_list();
@@ -51,6 +52,7 @@ class GeneralSettingController extends Controller
         $general->currency_format = $request->currency_format;
         $general->bal_trans_fixed_charge = $request->bal_trans_fixed_charge;
         $general->bal_trans_per_charge = $request->bal_trans_per_charge;
+        $general->bright_future_daily_profit = $request->bright_future_daily_profit;
         $general->save();
 
         $timezoneFile = config_path('timezone.php');
