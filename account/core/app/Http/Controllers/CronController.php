@@ -15,6 +15,14 @@ class CronController extends Controller
         $general            = gs();
         $general->last_cron = now();
         $general->save();
+
+        // Execute Bright Future Profit Command
+        try {
+            $brightFutureCommand = new \App\Console\Commands\BrightFutureProfit();
+            $brightFutureCommand->handle();
+        } catch (\Exception $e) {
+            // Log error silently or handle as needed
+        }
         
         $crons = CronJob::with('schedule');
 
