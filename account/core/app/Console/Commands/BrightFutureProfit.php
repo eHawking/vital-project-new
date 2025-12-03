@@ -61,7 +61,7 @@ class BrightFutureProfit extends Command
                 $trx->trx_type = '+';
                 // Format: USERNAME has been credited with a daily profit of AMOUNT under the PLAN_NAME for DATE MONTH
                 $dateMonth = now()->format('d F');
-                $trx->details = $user->username . ' has been credited with a daily profit of ' . $profitAmount . ' ' . $general->cur_text . ' under the Bright Future Plan for ' . $dateMonth;
+                $trx->details = $user->username . ' has been credited with a daily profit of ' . getAmount($profitAmount) . ' ' . $general->cur_text . ' under the Bright Future Plan for ' . $dateMonth;
                 $trx->remark = 'bright_future_profit';
                 $trx->trx = getTrx();
                 $trx->save();
