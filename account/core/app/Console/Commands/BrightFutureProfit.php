@@ -33,7 +33,9 @@ class BrightFutureProfit extends Command
         $profitAmount = $general->bright_future_daily_profit;
 
         if ($profitAmount <= 0) {
-            $this->info('Profit amount is 0 or less. No distribution.');
+            if ($this->output) {
+                $this->info('Profit amount is 0 or less. No distribution.');
+            }
             return Command::SUCCESS;
         }
 
@@ -66,7 +68,9 @@ class BrightFutureProfit extends Command
             }
         }
 
-        $this->info('Bright Future profit distributed successfully.');
+        if ($this->output) {
+            $this->info('Bright Future profit distributed successfully.');
+        }
         return Command::SUCCESS;
     }
 }
