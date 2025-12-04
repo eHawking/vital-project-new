@@ -62,19 +62,9 @@
 </div>
 
 @if ($logs->hasPages())
-    <div class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center mt-4 gap-3">
+    <div class="d-flex justify-content-center mt-4">
         <div class="pagination-wrapper">
             {{ paginateLinks($logs) }}
-        </div>
-        
-        <div class="goto-page-wrapper d-flex align-items-center gap-2">
-            <span class="text-muted small">@lang('Go to page'):</span>
-            <form action="{{ url()->current() }}" method="GET" class="d-flex align-items-center gap-2 pagination-jump-form">
-                <input type="number" name="page" class="form-control form-control-sm premium-input" min="1" max="{{ $logs->lastPage() }}" placeholder="{{ $logs->currentPage() }}" style="width: 60px;">
-                <button type="submit" class="btn btn-sm btn-primary premium-btn-sm">
-                    <i class="bi bi-arrow-right"></i>
-                </button>
-            </form>
         </div>
     </div>
 @endif

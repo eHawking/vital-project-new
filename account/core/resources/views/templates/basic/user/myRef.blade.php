@@ -57,15 +57,47 @@
                 display: flex;
                 justify-content: center;
             }
-            .goto-page-wrapper {
-                width: 100%;
-                justify-content: center;
-            }
             
             /* Reset Row margins */
             .row {
                 margin-left: 0 !important;
                 margin-right: 0 !important;
+            }
+
+            /* Mobile "Table as Card" */
+            .table-custom thead {
+                display: none;
+            }
+            .table-custom, .table-custom tbody, .table-custom tr, .table-custom td {
+                display: block;
+                width: 100%;
+            }
+            .table-custom tr {
+                margin-bottom: 15px;
+                border: 1px solid rgba(128,128,128,0.1);
+                border-radius: 12px;
+                background: rgba(255,255,255,0.02);
+                padding: 15px;
+            }
+            .table-custom td {
+                text-align: right;
+                padding: 10px 0;
+                position: relative;
+                border-bottom: 1px solid rgba(128,128,128,0.1);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                white-space: normal !important; /* Allow text wrap in card view */
+            }
+            .table-custom td:last-child {
+                border-bottom: none;
+            }
+            .table-custom td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                color: var(--text-primary);
+                opacity: 0.7;
             }
         }
 
@@ -114,26 +146,6 @@
             background: rgba(var(--rgb-primary), 0.1);
             color: var(--color-primary);
             border-color: var(--color-primary);
-        }
-
-        /* Go To Page Input Styling */
-        .premium-input {
-            background: transparent;
-            border: 1px solid rgba(128,128,128,0.2);
-            color: var(--text-primary);
-            border-radius: 8px;
-        }
-        .premium-input:focus {
-            background: transparent;
-            border-color: var(--color-primary);
-            color: var(--text-primary);
-            box-shadow: 0 0 0 0.25rem rgba(var(--rgb-primary), 0.1);
-        }
-        .premium-btn-sm {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
-            border: none;
-            border-radius: 8px;
-            padding: 5px 10px;
         }
 
         /* Table Enhancements */

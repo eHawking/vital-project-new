@@ -148,16 +148,16 @@
                         <tbody>
                             @forelse($transactions as $trx)
                                 <tr style="border-bottom: 1px solid rgba(128,128,128,0.05);">
-                                    <td class="fw-bold">#{{ $trx->trx }}</td>
-                                    <td>
+                                    <td data-label="@lang('Transaction ID')" class="fw-bold">#{{ $trx->trx }}</td>
+                                    <td data-label="@lang('Date')">
                                         <div class="d-flex flex-column">
                                             <span>{{ showDateTime($trx->created_at, 'Y-m-d') }}</span>
                                             <small class="text-muted">{{ showDateTime($trx->created_at, 'h:i A') }}</small>
                                         </div>
                                     </td>
-                                    <td class="fw-bold text-success">+{{ showAmount($trx->amount, currencyFormat: false) }} {{ $general->cur_text }}</td>
-                                    <td class="text-muted">{{ __($trx->details) }}</td>
-                                    <td><span class="badge bg-success bg-opacity-25 text-success">@lang('Received')</span></td>
+                                    <td data-label="@lang('Amount')" class="fw-bold text-success">+{{ showAmount($trx->amount, currencyFormat: false) }} {{ $general->cur_text }}</td>
+                                    <td data-label="@lang('Details')" class="text-muted">{{ __($trx->details) }}</td>
+                                    <td data-label="@lang('Status')"><span class="badge bg-success bg-opacity-25 text-success">@lang('Received')</span></td>
                                 </tr>
                             @empty
                                 <tr>
@@ -176,6 +176,79 @@
         </div>
     </div>
 
+    <!-- Include Mobile Bottom Navigation -->
+    @include($activeTemplate . 'partials.mobile-bottom-nav')
+
+    <style>
+        /* Pagination Styling */
+        .pagination {
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 0;
+        }
+        .page-item .page-link {
+            background: transparent;
+            border: 1px solid rgba(128,128,128,0.2);
+            color: var(--text-primary);
+            border-radius: 8px;
+            padding: 6px 12px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        .page-item.active .page-link {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(var(--rgb-primary), 0.3);
+        }
+        .page-item.disabled .page-link {
+            background: rgba(128,128,128,0.1);
+            color: rgba(128,128,128,0.5);
+            border-color: transparent;
+        }
+        .page-item .page-link:hover:not(.active) {
+            background: rgba(var(--rgb-primary), 0.1);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        /* Mobile "Table as Card" */
+        @media (max-width: 768px) {
+            .table-custom thead {
+                display: none;
+            }
+            .table-custom, .table-custom tbody, .table-custom tr, .table-custom td {
+                display: block;
+                width: 100%;
+            }
+            .table-custom tr {
+                margin-bottom: 15px;
+                border: 1px solid rgba(128,128,128,0.1);
+                border-radius: 12px;
+                background: rgba(255,255,255,0.02);
+                padding: 15px;
+            }
+            .table-custom td {
+                text-align: right;
+                padding: 10px 0;
+                position: relative;
+                border-bottom: 1px solid rgba(128,128,128,0.1);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .table-custom td:last-child {
+                border-bottom: none;
+            }
+            .table-custom td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                color: var(--text-primary);
+                opacity: 0.7;
+            }
+        }
+    </style>
 @endsection
 
 @push('script')
