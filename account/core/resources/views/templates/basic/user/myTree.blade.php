@@ -11,21 +11,124 @@
 <!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<div class="container-fluid">
+<style>
+    /* Mobile Full Width Adjustments */
+    @media (max-width: 768px) {
+        .inner-dashboard-container,
+        .container-fluid.px-4,
+        .container-fluid {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            width: 100% !important;
+            margin: 0 !important;
+        }
+        .premium-card {
+            width: 100% !important;
+            margin-bottom: 10px;
+            border-radius: 12px !important;
+        }
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        .search-form-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .page-header-wrapper {
+            flex-direction: column;
+            align-items: stretch !important;
+        }
+        .tree-card {
+            padding: 10px !important;
+        }
+    }
+
+    /* Theme-aware text colors */
+    h1, h2, h3, h4, h5, h6, .premium-title {
+        color: var(--text-primary) !important;
+    }
+    
+    /* Search Input Styling */
+    .premium-search-input {
+        background: var(--bg-card) !important;
+        border: 1px solid rgba(128,128,128,0.2) !important;
+        color: var(--text-primary) !important;
+        border-radius: 10px 0 0 10px !important;
+        padding: 10px 15px;
+    }
+    .premium-search-input::placeholder {
+        color: var(--text-muted) !important;
+    }
+    .premium-search-input:focus {
+        border-color: var(--color-primary) !important;
+        box-shadow: 0 0 0 0.2rem rgba(var(--rgb-primary), 0.1) !important;
+    }
+    .premium-search-btn {
+        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%) !important;
+        border: none !important;
+        border-radius: 0 10px 10px 0 !important;
+        padding: 10px 20px;
+        color: #fff !important;
+    }
+    .premium-search-btn:hover {
+        opacity: 0.9;
+    }
+
+    /* Modal Styling */
+    .premium-modal .modal-content {
+        background: var(--bg-card) !important;
+        border: 1px solid rgba(128,128,128,0.1) !important;
+        border-radius: 16px;
+    }
+    .premium-modal .modal-header {
+        border-bottom: 1px solid rgba(128,128,128,0.1) !important;
+    }
+    .premium-modal .modal-title {
+        color: var(--text-primary) !important;
+    }
+    .premium-modal .btn-close {
+        filter: var(--btn-close-filter, none);
+    }
+    [data-theme="dark"] .premium-modal .btn-close {
+        filter: invert(1);
+    }
+    .premium-modal .info-box {
+        background: rgba(128,128,128,0.05);
+        border-radius: 12px;
+        padding: 15px;
+    }
+    .premium-modal .table {
+        color: var(--text-primary) !important;
+    }
+    .premium-modal .table th,
+    .premium-modal .table td {
+        background: transparent !important;
+        border-color: rgba(128,128,128,0.1) !important;
+        color: var(--text-primary) !important;
+    }
+    .premium-modal .text-label {
+        color: var(--text-muted) !important;
+    }
+</style>
+
+<div class="container-fluid px-4 py-4 inner-dashboard-container">
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <!-- Page Header -->
-            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+            <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3 page-header-wrapper">
                 <div>
-                    <h4 class="text-white m-0"><i class="bi bi-diagram-3-fill"></i> @lang('My Tree')</h4>
-                    <p class="text-white-50 small m-0">@lang('View your binary tree structure')</p>
+                    <h4 class="m-0"><i class="bi bi-diagram-3-fill"></i> @lang('My Tree')</h4>
+                    <p class="text-muted small m-0">@lang('View your binary tree structure')</p>
                 </div>
                 
                 <!-- Search Form -->
-                <form action="{{ route('user.other.tree.search') }}" method="get" class="flex-grow-1" style="max-width: 400px;">
+                <form action="{{ route('user.other.tree.search') }}" method="get" class="flex-grow-1 search-form-wrapper" style="max-width: 400px;">
                     <div class="input-group">
-                        <input type="text" name="search" placeholder="@lang('Search by username...')" class="form-control bg-transparent text-white border-secondary" required style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
-                        <button class="btn btn-primary" type="submit" style="background: var(--grad-primary); border: none; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                        <input type="text" name="search" placeholder="@lang('Search by username...')" class="form-control premium-search-input" required>
+                        <button class="btn premium-search-btn" type="submit">
                             <i class="bi bi-search"></i> @lang('Search')
                         </button>
                     </div>
@@ -114,22 +217,22 @@
 @include($activeTemplate . 'partials.mobile-bottom-nav')
 
 @push('modal')
-<div class="modal fade user-details-modal-area" id="exampleModalCenter" tabindex="-1" role="dialog"
+<div class="modal fade user-details-modal-area premium-modal" id="exampleModalCenter" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content" style="background: #1e293b; border: 1px solid rgba(255,255,255,0.1);">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-white"><i class="bi bi-person-vcard"></i> @lang('User Details')</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-vcard"></i> @lang('User Details')</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <div class="user-details-modal">
-                    <div class="user-details-header modern-user-header p-3 rounded mb-4" style="background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="user-details-header modern-user-header p-3 rounded mb-4 info-box text-center">
                         <div class="thumb mb-3">
                             <img src="#" alt="*" class="tree_image rounded-circle border border-2 border-primary" style="width: 80px; height: 80px; object-fit: cover;">
                         </div>
-                        <div class="content text-center">
-                            <h4 class="main-username mb-2 text-white"></h4>
+                        <div class="content">
+                            <h4 class="main-username mb-2"></h4>
                             <a class="user-name tree_url tree_name btn btn-sm btn-outline-info mb-2" href="">
                                 <i class="bi bi-diagram-3"></i> <span></span>
                             </a>
@@ -143,27 +246,27 @@
                         <!-- Balance Info -->
                         <div class="row dsp_div mb-4">
                             <div class="col-md-6 mb-3">
-                                <div class="p-3 rounded h-100" style="background: rgba(255,255,255,0.03);">
+                                <div class="info-box h-100">
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="icon-box variant-blue rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                            <i class="bi bi-wallet2 text-white"></i>
+                                            <i class="bi bi-wallet2"></i>
                                         </div>
                                         <div>
-                                            <small class="text-white-50 d-block">@lang('Current Balance')</small>
-                                            <h5 class="balance mb-0 text-white"></h5>
+                                            <small class="text-label d-block">@lang('Current Balance')</small>
+                                            <h5 class="balance mb-0"></h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <div class="p-3 rounded h-100" style="background: rgba(255,255,255,0.03);">
+                                <div class="info-box h-100">
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="icon-box variant-purple rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                            <i class="bi bi-credit-card-2-front text-white"></i>
+                                            <i class="bi bi-credit-card-2-front"></i>
                                         </div>
                                         <div>
-                                            <small class="text-white-50 d-block">@lang('E-Pin Credit')</small>
-                                            <h5 class="epincredit mb-0 text-white"></h5>
+                                            <small class="text-label d-block">@lang('E-Pin Credit')</small>
+                                            <h5 class="epincredit mb-0"></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -172,31 +275,31 @@
 
                         <div class="referral-info mb-4 p-3 rounded" style="background: rgba(13, 202, 240, 0.1); border-left: 4px solid var(--bs-info);">
                             <i class="bi bi-person-check-fill text-info"></i>
-                            <strong class="text-white-50">@lang('Referred By'):</strong> <span class="tree_ref text-info fw-bold"></span>
+                            <strong class="text-muted">@lang('Referred By'):</strong> <span class="tree_ref text-info fw-bold"></span>
                             <i class="bi bi-geo-alt-fill ms-3 text-info"></i>
-                            <strong class="text-white-50">@lang('from'):</strong> <span class="city text-info fw-bold"></span>
+                            <strong class="text-muted">@lang('from'):</strong> <span class="city text-info fw-bold"></span>
                         </div>
 
                         <!-- Tree Statistics -->
                         <div class="table-responsive">
-                            <table class="table modern-table">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-white-50 bg-transparent border-bottom border-secondary border-opacity-25"><i class="bi bi-diagram-2"></i> @lang('Team Side')</th>
-                                        <th class="text-center text-white-50 bg-transparent border-bottom border-secondary border-opacity-25"><i class="bi bi-arrow-left-circle"></i> @lang('LEFT')</th>
-                                        <th class="text-center text-white-50 bg-transparent border-bottom border-secondary border-opacity-25"><i class="bi bi-arrow-right-circle"></i> @lang('RIGHT')</th>
+                                        <th class="text-muted"><i class="bi bi-diagram-2"></i> @lang('Team Side')</th>
+                                        <th class="text-center text-muted"><i class="bi bi-arrow-left-circle"></i> @lang('LEFT')</th>
+                                        <th class="text-center text-muted"><i class="bi bi-arrow-right-circle"></i> @lang('RIGHT')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-white bg-transparent border-bottom border-secondary border-opacity-25"><i class="bi bi-people text-white-50"></i> @lang('Free Member')</td>
-                                        <td class="text-center bg-transparent border-bottom border-secondary border-opacity-25"><span class="badge bg-secondary lfree"></span></td>
-                                        <td class="text-center bg-transparent border-bottom border-secondary border-opacity-25"><span class="badge bg-secondary rfree"></span></td>
+                                        <td><i class="bi bi-people text-muted"></i> @lang('Free Member')</td>
+                                        <td class="text-center"><span class="badge bg-secondary lfree"></span></td>
+                                        <td class="text-center"><span class="badge bg-secondary rfree"></span></td>
                                     </tr>
                                     <tr>
-                                        <td class="text-white bg-transparent border-0"><i class="bi bi-person-check-fill text-white-50"></i> @lang('Paid Member')</td>
-                                        <td class="text-center bg-transparent border-0"><span class="badge bg-success lpaid"></span></td>
-                                        <td class="text-center bg-transparent border-0"><span class="badge bg-success rpaid"></span></td>
+                                        <td><i class="bi bi-person-check-fill text-muted"></i> @lang('Paid Member')</td>
+                                        <td class="text-center"><span class="badge bg-success lpaid"></span></td>
+                                        <td class="text-center"><span class="badge bg-success rpaid"></span></td>
                                     </tr>
                                 </tbody>
                             </table>
