@@ -11,11 +11,6 @@
 
     <div class="container-fluid px-4 py-4 inner-dashboard-container">
         <div class="bright-future-wrapper">
-            <div class="premium-card mb-4">
-                <div class="premium-header d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="premium-title mb-0">@lang('Bright Future Plan')</h3>
-                </div>
-            </div>
 
             <!-- Stats Grid -->
             <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
