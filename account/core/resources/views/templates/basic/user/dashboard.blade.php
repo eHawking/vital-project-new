@@ -271,7 +271,7 @@
             <div class="d-flex justify-content-between align-items-start">
                 <div class="stat-info">
                     <h6>@lang('Bright Future Plan')</h6>
-                    <h3>{{ getAmount(auth()->user()->bright_future_balance) }}</h3>
+                    <h3>{{ getAmount(auth()->user()->bright_future_balance) }} {{ gs()->cur_text }}</h3>
                 </div>
                 <div class="icon-box variant-green mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
