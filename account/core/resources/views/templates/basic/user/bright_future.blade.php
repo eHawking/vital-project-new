@@ -13,7 +13,7 @@
         <div class="bright-future-wrapper">
 
             <!-- Stats Grid -->
-            <div class="stats-grid">
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
                 
                 <!-- Total Received -->
                 <div class="premium-card stat-item">
@@ -132,18 +132,11 @@
             background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
         }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
         /* Mobile Full Width Adjustments to match dashboard */
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: 1fr !important;
-                display: flex;
+                display: flex !important;
                 flex-direction: column;
                 gap: 15px;
             }
@@ -153,14 +146,18 @@
                 margin-bottom: 10px;
             }
 
+            /* Outer container padding RESET */
             .container-fluid.px-4 {
                 padding-left: 0 !important;
                 padding-right: 0 !important;
             }
+
+            /* Remove inner container padding */
             .inner-dashboard-container {
                 padding-left: 0 !important;
                 padding-right: 0 !important;
             }
+            
             .premium-card {
                 border-radius: 0 !important;
                 border-left: none !important;

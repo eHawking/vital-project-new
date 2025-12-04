@@ -21,7 +21,7 @@
     </div>
 
     <!-- Referral Stats Cards -->
-    <div class="stats-grid">
+    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px;">
         
         <!-- Total Referrals -->
         <div class="premium-card stat-item">
@@ -98,13 +98,6 @@
         color: var(--text-primary) !important;
     }
     
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-    
     /* Pagination Redesign */
     .pagination {
         justify-content: center;
@@ -169,7 +162,7 @@
     @media (max-width: 768px) {
         .stats-grid {
             grid-template-columns: 1fr !important;
-            display: flex;
+            display: flex !important;
             flex-direction: column;
             gap: 15px;
         }
@@ -178,15 +171,19 @@
             width: 100% !important;
             margin-bottom: 10px;
         }
-        
+
+        /* Outer container padding RESET */
         .container-fluid.px-4 {
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
+
+        /* Remove inner container padding */
         .inner-dashboard-container {
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
+        
         .premium-card {
             border-radius: 0 !important;
             border-left: none !important;
