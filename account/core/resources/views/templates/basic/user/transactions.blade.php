@@ -4,128 +4,135 @@
 
 <!-- Include Modern Finance Theme CSS -->
 @include($activeTemplate . 'css.modern-finance-theme')
+
+<!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<style>
-    @media (max-width: 768px) {
-        .inner-dashboard-container { padding: 10px !important; }
-        .premium-card { border-radius: 12px !important; }
-    }
-    .table-custom th { background: rgba(128,128,128,0.05) !important; color: var(--text-muted) !important; font-weight: 600; padding: 12px 15px; border-bottom: 1px solid rgba(128,128,128,0.1) !important; }
-    .table-custom td { padding: 12px 15px; border-bottom: 1px solid rgba(128,128,128,0.05) !important; color: var(--text-primary) !important; }
-    .table-custom tbody tr:hover { background: rgba(128,128,128,0.03) !important; }
-    .mobile-card-item { background: rgba(128,128,128,0.03); border: 1px solid rgba(128,128,128,0.1); border-radius: 12px; padding: 15px; margin-bottom: 10px; }
-    .filter-input { background: rgba(128,128,128,0.05) !important; border: 1px solid rgba(128,128,128,0.2) !important; color: var(--text-primary) !important; border-radius: 10px !important; padding: 10px 15px !important; }
-</style>
-
-<div class="container-fluid px-4 py-3 inner-dashboard-container">
-    <!-- Page Header -->
-    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
-        <div>
-            <h4 class="m-0"><i class="bi bi-arrow-left-right"></i> @lang('Transactions')</h4>
-            <p class="text-muted small m-0">@lang('View all your transaction history')</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <!-- Page Header -->
+            <div class="dashboard-header mb-4">
+                <h2 class="page-title"><i class="bi bi-arrow-left-right"></i> @lang('Transactions')</h2>
+                <p class="page-subtitle">@lang('View all your transaction history')</p>
+            </div>
         </div>
-        <button class="btn btn-sm showFilterBtn" style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border: none; color: #fff; border-radius: 10px; padding: 8px 16px;">
-            <i class="bi bi-funnel"></i> @lang('Filter')
-        </button>
     </div>
+
+    <div class="row">
+        <div class="col-12">
+            <!-- Filter Toggle -->
+            <div class="show-filter mb-3 text-end">
+                <button class="btn btn-primary showFilterBtn" type="button">
+                    <i class="bi bi-funnel"></i> @lang('Filter Transactions')
+                </button>
+            </div>
             
-    <!-- Filter Card -->
-    <div class="premium-card responsive-filter-card mb-4" style="display: none;">
-        <h6 class="mb-3"><i class="bi bi-funnel-fill"></i> @lang('Filter Options')</h6>
-        <form>
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label text-muted small text-uppercase">@lang('Transaction Number')</label>
-                    <input class="form-control filter-input" name="search" type="search" value="{{ request()->search }}" placeholder="@lang('Search TRX...')">
+            <!-- Filter Card -->
+            <div class="premium-card responsive-filter-card mb-4" style="display: none;">
+                <div class="dashboard-item-header mb-3">
+                    <h5 class="title text-white"><i class="bi bi-funnel-fill"></i> @lang('Filter Options')</h5>
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label text-muted small text-uppercase">@lang('Type')</label>
-                    <select class="form-control filter-input" name="trx_type">
-                        <option value="">@lang('All Types')</option>
-                        <option value="+" @selected(request()->trx_type == '+')>@lang('➕ Credit')</option>
-                        <option value="-" @selected(request()->trx_type == '-')>@lang('➖ Debit')</option>
-                    </select>
+                <form>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label text-white-50"><i class="bi bi-search"></i> @lang('Transaction Number')</label>
+                            <input class="form-control bg-transparent text-white border-secondary" name="search" type="search" value="{{ request()->search }}" placeholder="@lang('Search TRX...')">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label text-white-50"><i class="bi bi-plus-slash-minus"></i> @lang('Type')</label>
+                            <select class="form-control select2 bg-transparent text-white border-secondary" name="trx_type" data-minimum-results-for-search="-1">
+                                <option value="" class="text-dark">@lang('All Types')</option>
+                                <option value="+" class="text-dark" @selected(request()->trx_type == '+')>@lang('➕ Plus (Credit)')</option>
+                                <option value="-" class="text-dark" @selected(request()->trx_type == '-')>@lang('➖ Minus (Debit)')</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label text-white-50"><i class="bi bi-tag"></i> @lang('Remark')</label>
+                            <select class="form-control select2 bg-transparent text-white border-secondary" name="remark" data-minimum-results-for-search="-1">
+                                <option value="" class="text-dark">@lang('All Remarks')</option>
+                                @foreach ($remarks as $remark)
+                                    <option value="{{ $remark->remark }}" class="text-dark" @selected(request()->remark == $remark->remark)>{{ __(keyToTitle($remark->remark)) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button class="btn btn-primary w-100" type="submit" style="background: var(--grad-primary); border: none;">
+                                <i class="bi bi-funnel"></i> @lang('Apply')
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Transactions Table -->
+            <div class="premium-card mb-4">
+                <div class="dashboard-item-header mb-3">
+                    <h4 class="title text-white"><i class="bi bi-list-ul"></i> @lang('Transaction History')</h4>
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label text-muted small text-uppercase">@lang('Remark')</label>
-                    <select class="form-control filter-input" name="remark">
-                        <option value="">@lang('All Remarks')</option>
-                        @foreach ($remarks as $remark)
-                            <option value="{{ $remark->remark }}" @selected(request()->remark == $remark->remark)>{{ __(keyToTitle($remark->remark)) }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-2 d-flex align-items-end">
-                    <button class="btn w-100" type="submit" style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border: none; color: #fff; border-radius: 10px;">
-                        <i class="bi bi-funnel"></i> @lang('Apply')
-                    </button>
+                <div class="table-responsive">
+                    <table class="transection-table-2">
+                        <thead>
+                            <tr>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-hash"></i> @lang('TRX')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-calendar-event"></i> @lang('Date & Time')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-cash-coin"></i> @lang('Amount')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-wallet2"></i> @lang('Balance')</th>
+                                <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-info-circle"></i> @lang('Details')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($transactions as $trx)
+                                <tr style="background: rgba(255,255,255,0.05);">
+                                    <td data-label="@lang('TRX')" class="text-white">
+                                        <code class="trx-code text-info bg-transparent border border-info">{{ $trx->trx }}</code>
+                                    </td>
+
+                                    <td data-label="@lang('Date & Time')" class="text-white">
+                                        <small>{{ showDateTime($trx->created_at, 'd M Y, h:i A') }}</small><br>
+                                        <small class="text-white-50">{{ diffForHumans($trx->created_at) }}</small>
+                                    </td>
+
+                                    <td data-label="@lang('Amount')" class="text-white">
+                                        <div>
+                                            <span class="fw-bold @if ($trx->trx_type == '+') text-success @else text-danger @endif">
+                                                {{ $trx->trx_type == '+' ? '+' : '-' }} {{ showAmount($trx->amount) }}
+                                            </span>
+                                            @if($trx->charge > 0)
+                                                <br><small class="text-warning"><i class="bi bi-info-circle"></i> Charge: {{ showAmount($trx->charge) }}</small>
+                                            @endif
+                                        </div>
+                                    </td>
+
+                                    <td data-label="@lang('Balance')" class="text-white">
+                                        <strong>{{ showAmount($trx->post_balance) }}</strong>
+                                    </td>
+
+                                    <td data-label="@lang('Details')" class="text-white">
+                                        <span class="badge badge--primary" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);">{{ __($trx->details) }}</span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-white-50">
+                                        <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>
+                                        {{ __($emptyMessage) }}
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </form>
-    </div>
-
-    <!-- Transactions Table -->
-    <div class="premium-card mb-4">
-        <h5 class="mb-4"><i class="bi bi-list-ul"></i> @lang('Transaction History')</h5>
-        
-        <!-- Desktop Table View -->
-        <div class="table-responsive d-none d-md-block">
-            <table class="table table-custom">
-                <thead>
-                    <tr>
-                        <th>@lang('TRX')</th>
-                        <th>@lang('Date & Time')</th>
-                        <th>@lang('Amount')</th>
-                        <th>@lang('Balance')</th>
-                        <th>@lang('Details')</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($transactions as $trx)
-                        <tr>
-                            <td><code class="text-info" style="background: rgba(13,202,240,0.1); padding: 5px 10px; border-radius: 5px;">{{ $trx->trx }}</code></td>
-                            <td><small>{{ showDateTime($trx->created_at, 'd M Y, h:i A') }}</small><br><small class="text-muted">{{ diffForHumans($trx->created_at) }}</small></td>
-                            <td>
-                                <span class="fw-bold @if ($trx->trx_type == '+') text-success @else text-danger @endif">
-                                    {{ $trx->trx_type == '+' ? '+' : '-' }} {{ showAmount($trx->amount) }}
-                                </span>
-                                @if($trx->charge > 0)<br><small class="text-warning">Charge: {{ showAmount($trx->charge) }}</small>@endif
-                            </td>
-                            <td><strong>{{ showAmount($trx->post_balance) }}</strong></td>
-                            <td><span class="badge" style="background: rgba(128,128,128,0.1); color: var(--text-primary);">{{ __($trx->details) }}</span></td>
-                        </tr>
-                    @empty
-                        <tr><td colspan="5" class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>{{ __($emptyMessage) }}</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Mobile Card View -->
-        <div class="d-block d-md-none">
-            @forelse($transactions as $trx)
-                <div class="mobile-card-item">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <code class="text-info small" style="background: rgba(13,202,240,0.1); padding: 3px 8px; border-radius: 5px;">{{ $trx->trx }}</code>
-                        <span class="fw-bold @if ($trx->trx_type == '+') text-success @else text-danger @endif">
-                            {{ $trx->trx_type == '+' ? '+' : '-' }} {{ showAmount($trx->amount) }}
-                        </span>
-                    </div>
-                    <div class="row g-2">
-                        <div class="col-6"><small class="text-muted">@lang('Date'):</small><br><strong>{{ showDateTime($trx->created_at, 'd M Y') }}</strong></div>
-                        <div class="col-6"><small class="text-muted">@lang('Balance'):</small><br><strong>{{ showAmount($trx->post_balance) }}</strong></div>
-                        <div class="col-12"><small class="text-muted">{{ __($trx->details) }}</small></div>
-                    </div>
-                </div>
-            @empty
-                <div class="text-center py-4 text-muted"><i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>{{ __($emptyMessage) }}</div>
-            @endforelse
         </div>
     </div>
-
     @if ($transactions->hasPages())
-        <div class="mt-3">{{ paginateLinks($transactions) }}</div>
+        <div class="row">
+            <div class="col-12">
+                <div class="mt-4">
+                    {{ paginateLinks($transactions) }}
+                </div>
+            </div>
+        </div>
     @endif
 </div>
 

@@ -6,184 +6,154 @@
 @include($activeTemplate . 'css.modern-finance-theme')
 @include($activeTemplate . 'css.mobile-fixes')
 
-<style>
-    @media (max-width: 768px) {
-        .inner-dashboard-container { padding: 10px !important; }
-        .premium-card { border-radius: 12px !important; }
-        .stats-grid { grid-template-columns: 1fr !important; }
-    }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-    .table-custom th { background: rgba(128,128,128,0.05) !important; color: var(--text-muted) !important; font-weight: 600; padding: 12px 15px; border-bottom: 1px solid rgba(128,128,128,0.1) !important; }
-    .table-custom td { padding: 12px 15px; border-bottom: 1px solid rgba(128,128,128,0.05) !important; color: var(--text-primary) !important; }
-    .table-custom tbody tr:hover { background: rgba(128,128,128,0.03) !important; }
-    .mobile-card-item { background: rgba(128,128,128,0.03); border: 1px solid rgba(128,128,128,0.1); border-radius: 12px; padding: 15px; margin-bottom: 10px; }
-</style>
-
-<div class="container-fluid px-4 py-3 inner-dashboard-container">
-    <!-- Page Header -->
-    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
-        <div>
-            <h4 class="m-0"><i class="bi bi-ticket-perforated"></i> @lang('DSP Vouchers')</h4>
-            <p class="text-muted small m-0">@lang('Manage your DSP gift vouchers')</p>
+<div class="row mb-4">
+    <div class="col-12">
+        <!-- Page Header -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div>
+                <h4 class="text-white m-0"><i class="bi bi-ticket-perforated"></i> @lang('DSP Vouchers')</h4>
+                <p class="text-white-50 small m-0">@lang('Manage your DSP gift vouchers')</p>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- Stats Cards -->
-    <div class="stats-grid mb-4">
-        <div class="premium-card">
+<!-- Stats Cards -->
+<div class="row mb-4 g-3">
+    <div class="col-lg-4 col-md-6">
+        <div class="premium-card stat-item h-100">
             <div class="d-flex align-items-center justify-content-between">
                 <div>
-                    <p class="text-muted mb-1 small">@lang('Total Vouchers')</p>
-                    <h3 class="m-0 fw-bold">{{ $totalVouchers }}</h3>
+                    <h6 class="text-white-50 mb-1">@lang('Total Vouchers')</h6>
+                    <h3 class="text-white m-0">{{ $totalVouchers }}</h3>
                 </div>
                 <div class="icon-box variant-blue" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                    <i class="bi bi-ticket-perforated-fill fs-4"></i>
+                    <i class="bi bi-ticket-perforated-fill fs-3"></i>
                 </div>
             </div>
         </div>
-        <div class="premium-card">
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="premium-card stat-item h-100">
             <div class="d-flex align-items-center justify-content-between">
                 <div>
-                    <p class="text-muted mb-1 small">@lang('Used Vouchers')</p>
-                    <h3 class="m-0 fw-bold">{{ $usedVouchers }}</h3>
+                    <h6 class="text-white-50 mb-1">@lang('Used Vouchers')</h6>
+                    <h3 class="text-white m-0">{{ $usedVouchers }}</h3>
                 </div>
                 <div class="icon-box variant-green" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                    <i class="bi bi-check-circle-fill fs-4"></i>
+                    <i class="bi bi-check-circle-fill fs-3"></i>
                 </div>
             </div>
         </div>
-        <div class="premium-card">
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="premium-card stat-item h-100">
             <div class="d-flex align-items-center justify-content-between">
                 <div>
-                    <p class="text-muted mb-1 small">@lang('Redeem Voucher')</p>
-                    <button class="btn btn-sm mt-1" data-bs-toggle="modal" data-bs-target="#redeemVoucherModal" style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border: none; color: #fff;">
-                        <i class="bi bi-gift-fill"></i> @lang('Redeem')
+                    <h6 class="text-white-50 mb-1">@lang('Redeem Voucher')</h6>
+                    <button class="btn btn-primary btn-sm mt-2 pulse-animation" data-bs-toggle="modal" data-bs-target="#redeemVoucherModal" style="background: var(--grad-primary); border: none;">
+                        <i class="bi bi-gift-fill"></i> @lang('Redeem Now')
                     </button>
                 </div>
                 <div class="icon-box variant-pink" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                    <i class="bi bi-gift-fill fs-4"></i>
+                    <i class="bi bi-gift-fill fs-3"></i>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Vouchers Table -->
-    <div class="premium-card mb-4">
-        <h5 class="mb-4"><i class="bi bi-list-ul"></i> @lang('My Vouchers')</h5>
-        
-        @php
-        $currentPage = $vouchers->currentPage();
-        $perPage = $vouchers->perPage();
-        $startNumber = (($currentPage - 1) * $perPage) + 1;
-        @endphp
-
-        <!-- Desktop Table View -->
-        <div class="table-responsive d-none d-md-block">
-            <table class="table table-custom">
+<!-- Vouchers Table -->
+<div class="premium-card mb-4">
+    <div class="card-header bg-transparent border-bottom border-secondary border-opacity-25 p-3">
+        <h5 class="title text-white m-0"><i class="bi bi-list-ul"></i> @lang('My Vouchers')</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table transection-table-2">
                 <thead>
                     <tr>
-                        <th>@lang('No.')</th>
-                        <th>@lang('Voucher Code')</th>
-                        <th>@lang('Generated On')</th>
-                        <th>@lang('Status')</th>
-                        <th>@lang('Used By')</th>
-                        <th>@lang('Used On')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-hash"></i> @lang('No.')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-upc"></i> @lang('Voucher Code')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-calendar-plus"></i> @lang('Generated On')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-check2-circle"></i> @lang('Status')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-person"></i> @lang('Used By')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-calendar-check"></i> @lang('Used On')</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                    $currentPage = $vouchers->currentPage();
+                    $perPage = $vouchers->perPage();
+                    $startNumber = (($currentPage - 1) * $perPage) + 1;
+                    @endphp
                     @forelse($vouchers as $key => $voucher)
-                    <tr>
-                        <td class="fw-bold">{{ $startNumber + $key }}</td>
-                        <td>
-                            <div class="d-flex align-items-center gap-2">
-                                <code class="text-info" style="background: rgba(13,202,240,0.1); border-radius: 5px; padding: 5px 10px;">
+                    <tr style="background: rgba(255,255,255,0.05);">
+                        <td data-label="@lang('No.')" class="text-white">{{ $startNumber + $key }}</td>
+                        <td data-label="@lang('Voucher Code')" class="text-white">
+                            <div class="voucher-code-box d-flex align-items-center gap-2">
+                                <code class="voucher-code text-info bg-transparent border border-info" style="border-radius: 5px; padding: 5px;">
                                     <span id="voucherCodePartial{{ $voucher->id }}">{{ substr($voucher->code, 0, 5) }}*****</span>
                                     <span id="voucherCodeFull{{ $voucher->id }}" style="display: none;">{{ $voucher->code }}</span>
                                 </code>
-                                <button class="btn btn-sm btn-outline-secondary" onclick="toggleCodeVisibility('{{ $voucher->id }}')"><i class="bi bi-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-success" onclick="copyVoucherCode('{{ $voucher->code }}')"><i class="bi bi-clipboard"></i></button>
+                                <button class="btn btn-sm btn-outline-light border-secondary" onclick="toggleCodeVisibility('{{ $voucher->id }}')">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" onclick="copyVoucherCode('{{ $voucher->code }}')">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
                             </div>
                         </td>
-                        <td><small>{{ showDateTime($voucher->created_at, 'd M Y') }}</small></td>
-                        <td>
+                        <td data-label="@lang('Generated On')" class="text-white">
+                            <small>{{ showDateTime($voucher->created_at, 'd M Y') }}</small>
+                        </td>
+                        <td data-label="@lang('Status')" class="text-white">
                             @if($voucher->is_used)
-                                <span class="badge bg-success bg-opacity-25 text-success rounded-pill"><i class="bi bi-check-circle-fill"></i> @lang('Used')</span>
+                                <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 rounded-pill"><i class="bi bi-check-circle-fill"></i> @lang('Used')</span>
                             @else
-                                <span class="badge bg-warning bg-opacity-25 text-warning rounded-pill"><i class="bi bi-clock-fill"></i> @lang('Unused')</span>
+                                <span class="badge bg-warning bg-opacity-25 text-warning border border-warning border-opacity-25 rounded-pill"><i class="bi bi-clock-fill"></i> @lang('Unused')</span>
                             @endif
                         </td>
-                        <td>
+                        <td data-label="@lang('Used By')" class="text-white">
                             @if($voucher->is_used && $voucher->used_by_id)
-                                @php $usedByUser = \App\Models\User::find($voucher->used_by_id); @endphp
+                                @php
+                                $usedByUser = \App\Models\User::find($voucher->used_by_id);
+                                @endphp
                                 @if($usedByUser)
-                                    <strong class="text-primary">{{ strtoupper($usedByUser->username) }}</strong><br>
-                                    <small class="text-muted">{{ $usedByUser->fullname }}</small>
+                                    <div class="user-info">
+                                        <strong class="text-primary">{{ strtoupper($usedByUser->username) }}</strong><br>
+                                        <small class="text-white-50">{{ $usedByUser->fullname }}</small>
+                                    </div>
                                 @else
-                                    <span class="text-muted">@lang('User not found')</span>
+                                    <span class="text-white-50">@lang('User not found')</span>
                                 @endif
                             @else
-                                <span class="text-muted"><i class="bi bi-dash-circle"></i> @lang('Not used yet')</span>
+                                <span class="text-white-50"><i class="bi bi-dash-circle"></i> @lang('Not used yet')</span>
                             @endif
                         </td>
-                        <td>
+                        <td data-label="@lang('Used On')" class="text-white">
                             @if($voucher->used_at)
                                 <small>{{ showDateTime($voucher->used_at, 'd M Y') }}</small>
                             @else
-                                <span class="text-muted">@lang('N/A')</span>
+                                <span class="text-white-50">@lang('N/A')</span>
                             @endif
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-4">
-                            <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>{{ __($emptyMessage) }}
+                        <td colspan="6" class="text-center text-white-50">
+                            <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>
+                            {{ __($emptyMessage) }}
                         </td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-
-        <!-- Mobile Card View -->
-        <div class="d-block d-md-none">
-            @forelse($vouchers as $key => $voucher)
-            <div class="mobile-card-item">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <div>
-                        <span class="text-muted small">#{{ $startNumber + $key }}</span>
-                        <div class="d-flex align-items-center gap-2 mt-1">
-                            <code class="text-info small" style="background: rgba(13,202,240,0.1); border-radius: 5px; padding: 3px 8px;">{{ substr($voucher->code, 0, 8) }}...</code>
-                            <button class="btn btn-sm btn-outline-success py-0 px-2" onclick="copyVoucherCode('{{ $voucher->code }}')"><i class="bi bi-clipboard"></i></button>
-                        </div>
-                    </div>
-                    @if($voucher->is_used)
-                        <span class="badge bg-success bg-opacity-25 text-success rounded-pill"><i class="bi bi-check-circle-fill"></i> @lang('Used')</span>
-                    @else
-                        <span class="badge bg-warning bg-opacity-25 text-warning rounded-pill"><i class="bi bi-clock-fill"></i> @lang('Unused')</span>
-                    @endif
-                </div>
-                <div class="row g-2">
-                    <div class="col-6"><small class="text-muted">@lang('Generated'):</small><br><strong>{{ showDateTime($voucher->created_at, 'd M Y') }}</strong></div>
-                    <div class="col-6">
-                        <small class="text-muted">@lang('Used By'):</small><br>
-                        @if($voucher->is_used && $voucher->used_by_id)
-                            @php $usedByUser = \App\Models\User::find($voucher->used_by_id); @endphp
-                            <strong class="text-primary">{{ $usedByUser ? strtoupper($usedByUser->username) : 'N/A' }}</strong>
-                        @else
-                            <span class="text-muted">-</span>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @empty
-            <div class="text-center py-4 text-muted">
-                <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>{{ __($emptyMessage) }}
-            </div>
-            @endforelse
-        </div>
-
         @if ($vouchers->hasPages())
-        <div class="mt-3">{{ paginateLinks($vouchers) }}</div>
+        <div class="p-3">
+            {{ paginateLinks($vouchers) }}
+        </div>
         @endif
     </div>
 </div>
@@ -193,50 +163,53 @@
 
 @endsection
 
-<div class="modal fade premium-modal" id="redeemVoucherModal" tabindex="-1" aria-labelledby="redeemVoucherModalLabel" aria-hidden="true">
+<div class="modal fade" id="redeemVoucherModal" tabindex="-1" aria-labelledby="redeemVoucherModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="background: var(--bg-card); border: 1px solid rgba(128,128,128,0.1); border-radius: 16px;">
-            <div class="modal-header" style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border-radius: 16px 16px 0 0;">
-                <h5 class="modal-title text-white" id="redeemVoucherModalLabel"><i class="bi bi-gift-fill me-2"></i> @lang('Redeem Voucher')</h5>
+        <div class="modal-content" style="background: #1e293b; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-white" id="redeemVoucherModalLabel"><i class="bi bi-gift-fill"></i> @lang('Redeem Voucher')</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4">
+            <div class="modal-body">
                 <form id="redeemVoucherForm" action="{{ route('user.voucher.redeem') }}" method="POST">
                     @csrf
                     <div class="form-group mb-3">
-                        <label for="voucherCodeInput" class="form-label text-muted small text-uppercase">@lang('Enter Voucher Code')</label>
-                        <input type="text" name="code" id="voucherCodeInput" class="form-control" style="background: rgba(128,128,128,0.05); border: 1px solid rgba(128,128,128,0.2); color: var(--text-primary); border-radius: 10px; padding: 12px;" required>
+                        <label for="voucherCodeInput" class="form-label text-white-50">@lang('Enter Voucher Code')</label>
+                        <input type="text" name="code" id="voucherCodeInput" class="form-control bg-transparent text-white border-secondary" required>
                     </div>
 
                     @if (auth()->user()->plan_id == 0)
+                    {{-- SCENARIO 1: User is becoming a DSP --}}
                     <input type="hidden" name="redeem_type" value="self_activation">
-                    <p class="mb-2 fw-bold text-center">@lang('Select Your Activation:')</p>
+                    <p class="mb-2 fw-bold text-center text-white">@lang('Select Your Activation:')</p>
                     <div class="position-container justify-content-center d-flex gap-3">
-                        <div class="position-item selectable-circle selected">
+                        <div class="position-item selectable-circle selected bg-transparent border-secondary">
                             <div class="circle-icon text-success"><i class="las la-user-check"></i></div>
-                            <span>@lang('My DSP')</span>
+                            <span class="text-white">@lang('My DSP')</span>
                         </div>
                     </div>
-                    <p class="text-center mt-2 text-muted small">@lang('Your plan will be activated after redeeming the voucher.')</p>
+                    <p class="text-center mt-2 text-white-50 small">@lang('Your plan will be activated after redeeming the voucher.')</p>
 
                     @elseif(auth()->user()->plan_id >= 1)
+                    {{-- SCENARIO 2: User is creating a new DSP for someone else --}}
                     <input type="hidden" name="redeem_type" value="create_dsp">
+
                     <div class="form-group">
-                        <label for="placementUsername" class="form-label text-muted small text-uppercase">@lang('Placement Username')</label>
-                        <input type="text" name="placement_username" id="placementUsername" class="form-control" style="background: rgba(128,128,128,0.05); border: 1px solid rgba(128,128,128,0.2); color: var(--text-primary); border-radius: 10px; padding: 12px;" required>
+                        <label for="placementUsername" class="form-label text-white-50">@lang('Placement Username')</label>
+                        <input type="text" name="placement_username" id="placementUsername" class="form-control bg-transparent text-white border-secondary" required>
                         <div id="placementUserFeedback" class="mt-1"></div>
                     </div>
 
                     <div id="placementDetails" style="display: none;">
-                        <label class="form-label mt-3 text-muted small text-uppercase">@lang('Select Position')</label>
+                        <label class="form-label mt-3 text-white-50">@lang('Select Position')</label>
                         <div class="position-container d-flex gap-3 justify-content-center">
-                            <div class="position-item selectable-circle" data-position="1">
-                                <div class="circle-icon"><i class="las la-arrow-left"></i></div>
-                                <span>@lang('Left')</span>
+                            <div class="position-item selectable-circle bg-transparent border-secondary" data-position="1">
+                                <div class="circle-icon text-white"><i class="las la-arrow-left"></i></div>
+                                <span class="text-white">@lang('Left')</span>
                             </div>
-                            <div class="position-item selectable-circle" data-position="2">
-                                <div class="circle-icon"><i class="las la-arrow-right"></i></div>
-                                <span>@lang('Right')</span>
+                            <div class="position-item selectable-circle bg-transparent border-secondary" data-position="2">
+                                <div class="circle-icon text-white"><i class="las la-arrow-right"></i></div>
+                                <span class="text-white">@lang('Right')</span>
                             </div>
                         </div>
                         <input type="hidden" name="position" id="selectedPosition">
@@ -245,7 +218,7 @@
                     @endif
 
                     <div class="mt-4">
-                        <button type="submit" class="btn w-100" style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border: none; padding: 12px; font-weight: 600; color: #fff; border-radius: 10px;">@lang('Redeem Voucher')</button>
+                        <button type="submit" class="btn btn-primary w-100 pulse-animation" style="background: var(--grad-primary); border: none; padding: 12px; font-weight: 600;">@lang('Redeem Voucher')</button>
                     </div>
                 </form>
             </div>

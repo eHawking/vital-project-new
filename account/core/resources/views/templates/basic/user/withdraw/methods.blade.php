@@ -4,117 +4,116 @@
 
 <!-- Include Modern Finance Theme CSS -->
 @include($activeTemplate . 'css.modern-finance-theme')
+
+<!-- Include Mobile Fixes CSS -->
 @include($activeTemplate . 'css.mobile-fixes')
 
-<style>
-    @media (max-width: 768px) {
-        .inner-dashboard-container { padding: 10px !important; }
-        .premium-card { border-radius: 12px !important; }
-        .border-end { border: none !important; }
-    }
-    .payment-item { background: rgba(128,128,128,0.05); border: 1px solid rgba(128,128,128,0.1); transition: all 0.3s ease; cursor: pointer; }
-    .payment-item:hover, .payment-item.selected { background: rgba(var(--rgb-primary), 0.1); border-color: var(--color-primary); }
-    .amount-input { background: rgba(128,128,128,0.05) !important; border: 1px solid rgba(128,128,128,0.2) !important; color: var(--text-primary) !important; }
-    .amount-input:focus { border-color: var(--color-primary) !important; }
-    .info-box { background: rgba(128,128,128,0.03); border-radius: 12px; padding: 20px; }
-</style>
-
-<div class="container-fluid px-4 py-3 inner-dashboard-container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <!-- Page Header -->
             <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
                 <div>
-                    <h4 class="m-0"><i class="bi bi-cash-coin"></i> @lang('Withdraw Funds')</h4>
-                    <p class="text-muted small m-0">@lang('Choose your preferred withdrawal method')</p>
+                    <h2 class="page-title text-white mb-1"><i class="bi bi-cash-coin"></i> @lang('Withdraw Funds')</h2>
+                    <p class="page-subtitle text-white-50">@lang('Choose your preferred withdrawal method')</p>
                 </div>
-                <a class="btn btn-outline-secondary" href="{{ route('user.withdraw.history') }}" style="border-radius: 10px;">
-                    <i class="bi bi-clock-history"></i> @lang('History')
+                <a class="btn btn-outline-light" href="{{ route('user.withdraw.history') }}" style="border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05);">
+                    <i class="bi bi-clock-history"></i> @lang('Withdraw History')
                 </a>
             </div>
 
             <div class="premium-card mb-4">
-                <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form">
-                    @csrf
-                    <div class="row gy-4">
-                        <div class="col-lg-6 border-end" style="border-color: rgba(128,128,128,0.1) !important;">
-                            <h5 class="mb-3"><i class="bi bi-credit-card me-2"></i>@lang('Select Payment Method')</h5>
-                            <div class="payment-system-list is-scrollable gateway-option-list" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
-                                @foreach ($withdrawMethod as $data)
-                                    <label for="{{ titleToKey($data->name) }}"
-                                        class="payment-item @if ($loop->index > 4) d-none @endif gateway-option d-flex align-items-center justify-content-between p-3 mb-3 rounded">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="payment-item__thumb" style="width: 45px; height: 45px; background: #fff; border-radius: 50%; padding: 5px; display: flex; align-items: center; justify-content: center;">
-                                                <img class="payment-item__thumb-img w-100 h-100 object-fit-contain" src="{{ getImage(getFilePath('withdrawMethod') . '/' . $data->image) }}" alt="payment">
+                <div class="card-body">
+                    <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form">
+                        @csrf
+                        <div class="row gy-4">
+                            <div class="col-lg-6 border-end border-secondary border-opacity-25">
+                                <h5 class="text-white mb-3">@lang('Select Payment Method')</h5>
+                                <div class="payment-system-list is-scrollable gateway-option-list" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                                    @foreach ($withdrawMethod as $data)
+                                        <label for="{{ titleToKey($data->name) }}"
+                                            class="payment-item @if ($loop->index > 4) d-none @endif gateway-option d-flex align-items-center justify-content-between p-3 mb-3 rounded cursor-pointer"
+                                            style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="payment-item__thumb" style="width: 50px; height: 50px; background: #fff; border-radius: 50%; padding: 5px; display: flex; align-items: center; justify-content: center;">
+                                                    <img class="payment-item__thumb-img w-100 h-100 object-fit-contain" src="{{ getImage(getFilePath('withdrawMethod') . '/' . $data->image) }}"
+                                                        alt="@lang('payment-thumb')">
+                                                </div>
+                                                <span class="payment-item__name text-white fw-bold">{{ __($data->name) }}</span>
                                             </div>
-                                            <span class="payment-item__name fw-bold">{{ __($data->name) }}</span>
+                                            <div class="payment-item__check">
+                                                <input class="form-check-input gateway-input" id="{{ titleToKey($data->name) }}" 
+                                                    data-gateway='@json($data)' type="radio" name="method_code" value="{{ $data->id }}"
+                                                    @if (old('method_code')) @checked(old('method_code') == $data->id) @else @checked($loop->first) @endif
+                                                    data-min-amount="{{ showAmount($data->min_limit) }}" data-max-amount="{{ showAmount($data->max_limit) }}"
+                                                    style="cursor: pointer;">
+                                            </div>
+                                        </label>
+                                    @endforeach
+                                    @if ($withdrawMethod->count() > 4)
+                                        <button type="button" class="btn btn-link text-white text-decoration-none w-100 mt-2 more-gateway-option">
+                                            @lang('Show All Payment Options') <i class="fas fa-chevron-down ms-1"></i>
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6 ps-lg-4">
+                                <h5 class="text-white mb-3">@lang('Withdrawal Details')</h5>
+                                <div class="p-3 rounded" style="background: rgba(255,255,255,0.02);">
+                                    <div class="mb-3">
+                                        <label class="form-label text-white-50">@lang('Enter Amount')</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent text-white border-secondary">{{ gs('cur_sym') }}</span>
+                                            <input type="number" step="any" class="form-control bg-transparent text-white border-secondary amount" name="amount" placeholder="@lang('0.00')"
+                                                value="{{ old('amount') }}" autocomplete="off">
                                         </div>
-                                        <input class="form-check-input gateway-input" id="{{ titleToKey($data->name) }}" 
-                                            data-gateway='@json($data)' type="radio" name="method_code" value="{{ $data->id }}"
-                                            @if (old('method_code')) @checked(old('method_code') == $data->id) @else @checked($loop->first) @endif
-                                            data-min-amount="{{ showAmount($data->min_limit) }}" data-max-amount="{{ showAmount($data->max_limit) }}">
-                                    </label>
-                                @endforeach
-                                @if ($withdrawMethod->count() > 4)
-                                    <button type="button" class="btn btn-link text-primary text-decoration-none w-100 mt-2 more-gateway-option">
-                                        @lang('Show All Payment Options') <i class="bi bi-chevron-down ms-1"></i>
+                                    </div>
+
+                                    <hr class="border-secondary opacity-25 my-4">
+
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-white-50">@lang('Limit')</span>
+                                        <span class="text-white fw-bold gateway-limit">@lang('0.00')</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="text-white-50">@lang('Processing Charge') 
+                                            <i class="las la-info-circle text-info proccessing-fee-info" data-bs-toggle="tooltip" title="@lang('Processing charge for withdraw method')"></i>
+                                        </span>
+                                        <span class="text-danger">{{ gs('cur_sym') }}<span class="processing-fee">@lang('0.00')</span> {{ __(gs('cur_text')) }}</span>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between mb-3 pt-2 border-top border-secondary border-opacity-25">
+                                        <span class="text-white fs-5">@lang('Receivable')</span>
+                                        <span class="text-success fs-5 fw-bold">{{ gs('cur_sym') }}<span class="final-amount">@lang('0.00')</span> {{ __(gs('cur_text')) }}</span>
+                                    </div>
+
+                                    <div class="gateway-conversion d-none mb-2">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="text-white-50">@lang('Conversion')</span>
+                                            <span class="text-white conversion-rate"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="conversion-currency d-none mb-4">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="text-white-50">@lang('In') <span class="gateway-currency"></span></span>
+                                            <span class="text-white fw-bold in-currency"></span>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary w-100 pulse-animation mt-3" disabled style="background: var(--grad-primary); border: none; padding: 12px; font-size: 16px; font-weight: 600;">
+                                        @lang('Confirm Withdraw')
                                     </button>
-                                @endif
+                                    
+                                    <p class="text-white-50 text-center mt-3 small">
+                                        <i class="las la-shield-alt"></i> @lang('Safely withdraw your funds using our highly secure process.')
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="col-lg-6 ps-lg-4">
-                            <h5 class="mb-3"><i class="bi bi-calculator me-2"></i>@lang('Withdrawal Details')</h5>
-                            <div class="info-box">
-                                <div class="mb-3">
-                                    <label class="form-label text-muted small text-uppercase">@lang('Enter Amount')</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text amount-input" style="border-radius: 10px 0 0 10px !important;">{{ gs('cur_sym') }}</span>
-                                        <input type="number" step="any" class="form-control amount-input amount" name="amount" placeholder="@lang('0.00')" value="{{ old('amount') }}" autocomplete="off" style="border-radius: 0 10px 10px 0 !important;">
-                                    </div>
-                                </div>
-
-                                <hr style="border-color: rgba(128,128,128,0.1);" class="my-4">
-
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="text-muted">@lang('Limit')</span>
-                                    <span class="fw-bold gateway-limit">@lang('0.00')</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="text-muted">@lang('Processing Charge') <i class="bi bi-info-circle text-info proccessing-fee-info" data-bs-toggle="tooltip" title="@lang('Processing charge')"></i></span>
-                                    <span class="text-danger">{{ gs('cur_sym') }}<span class="processing-fee">@lang('0.00')</span></span>
-                                </div>
-                                
-                                <div class="d-flex justify-content-between mb-3 pt-2" style="border-top: 1px solid rgba(128,128,128,0.1);">
-                                    <span class="fs-5">@lang('Receivable')</span>
-                                    <span class="text-success fs-5 fw-bold">{{ gs('cur_sym') }}<span class="final-amount">@lang('0.00')</span></span>
-                                </div>
-
-                                <div class="gateway-conversion d-none mb-2">
-                                    <div class="d-flex justify-content-between">
-                                        <span class="text-muted">@lang('Conversion')</span>
-                                        <span class="conversion-rate"></span>
-                                    </div>
-                                </div>
-                                
-                                <div class="conversion-currency d-none mb-4">
-                                    <div class="d-flex justify-content-between">
-                                        <span class="text-muted">@lang('In') <span class="gateway-currency"></span></span>
-                                        <span class="fw-bold in-currency"></span>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn w-100 mt-3" disabled style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border: none; padding: 14px; font-size: 16px; font-weight: 600; color: #fff; border-radius: 12px;">
-                                    <i class="bi bi-check-circle me-2"></i>@lang('Confirm Withdraw')
-                                </button>
-                                
-                                <p class="text-muted text-center mt-3 small">
-                                    <i class="bi bi-shield-check"></i> @lang('Safely withdraw your funds using our secure process.')
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

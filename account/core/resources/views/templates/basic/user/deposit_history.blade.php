@@ -4,135 +4,133 @@
     @include($activeTemplate . 'css.modern-finance-theme')
     @include($activeTemplate . 'css.mobile-fixes')
 
-<style>
-    @media (max-width: 768px) {
-        .inner-dashboard-container { padding: 10px !important; }
-        .premium-card { border-radius: 12px !important; }
-        .header-actions { flex-direction: column; width: 100%; }
-        .header-actions form { width: 100%; }
-    }
-    .table-custom th { background: rgba(128,128,128,0.05) !important; color: var(--text-muted) !important; font-weight: 600; padding: 12px 15px; border-bottom: 1px solid rgba(128,128,128,0.1) !important; }
-    .table-custom td { padding: 12px 15px; border-bottom: 1px solid rgba(128,128,128,0.05) !important; color: var(--text-primary) !important; }
-    .table-custom tbody tr:hover { background: rgba(128,128,128,0.03) !important; }
-    .mobile-card-item { background: rgba(128,128,128,0.03); border: 1px solid rgba(128,128,128,0.1); border-radius: 12px; padding: 15px; margin-bottom: 10px; }
-    .search-input { background: rgba(128,128,128,0.05) !important; border: 1px solid rgba(128,128,128,0.2) !important; color: var(--text-primary) !important; border-radius: 10px 0 0 10px !important; }
-    .search-btn { background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%) !important; border: none !important; border-radius: 0 10px 10px 0 !important; color: #fff !important; }
-</style>
-
-<div class="container-fluid px-4 py-3 inner-dashboard-container">
     <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
-        <div>
-            <h4 class="m-0"><i class="bi bi-wallet2"></i> @lang('Deposit History')</h4>
-            <p class="text-muted small m-0">@lang('View your deposit transactions')</p>
-        </div>
-        <div class="d-flex gap-3 align-items-center flex-wrap header-actions">
+        <h4 class="text-white m-0"><i class="bi bi-wallet2"></i> @lang('Deposit History')</h4>
+        <div class="d-flex gap-3 align-items-center flex-wrap">
             <form class="flex-grow-1">
                 <div class="input-group">
-                    <input class="form-control search-input" name="search" type="search" value="{{ request()->search }}" placeholder="@lang('Search TRX...')">
-                    <button class="input-group-text search-btn"><i class="bi bi-search"></i></button>
+                    <input class="form-control bg-transparent text-white border-secondary" name="search" type="search" value="{{ request()->search }}" placeholder="@lang('Search TRX...')" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <button class="input-group-text bg-primary text-white border-primary" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                        <i class="las la-search"></i>
+                    </button>
                 </div>
             </form>
-            <a class="btn" href="{{ route('user.deposit.index') }}" style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border: none; border-radius: 10px; color: #fff; white-space: nowrap;">
-                <i class="bi bi-plus-circle"></i> @lang('Deposit')
+            <a class="btn btn-primary pulse-animation" href="{{ route('user.deposit.index') }}" style="background: var(--grad-primary); border: none; border-radius: 10px;">
+                <i class="las la-plus-circle"></i> @lang('Deposit Now')
             </a>
         </div>
     </div>
 
     <div class="premium-card">
-        <!-- Desktop Table View -->
-        <div class="table-responsive d-none d-md-block">
-            <table class="table table-custom">
-                <thead>
-                    <tr>
-                        <th>@lang('Gateway | TRX')</th>
-                        <th>@lang('Initiated')</th>
-                        <th>@lang('Amount')</th>
-                        <th>@lang('Conversion')</th>
-                        <th>@lang('Status')</th>
-                        <th>@lang('Details')</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($deposits as $deposit)
-                        @php
-                            $details = [];
-                            if ($deposit->method_code >= 1000 && $deposit->method_code <= 5000) {
-                                foreach (@$deposit->detail ?? [] as $key => $info) {
-                                    $details[] = $info;
-                                    if (@$info->type == 'file' && @$info->value) {
-                                        @$details[$key]->value = route('user.download.attachment', encrypt(getFilePath('verify') . '/' . @$info->value));
-                                    }
-                                }
-                            }
-                        @endphp
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table transection-table-2">
+                    <thead>
                         <tr>
-                            <td>
-                                <strong class="text-primary">@if ($deposit->method_code < 5000) {{ __(@$deposit->gateway->name) }} @else @lang('Google Pay') @endif</strong><br>
-                                <small class="text-muted">{{ $deposit->trx }}</small>
-                            </td>
-                            <td>{{ showDateTime($deposit->created_at) }}<br><small class="text-muted">{{ diffForHumans($deposit->created_at) }}</small></td>
-                            <td>
-                                {{ showAmount($deposit->amount) }} + <span class="text-danger">{{ showAmount($deposit->charge) }}</span><br>
-                                <strong>{{ showAmount($deposit->amount + $deposit->charge) }}</strong>
-                            </td>
-                            <td>1 = {{ showAmount($deposit->rate, currencyFormat: false) }} {{ __($deposit->method_currency) }}<br><strong>{{ showAmount($deposit->final_amount, currencyFormat: false) }} {{ __($deposit->method_currency) }}</strong></td>
-                            <td>@php echo $deposit->statusBadge @endphp</td>
-                            <td>
-                                @if ($deposit->method_code >= 1000 && $deposit->method_code <= 5000)
-                                    <a class="btn btn-sm btn-outline-secondary detailBtn" data-info="{{ json_encode($details) }}" href="javascript:void(0)" @if ($deposit->status == Status::PAYMENT_REJECT) data-admin_feedback="{{ $deposit->admin_feedback }}" @endif><i class="bi bi-eye"></i></a>
-                                @else
-                                    <span class="badge bg-success"><i class="bi bi-check"></i></span>
-                                @endif
-                            </td>
+                            <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Gateway | Transaction')</th>
+                            <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Initiated')</th>
+                            <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Amount')</th>
+                            <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Conversion')</th>
+                            <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Status')</th>
+                            <th style="background: rgba(255,255,255,0.1); color: #fff;">@lang('Details')</th>
                         </tr>
-                    @empty
-                        <tr><td colspan="6" class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>{{ __($emptyMessage) }}</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse($deposits as $deposit)
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td class="text-white">
+                                    <span class="fw-bold">
+                                        <span class="text-info">
+                                            @if ($deposit->method_code < 5000)
+                                                {{ __(@$deposit->gateway->name) }}
+                                            @else
+                                                @lang('Google Pay')
+                                            @endif
+                                        </span>
+                                    </span>
+                                    <br>
+                                    <small class="text-white-50"> {{ $deposit->trx }} </small>
+                                </td>
+
+                                <td class="text-white">
+                                    {{ showDateTime($deposit->created_at) }}<br><small class="text-white-50">{{ diffForHumans($deposit->created_at) }}</small>
+                                </td>
+                                <td class="text-white">
+                                    {{ showAmount($deposit->amount) }} + <span class="text-danger" data-bs-toggle="tooltip"
+                                        title="@lang('Processing Charge')">{{ showAmount($deposit->charge) }} </span>
+                                    <br>
+                                    <strong data-bs-toggle="tooltip" title="@lang('Amount with charge')">
+                                        {{ showAmount($deposit->amount + $deposit->charge) }}
+                                    </strong>
+                                </td>
+                                <td class="text-white">
+                                    {{ showAmount(1) }} = {{ showAmount($deposit->rate, currencyFormat: false) }} {{ __($deposit->method_currency) }}
+                                    <br>
+                                    <strong>{{ showAmount($deposit->final_amount, currencyFormat: false) }} {{ __($deposit->method_currency) }}</strong>
+                                </td>
+                                <td>
+                                    @php echo $deposit->statusBadge @endphp
+                                </td>
+                                @php
+                                    $details = [];
+                                    if ($deposit->method_code >= 1000 && $deposit->method_code <= 5000) {
+                                        foreach (@$deposit->detail ?? [] as $key => $info) {
+                                            $details[] = $info;
+                                            if (@$info->type == 'file' && @$info->value) {
+                                                @$details[$key]->value = route(
+                                                    'user.download.attachment',
+                                                    encrypt(getFilePath('verify') . '/' . @$info->value),
+                                                );
+                                            }
+                                        }
+                                    }
+                                @endphp
+
+                                <td>
+                                    @if ($deposit->method_code >= 1000 && $deposit->method_code <= 5000)
+                                        <a class="btn btn-sm detailBtn" data-info="{{ json_encode($details) }}" href="javascript:void(0)"
+                                            @if ($deposit->status == Status::PAYMENT_REJECT) data-admin_feedback="{{ $deposit->admin_feedback }}" @endif
+                                            style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                                            <i class="fas fa-desktop"></i>
+                                        </a>
+                                    @else
+                                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" type="button" title="@lang('Automatically processed')" style="border-radius: 50%;">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="100%" class="text-center text-white-50">{{ __($emptyMessage) }}</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Mobile Card View -->
-        <div class="d-block d-md-none">
-            @forelse($deposits as $deposit)
-                <div class="mobile-card-item">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <div>
-                            <strong class="text-primary">@if ($deposit->method_code < 5000) {{ __(@$deposit->gateway->name) }} @else Google Pay @endif</strong>
-                            <small class="text-muted d-block">{{ $deposit->trx }}</small>
-                        </div>
-                        @php echo $deposit->statusBadge @endphp
-                    </div>
-                    <div class="row g-2">
-                        <div class="col-6"><small class="text-muted">@lang('Amount'):</small><br><strong>{{ showAmount($deposit->amount) }}</strong></div>
-                        <div class="col-6"><small class="text-muted">@lang('Charge'):</small><br><span class="text-danger">{{ showAmount($deposit->charge) }}</span></div>
-                        <div class="col-6"><small class="text-muted">@lang('Total'):</small><br><strong>{{ showAmount($deposit->amount + $deposit->charge) }}</strong></div>
-                        <div class="col-6"><small class="text-muted">@lang('Date'):</small><br><strong>{{ showDateTime($deposit->created_at, 'd M Y') }}</strong></div>
-                    </div>
-                </div>
-            @empty
-                <div class="text-center py-4 text-muted"><i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>{{ __($emptyMessage) }}</div>
-            @endforelse
-        </div>
     </div>
-
     @if ($deposits->hasPages())
-        <div class="mt-3">{{ paginateLinks($deposits) }}</div>
+        <div class="mt-4">
+            {{ paginateLinks($deposits) }}
+        </div>
     @endif
-</div>
 @endsection
 
 @push('modal')
+    {{-- APPROVE MODAL --}}
     <div class="modal fade" id="detailModal" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content" style="background: var(--bg-card); border: 1px solid rgba(128,128,128,0.1); border-radius: 16px;">
-                <div class="modal-header" style="background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%); border-radius: 16px 16px 0 0;">
-                    <h5 class="modal-title text-white"><i class="bi bi-info-circle me-2"></i>@lang('Details')</h5>
+            <div class="modal-content" style="background: #1e293b; border: 1px solid rgba(255,255,255,0.1);">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white">@lang('Details')</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4">
-                    <ul class="list-group userData mb-2"></ul>
-                    <div class="feedback"></div>
+                <div class="modal-body">
+                    <ul class="list-group userData mb-2 bg-transparent">
+                    </ul>
+                    <div class="feedback text-white-50"></div>
                 </div>
             </div>
         </div>
