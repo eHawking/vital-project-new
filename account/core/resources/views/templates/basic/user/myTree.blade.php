@@ -77,40 +77,116 @@
         opacity: 0.9;
     }
 
-    /* Modal Styling */
+    /* Premium Modal Styling */
     .premium-modal .modal-content {
         background: var(--bg-card) !important;
         border: 1px solid rgba(128,128,128,0.1) !important;
-        border-radius: 16px;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
     }
     .premium-modal .modal-header {
-        border-bottom: 1px solid rgba(128,128,128,0.1) !important;
+        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+        border-bottom: none !important;
+        padding: 20px 25px;
     }
     .premium-modal .modal-title {
-        color: var(--text-primary) !important;
+        color: #fff !important;
+        font-weight: 600;
     }
-    .premium-modal .btn-close {
-        filter: var(--btn-close-filter, none);
+    .premium-modal .modal-header .btn-close {
+        filter: invert(1) !important;
+        opacity: 0.8;
     }
-    [data-theme="dark"] .premium-modal .btn-close {
-        filter: invert(1);
+    .premium-modal .modal-header .btn-close:hover {
+        opacity: 1;
+    }
+    .premium-modal .modal-body {
+        background: var(--bg-card);
+    }
+    .premium-modal .user-header-box {
+        background: linear-gradient(135deg, rgba(var(--rgb-primary), 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        border: 1px solid rgba(var(--rgb-primary), 0.2);
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
     }
     .premium-modal .info-box {
         background: rgba(128,128,128,0.05);
+        border: 1px solid rgba(128,128,128,0.1);
         border-radius: 12px;
         padding: 15px;
+        transition: all 0.3s ease;
+    }
+    .premium-modal .info-box:hover {
+        background: rgba(128,128,128,0.08);
+        transform: translateY(-2px);
+    }
+    .premium-modal .stat-card {
+        background: rgba(128,128,128,0.05);
+        border: 1px solid rgba(128,128,128,0.1);
+        border-radius: 12px;
+        padding: 20px;
     }
     .premium-modal .table {
         color: var(--text-primary) !important;
+        margin-bottom: 0;
     }
-    .premium-modal .table th,
+    .premium-modal .table th {
+        background: rgba(128,128,128,0.05) !important;
+        border-color: rgba(128,128,128,0.1) !important;
+        color: var(--text-muted) !important;
+        font-weight: 600;
+        padding: 12px 15px;
+    }
     .premium-modal .table td {
         background: transparent !important;
         border-color: rgba(128,128,128,0.1) !important;
         color: var(--text-primary) !important;
+        padding: 12px 15px;
+    }
+    .premium-modal .table tbody tr:hover {
+        background: rgba(128,128,128,0.03) !important;
     }
     .premium-modal .text-label {
         color: var(--text-muted) !important;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .premium-modal .referral-box {
+        background: linear-gradient(135deg, rgba(13, 202, 240, 0.1) 0%, rgba(13, 202, 240, 0.05) 100%);
+        border: 1px solid rgba(13, 202, 240, 0.2);
+        border-radius: 12px;
+        padding: 15px 20px;
+    }
+    .premium-modal .user-avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 3px solid var(--color-primary);
+        box-shadow: 0 0 20px rgba(var(--rgb-primary), 0.3);
+        object-fit: cover;
+    }
+    .premium-modal .username-display {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 10px;
+    }
+    .premium-modal .tree-link-btn {
+        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+        border: none;
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+    .premium-modal .tree-link-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(var(--rgb-primary), 0.4);
+        color: #fff;
     }
 </style>
 
@@ -222,90 +298,100 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-person-vcard"></i> @lang('User Details')</h5>
+                <h5 class="modal-title"><i class="bi bi-person-vcard me-2"></i> @lang('User Details')</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
                 <div class="user-details-modal">
-                    <div class="user-details-header modern-user-header p-3 rounded mb-4 info-box text-center">
-                        <div class="thumb mb-3">
-                            <img src="#" alt="*" class="tree_image rounded-circle border border-2 border-primary" style="width: 80px; height: 80px; object-fit: cover;">
+                    <!-- User Profile Header -->
+                    <div class="user-header-box mb-4">
+                        <div class="mb-3">
+                            <img src="#" alt="*" class="tree_image user-avatar">
                         </div>
-                        <div class="content">
-                            <h4 class="main-username mb-2"></h4>
-                            <a class="user-name tree_url tree_name btn btn-sm btn-outline-info mb-2" href="">
-                                <i class="bi bi-diagram-3"></i> <span></span>
-                            </a>
-                            <div class="badges mt-2">
-                                <span class="badge tree_status"></span>
-                                <span class="badge tree_plan"></span>
+                        <h4 class="main-username username-display"></h4>
+                        <a class="tree_url tree_name tree-link-btn" href="">
+                            <i class="bi bi-diagram-3 me-1"></i> <span></span>
+                        </a>
+                        <div class="badges mt-3">
+                            <span class="badge tree_status me-1"></span>
+                            <span class="badge tree_plan"></span>
+                        </div>
+                    </div>
+
+                    <!-- Balance & E-Pin Cards -->
+                    <div class="row dsp_div mb-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="info-box h-100">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon-box variant-blue rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                        <i class="bi bi-wallet2 fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-label d-block">@lang('Current Balance')</small>
+                                        <h5 class="balance mb-0 fw-bold"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="info-box h-100">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon-box variant-purple rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                        <i class="bi bi-credit-card-2-front fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <small class="text-label d-block">@lang('E-Pin Credit')</small>
+                                        <h5 class="epincredit mb-0 fw-bold"></h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="user-details-body mt-4">
-                        <!-- Balance Info -->
-                        <div class="row dsp_div mb-4">
-                            <div class="col-md-6 mb-3">
-                                <div class="info-box h-100">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="icon-box variant-blue rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                            <i class="bi bi-wallet2"></i>
-                                        </div>
-                                        <div>
-                                            <small class="text-label d-block">@lang('Current Balance')</small>
-                                            <h5 class="balance mb-0"></h5>
-                                        </div>
-                                    </div>
-                                </div>
+
+                    <!-- Referral Info -->
+                    <div class="referral-box mb-4">
+                        <div class="d-flex flex-wrap align-items-center gap-3">
+                            <div>
+                                <i class="bi bi-person-check-fill text-info fs-5"></i>
+                                <span class="text-muted">@lang('Referred By'):</span>
+                                <span class="tree_ref text-info fw-bold"></span>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="info-box h-100">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="icon-box variant-purple rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                            <i class="bi bi-credit-card-2-front"></i>
-                                        </div>
-                                        <div>
-                                            <small class="text-label d-block">@lang('E-Pin Credit')</small>
-                                            <h5 class="epincredit mb-0"></h5>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div>
+                                <i class="bi bi-geo-alt-fill text-info fs-5"></i>
+                                <span class="text-muted">@lang('City'):</span>
+                                <span class="city text-info fw-bold"></span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="referral-info mb-4 p-3 rounded" style="background: rgba(13, 202, 240, 0.1); border-left: 4px solid var(--bs-info);">
-                            <i class="bi bi-person-check-fill text-info"></i>
-                            <strong class="text-muted">@lang('Referred By'):</strong> <span class="tree_ref text-info fw-bold"></span>
-                            <i class="bi bi-geo-alt-fill ms-3 text-info"></i>
-                            <strong class="text-muted">@lang('from'):</strong> <span class="city text-info fw-bold"></span>
-                        </div>
-
-                        <!-- Tree Statistics -->
+                    <!-- Tree Statistics Table -->
+                    <div class="stat-card">
+                        <h6 class="mb-3 text-muted"><i class="bi bi-bar-chart-fill me-2"></i>@lang('Team Statistics')</h6>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th class="text-muted"><i class="bi bi-diagram-2"></i> @lang('Team Side')</th>
-                                        <th class="text-center text-muted"><i class="bi bi-arrow-left-circle"></i> @lang('LEFT')</th>
-                                        <th class="text-center text-muted"><i class="bi bi-arrow-right-circle"></i> @lang('RIGHT')</th>
+                                        <th><i class="bi bi-diagram-2 me-1"></i> @lang('Member Type')</th>
+                                        <th class="text-center"><i class="bi bi-arrow-left-circle me-1"></i> @lang('LEFT')</th>
+                                        <th class="text-center"><i class="bi bi-arrow-right-circle me-1"></i> @lang('RIGHT')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><i class="bi bi-people text-muted"></i> @lang('Free Member')</td>
-                                        <td class="text-center"><span class="badge bg-secondary lfree"></span></td>
-                                        <td class="text-center"><span class="badge bg-secondary rfree"></span></td>
+                                        <td><i class="bi bi-people text-secondary me-2"></i> @lang('Free Member')</td>
+                                        <td class="text-center"><span class="badge bg-secondary bg-opacity-25 text-secondary px-3 py-2 lfree"></span></td>
+                                        <td class="text-center"><span class="badge bg-secondary bg-opacity-25 text-secondary px-3 py-2 rfree"></span></td>
                                     </tr>
                                     <tr>
-                                        <td><i class="bi bi-person-check-fill text-muted"></i> @lang('Paid Member')</td>
-                                        <td class="text-center"><span class="badge bg-success lpaid"></span></td>
-                                        <td class="text-center"><span class="badge bg-success rpaid"></span></td>
+                                        <td><i class="bi bi-person-check-fill text-success me-2"></i> @lang('Paid Member')</td>
+                                        <td class="text-center"><span class="badge bg-success bg-opacity-25 text-success px-3 py-2 lpaid"></span></td>
+                                        <td class="text-center"><span class="badge bg-success bg-opacity-25 text-success px-3 py-2 rpaid"></span></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
