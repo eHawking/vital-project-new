@@ -92,6 +92,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('kyc-submit', 'kycSubmit')->name('kyc.submit');
 
                 //Report
+                Route::get('bright-future-plan', 'brightFuture')->name('bright.future.plan');
                 Route::any('deposit/history', 'depositHistory')->name('deposit.history');
                 Route::get('transactions', 'transactions')->name('transactions');
 

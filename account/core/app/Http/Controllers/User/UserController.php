@@ -183,6 +183,31 @@ class UserController extends Controller
 
 
 
+    public function brightFuture()
+    {
+        $pageTitle = 'Bright Future Plan';
+        $user = auth()->user();
+        $maxCap = 400000;
+        $receivedAmount = $user->bright_future_balance;
+        $remainingAmount = max(0, $maxCap - $receivedAmount);
+        $progress = min(100, ($receivedAmount / $maxCap) * 100);
+
+        $transactions = Transaction::where('user_id', $user->id)
+            ->where('remark', 'bright_future_profit')
+            ->orderBy('id', 'desc')
+            ->paginate(getPaginate());
+
+        return view('Template::user.bright_future', compact(
+            'pageTitle',
+            'user',
+            'receivedAmount',
+            'remainingAmount',
+            'progress',
+            'transactions',
+            'maxCap'
+        ));
+    }
+
     public function depositHistory(Request $request)
     {
         $pageTitle = 'Deposit History';
