@@ -120,10 +120,18 @@
 
     <style>
         /* Ensure table styling matches theme */
+        .table-custom {
+            color: var(--text-primary) !important;
+        }
         .table-custom th, .table-custom td {
             background: transparent !important;
             vertical-align: middle;
             padding: 15px;
+            color: inherit !important;
+        }
+        /* Ensure headings and other text inherit correct color */
+        h1, h2, h3, h4, h5, h6, .premium-title {
+            color: var(--text-primary) !important;
         }
         .bg-gradient-primary {
             background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
