@@ -1,5 +1,6 @@
 @extends($activeTemplate . 'layouts.master')
 @section('content')
+    @php $general = gs(); @endphp
     <style>
         /* --- Premium Theme Variables --- */
         :root {
