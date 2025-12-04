@@ -21,7 +21,7 @@
     </div>
 
     <!-- Referral Stats Cards -->
-    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px;">
+    <div class="stats-grid">
         
         <!-- Total Referrals -->
         <div class="premium-card stat-item">
@@ -82,6 +82,14 @@
 @include($activeTemplate . 'partials.mobile-bottom-nav')
 
 <style>
+    /* Grid Layout */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
     /* Ensure table styling matches theme */
     .table-custom {
         color: var(--text-primary) !important;
@@ -160,6 +168,18 @@
     
     /* Mobile Full Width Adjustments */
     @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: 1fr !important;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stat-item, .premium-card {
+            width: 100% !important;
+            margin-bottom: 10px;
+        }
+
         .container-fluid.px-4 {
             padding-left: 0 !important;
             padding-right: 0 !important;
