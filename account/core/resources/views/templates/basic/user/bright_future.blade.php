@@ -134,7 +134,9 @@
             <!-- History Table -->
             <div class="premium-card">
                 <h5 class="mb-4">@lang('Profit History')</h5>
-                <div class="table-responsive">
+                
+                <!-- Desktop Table View -->
+                <div class="table-responsive d-none d-md-block">
                     <table class="table table-custom">
                         <thead>
                             <tr style="border-bottom: 1px solid rgba(128,128,128,0.1);">
@@ -148,16 +150,14 @@
                         <tbody>
                             @forelse($transactions as $trx)
                                 <tr style="border-bottom: 1px solid rgba(128,128,128,0.05);">
-                                    <td data-label="@lang('Transaction ID')" class="fw-bold">#{{ $trx->trx }}</td>
-                                    <td data-label="@lang('Date')">
-                                        <div class="d-flex flex-column">
-                                            <span>{{ showDateTime($trx->created_at, 'Y-m-d') }}</span>
-                                            <small class="text-muted">{{ showDateTime($trx->created_at, 'h:i A') }}</small>
-                                        </div>
+                                    <td class="fw-bold">#{{ $trx->trx }}</td>
+                                    <td>
+                                        <span>{{ showDateTime($trx->created_at, 'Y-m-d') }}</span>
+                                        <br><small class="text-muted">{{ showDateTime($trx->created_at, 'h:i A') }}</small>
                                     </td>
-                                    <td data-label="@lang('Amount')" class="fw-bold text-success">+{{ showAmount($trx->amount, currencyFormat: false) }} {{ $general->cur_text }}</td>
-                                    <td data-label="@lang('Details')" class="text-muted">{{ __($trx->details) }}</td>
-                                    <td data-label="@lang('Status')"><span class="badge bg-success bg-opacity-25 text-success">@lang('Received')</span></td>
+                                    <td class="fw-bold text-success">+{{ showAmount($trx->amount, currencyFormat: false) }} {{ $general->cur_text }}</td>
+                                    <td class="text-muted">{{ __($trx->details) }}</td>
+                                    <td><span class="badge bg-success bg-opacity-25 text-success">@lang('Received')</span></td>
                                 </tr>
                             @empty
                                 <tr>
@@ -167,88 +167,132 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Mobile Card View -->
+                <div class="d-block d-md-none">
+                    @forelse($transactions as $trx)
+                        <div class="mobile-card-item">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <span class="text-muted small">#{{ $trx->trx }}</span>
+                                    <h6 class="mb-0 text-success fw-bold">+{{ showAmount($trx->amount, currencyFormat: false) }} {{ $general->cur_text }}</h6>
+                                </div>
+                                <span class="badge bg-success bg-opacity-25 text-success">@lang('Received')</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ __($trx->details) }}</small>
+                                <small class="text-muted"><i class="bi bi-calendar3"></i> {{ showDateTime($trx->created_at, 'd M Y') }}</small>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>
+                            @lang('No daily profit received yet.')
+                        </div>
+                    @endforelse
+                </div>
+
+                <!-- Premium Pagination -->
                 @if($transactions->hasPages())
-                    <div class="mt-4">
-                        {{ paginateLinks($transactions) }}
+                    <div class="premium-pagination mt-4">
+                        <div class="d-flex justify-content-center align-items-center gap-2">
+                            {{-- Previous --}}
+                            @if ($transactions->onFirstPage())
+                                <span class="page-btn disabled"><i class="bi bi-chevron-left"></i></span>
+                            @else
+                                <a href="{{ $transactions->previousPageUrl() }}" class="page-btn"><i class="bi bi-chevron-left"></i></a>
+                            @endif
+
+                            {{-- Page Numbers --}}
+                            @php
+                                $currentPage = $transactions->currentPage();
+                                $lastPage = $transactions->lastPage();
+                                $start = max(1, $currentPage - 2);
+                                $end = min($lastPage, $currentPage + 2);
+                            @endphp
+
+                            @if($start > 1)
+                                <a href="{{ $transactions->url(1) }}" class="page-btn">1</a>
+                                @if($start > 2)
+                                    <span class="page-dots">...</span>
+                                @endif
+                            @endif
+
+                            @for ($i = $start; $i <= $end; $i++)
+                                <a href="{{ $transactions->url($i) }}" class="page-btn {{ $i == $currentPage ? 'active' : '' }}">{{ $i }}</a>
+                            @endfor
+
+                            @if($end < $lastPage)
+                                @if($end < $lastPage - 1)
+                                    <span class="page-dots">...</span>
+                                @endif
+                                <a href="{{ $transactions->url($lastPage) }}" class="page-btn">{{ $lastPage }}</a>
+                            @endif
+
+                            {{-- Next --}}
+                            @if ($transactions->hasMorePages())
+                                <a href="{{ $transactions->nextPageUrl() }}" class="page-btn"><i class="bi bi-chevron-right"></i></a>
+                            @else
+                                <span class="page-btn disabled"><i class="bi bi-chevron-right"></i></span>
+                            @endif
+                        </div>
+                        <div class="text-center mt-2">
+                            <small class="text-muted">@lang('Page') {{ $transactions->currentPage() }} @lang('of') {{ $transactions->lastPage() }} ({{ $transactions->total() }} @lang('items'))</small>
+                        </div>
                     </div>
                 @endif
             </div>
         </div>
     </div>
 
-    <!-- Include Mobile Bottom Navigation -->
+    <!-- Mobile Bottom Navigation -->
     @include($activeTemplate . 'partials.mobile-bottom-nav')
 
     <style>
-        /* Pagination Styling */
-        .pagination {
+        /* Mobile Card Item */
+        .mobile-card-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(128,128,128,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        /* Premium Pagination */
+        .premium-pagination .page-btn {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 5px;
-            margin-bottom: 0;
-        }
-        .page-item .page-link {
-            background: transparent;
-            border: 1px solid rgba(128,128,128,0.2);
-            color: var(--text-primary);
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
             border-radius: 8px;
-            padding: 6px 12px;
-            transition: all 0.3s ease;
+            background: rgba(128,128,128,0.1);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
             font-size: 14px;
+            transition: all 0.2s ease;
         }
-        .page-item.active .page-link {
+        .premium-pagination .page-btn:hover:not(.disabled):not(.active) {
+            background: rgba(var(--rgb-primary), 0.2);
+            color: var(--color-primary);
+        }
+        .premium-pagination .page-btn.active {
             background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
             color: #fff;
-            border-color: transparent;
             box-shadow: 0 4px 10px rgba(var(--rgb-primary), 0.3);
         }
-        .page-item.disabled .page-link {
-            background: rgba(128,128,128,0.1);
-            color: rgba(128,128,128,0.5);
-            border-color: transparent;
+        .premium-pagination .page-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
-        .page-item .page-link:hover:not(.active) {
-            background: rgba(var(--rgb-primary), 0.1);
-            color: var(--color-primary);
-            border-color: var(--color-primary);
-        }
-
-        /* Mobile "Table as Card" */
-        @media (max-width: 768px) {
-            .table-custom thead {
-                display: none;
-            }
-            .table-custom, .table-custom tbody, .table-custom tr, .table-custom td {
-                display: block;
-                width: 100%;
-            }
-            .table-custom tr {
-                margin-bottom: 15px;
-                border: 1px solid rgba(128,128,128,0.1);
-                border-radius: 12px;
-                background: rgba(255,255,255,0.02);
-                padding: 15px;
-            }
-            .table-custom td {
-                text-align: right;
-                padding: 10px 0;
-                position: relative;
-                border-bottom: 1px solid rgba(128,128,128,0.1);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .table-custom td:last-child {
-                border-bottom: none;
-            }
-            .table-custom td::before {
-                content: attr(data-label);
-                float: left;
-                font-weight: bold;
-                color: var(--text-primary);
-                opacity: 0.7;
-            }
+        .premium-pagination .page-dots {
+            color: var(--text-muted);
+            padding: 0 5px;
         }
     </style>
+
 @endsection
 
 @push('script')
