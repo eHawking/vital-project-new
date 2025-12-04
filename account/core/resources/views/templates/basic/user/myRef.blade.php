@@ -22,7 +22,7 @@
         </div>
 
         <!-- Referral Stats Cards -->
-        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px;">
+        <div class="stats-grid">
             
             <!-- Total Referrals -->
             <div class="premium-card stat-item">
@@ -219,19 +219,43 @@
     
     /* Mobile Full Width Adjustments */
     @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: 1fr !important;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .stat-item, .premium-card {
+            width: 100% !important;
+            margin-bottom: 10px;
+        }
+
+        /* Outer container padding RESET */
         .container-fluid.px-4 {
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
+
+        /* Remove inner container padding */
         .inner-dashboard-container {
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
+        
+        /* Reset Row margins */
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
         .premium-card {
             border-radius: 0 !important;
             border-left: none !important;
             border-right: none !important;
         }
+        
+        /* Pagination Responsive */
         .pagination-wrapper {
             justify-content: center !important;
             flex-direction: column;
