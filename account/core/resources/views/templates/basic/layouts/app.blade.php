@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title> {{ gs()->siteName(__($pageTitle)) }}</title>
     @include('partials.seo')
+    
+    <!-- Theme Initialization (Must be in head to prevent flash) -->
+    @include($activeTemplate . 'partials.theme_init')
+    @include($activeTemplate . 'css.modern-finance-theme')
+
     <!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
