@@ -20,6 +20,131 @@
         </div>
     </div>
 
+    <style>
+        /* Mobile Full Width Adjustments */
+        @media (max-width: 768px) {
+            /* Force Inner Container to have ZERO padding */
+            .inner-dashboard-container,
+            .container-fluid.px-4 {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
+                width: 100% !important;
+                margin: 0 !important;
+            }
+
+            /* Reset Grid to Stack */
+            .stats-grid {
+                grid-template-columns: 1fr !important;
+                display: flex !important;
+                flex-direction: column;
+                gap: 15px;
+                width: 100% !important;
+                margin-bottom: 20px !important;
+            }
+            
+            /* Force Cards Full Width */
+            .stat-item, .premium-card {
+                width: 100% !important;
+                margin-bottom: 10px;
+                border-radius: 12px !important;
+            }
+
+            /* Pagination Mobile Fixes */
+            .pagination-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .goto-page-wrapper {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            /* Reset Row margins */
+            .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+
+        /* Desktop Styles */
+        .table-custom {
+            color: var(--text-primary) !important;
+        }
+        .table-custom th, .table-custom td {
+            background: transparent !important;
+            vertical-align: middle;
+            padding: 15px;
+            color: inherit !important;
+            white-space: nowrap;
+        }
+        h1, h2, h3, h4, h5, h6, .premium-title {
+            color: var(--text-primary) !important;
+        }
+        
+        /* Pagination Styling */
+        .pagination {
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 0;
+        }
+        .page-item .page-link {
+            background: transparent;
+            border: 1px solid rgba(128,128,128,0.2);
+            color: var(--text-primary);
+            border-radius: 8px;
+            padding: 6px 12px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        .page-item.active .page-link {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(var(--rgb-primary), 0.3);
+        }
+        .page-item.disabled .page-link {
+            background: rgba(128,128,128,0.1);
+            color: rgba(128,128,128,0.5);
+            border-color: transparent;
+        }
+        .page-item .page-link:hover:not(.active) {
+            background: rgba(var(--rgb-primary), 0.1);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        /* Go To Page Input Styling */
+        .premium-input {
+            background: transparent;
+            border: 1px solid rgba(128,128,128,0.2);
+            color: var(--text-primary);
+            border-radius: 8px;
+        }
+        .premium-input:focus {
+            background: transparent;
+            border-color: var(--color-primary);
+            color: var(--text-primary);
+            box-shadow: 0 0 0 0.25rem rgba(var(--rgb-primary), 0.1);
+        }
+        .premium-btn-sm {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
+
+        /* Table Enhancements */
+        .table-custom tbody tr {
+            transition: background 0.2s ease;
+        }
+        .table-custom tbody tr:hover {
+            background: rgba(128,128,128,0.05) !important;
+        }
+    </style>
+
     <!-- Referral Stats Cards -->
     <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px;">
         
@@ -80,126 +205,6 @@
 
 <!-- Include Mobile Bottom Navigation -->
 @include($activeTemplate . 'partials.mobile-bottom-nav')
-
-<style>
-    /* Ensure table styling matches theme */
-    .table-custom {
-        color: var(--text-primary) !important;
-    }
-    .table-custom th, .table-custom td {
-        background: transparent !important;
-        vertical-align: middle;
-        padding: 15px;
-        color: inherit !important;
-        white-space: nowrap;
-    }
-    /* Ensure headings and other text inherit correct color */
-    h1, h2, h3, h4, h5, h6, .premium-title {
-        color: var(--text-primary) !important;
-    }
-    
-    /* Pagination Redesign */
-    .pagination {
-        justify-content: center;
-        gap: 5px;
-        margin-bottom: 0;
-    }
-    .page-item .page-link {
-        background: transparent;
-        border: 1px solid rgba(128,128,128,0.2);
-        color: var(--text-primary);
-        border-radius: 8px;
-        padding: 6px 12px;
-        transition: all 0.3s ease;
-        font-size: 14px;
-    }
-    .page-item.active .page-link {
-        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
-        color: #fff;
-        border-color: transparent;
-        box-shadow: 0 4px 10px rgba(var(--rgb-primary), 0.3);
-    }
-    .page-item.disabled .page-link {
-        background: rgba(128,128,128,0.1);
-        color: rgba(128,128,128,0.5);
-        border-color: transparent;
-    }
-    .page-item .page-link:hover:not(.active) {
-        background: rgba(var(--rgb-primary), 0.1);
-        color: var(--color-primary);
-        border-color: var(--color-primary);
-    }
-
-    /* Go To Page Input Styling */
-    .premium-input {
-        background: transparent;
-        border: 1px solid rgba(128,128,128,0.2);
-        color: var(--text-primary);
-        border-radius: 8px;
-    }
-    .premium-input:focus {
-        background: transparent;
-        border-color: var(--color-primary);
-        color: var(--text-primary);
-        box-shadow: 0 0 0 0.25rem rgba(var(--rgb-primary), 0.1);
-    }
-    .premium-btn-sm {
-        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
-        border: none;
-        border-radius: 8px;
-        padding: 5px 10px;
-    }
-
-    /* Table Enhancements */
-    .table-custom tbody tr {
-        transition: background 0.2s ease;
-    }
-    .table-custom tbody tr:hover {
-        background: rgba(128,128,128,0.05) !important;
-    }
-    
-    /* Mobile Full Width Adjustments */
-    @media (max-width: 768px) {
-        .stats-grid {
-            grid-template-columns: 1fr !important;
-            display: flex !important;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .stat-item, .premium-card {
-            width: 100% !important;
-            margin-bottom: 10px;
-        }
-
-        /* Outer container padding RESET */
-        .container-fluid.px-4 {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-
-        /* Remove inner container padding */
-        .inner-dashboard-container {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-        
-        .premium-card {
-            border-radius: 0 !important;
-            border-left: none !important;
-            border-right: none !important;
-        }
-        .pagination-wrapper {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-        .goto-page-wrapper {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-</style>
 
 @endsection
 

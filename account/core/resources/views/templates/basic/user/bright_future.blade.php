@@ -9,6 +9,69 @@
     <!-- Include Color Picker (Right Sidebar) -->
     @include($activeTemplate . 'partials.color-picker')
 
+    <style>
+        /* Mobile Full Width Adjustments to match dashboard */
+        @media (max-width: 768px) {
+            /* Force Inner Container to have ZERO padding */
+            .inner-dashboard-container,
+            .container-fluid.px-4 {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
+                width: 100% !important;
+                margin: 0 !important;
+            }
+
+            /* Reset Grid to Stack */
+            .stats-grid {
+                grid-template-columns: 1fr !important;
+                display: flex !important;
+                flex-direction: column;
+                gap: 15px;
+                width: 100% !important;
+                margin-bottom: 20px !important;
+            }
+            
+            /* Force Cards Full Width */
+            .stat-item, .premium-card {
+                width: 100% !important;
+                margin-bottom: 10px;
+                border-radius: 12px !important; /* Keep rounded corners */
+            }
+
+            /* Fix Wrapper */
+            .bright-future-wrapper {
+                width: 100% !important;
+                padding: 0 !important;
+            }
+
+            /* Ensure rows don't cause overflow */
+            .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+
+        /* Desktop Styling Preserved */
+        .table-custom {
+            color: var(--text-primary) !important;
+        }
+        .table-custom th, .table-custom td {
+            background: transparent !important;
+            vertical-align: middle;
+            padding: 15px;
+            color: inherit !important;
+            white-space: nowrap;
+        }
+        h1, h2, h3, h4, h5, h6, .premium-title {
+            color: var(--text-primary) !important;
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+        }
+    </style>
+
     <div class="container-fluid px-4 py-4 inner-dashboard-container">
         <div class="bright-future-wrapper">
 
@@ -113,58 +176,6 @@
         </div>
     </div>
 
-    <style>
-        /* Ensure table styling matches theme */
-        .table-custom {
-            color: var(--text-primary) !important;
-        }
-        .table-custom th, .table-custom td {
-            background: transparent !important;
-            vertical-align: middle;
-            padding: 15px;
-            color: inherit !important;
-        }
-        /* Ensure headings and other text inherit correct color */
-        h1, h2, h3, h4, h5, h6, .premium-title {
-            color: var(--text-primary) !important;
-        }
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
-        }
-        
-        /* Mobile Full Width Adjustments to match dashboard */
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr !important;
-                display: flex !important;
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .stat-item, .premium-card {
-                width: 100% !important;
-                margin-bottom: 10px;
-            }
-
-            /* Outer container padding RESET */
-            .container-fluid.px-4 {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-
-            /* Remove inner container padding */
-            .inner-dashboard-container {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-            
-            .premium-card {
-                border-radius: 0 !important;
-                border-left: none !important;
-                border-right: none !important;
-            }
-        }
-    </style>
 @endsection
 
 @push('script')
