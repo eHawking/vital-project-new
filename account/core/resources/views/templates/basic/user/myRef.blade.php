@@ -82,14 +82,6 @@
 @include($activeTemplate . 'partials.mobile-bottom-nav')
 
 <style>
-    /* Grid Layout */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-
     /* Ensure table styling matches theme */
     .table-custom {
         color: var(--text-primary) !important;
@@ -104,6 +96,13 @@
     /* Ensure headings and other text inherit correct color */
     h1, h2, h3, h4, h5, h6, .premium-title {
         color: var(--text-primary) !important;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
     }
     
     /* Pagination Redesign */
@@ -179,7 +178,7 @@
             width: 100% !important;
             margin-bottom: 10px;
         }
-
+        
         .container-fluid.px-4 {
             padding-left: 0 !important;
             padding-right: 0 !important;
