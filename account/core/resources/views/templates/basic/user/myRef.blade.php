@@ -72,7 +72,7 @@
     <div class="premium-card">
         <h5 class="mb-4">@lang('Referral List')</h5>
         <div id="referral-table-container">
-            @include($activeTemplate . 'partials.referral_table')
+            @include($activeTemplate . 'user.partials.referral_table')
         </div>
     </div>
 
