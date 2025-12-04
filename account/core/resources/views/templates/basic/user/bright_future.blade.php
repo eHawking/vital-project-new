@@ -19,7 +19,7 @@
                 <div class="premium-card stat-item">
                     <div class="stat-info">
                         <h6 class="text-muted text-uppercase">@lang('Total Received')</h6>
-                        <h3>{{ showAmount($receivedAmount, 2) }} {{ $general->cur_text }}</h3>
+                        <h3>{{ showAmount($receivedAmount, 2, currencyFormat: false) }} {{ $general->cur_text }}</h3>
                         <small class="text-success">@lang('From Daily Profit')</small>
                     </div>
                     <div class="icon-box variant-green mb-0">
@@ -31,7 +31,7 @@
                 <div class="premium-card stat-item">
                     <div class="stat-info">
                         <h6 class="text-muted text-uppercase">@lang('Remaining Cap')</h6>
-                        <h3>{{ showAmount($remainingAmount, 2) }} {{ $general->cur_text }}</h3>
+                        <h3>{{ showAmount($remainingAmount, 2, currencyFormat: false) }} {{ $general->cur_text }}</h3>
                         <small class="text-warning">@lang('Until Max Cap Reached')</small>
                     </div>
                     <div class="icon-box variant-orange mb-0">
@@ -43,7 +43,7 @@
                 <div class="premium-card stat-item">
                     <div class="stat-info">
                         <h6 class="text-muted text-uppercase">@lang('Target Goal')</h6>
-                        <h3>{{ showAmount($maxCap, 2) }} {{ $general->cur_text }}</h3>
+                        <h3>{{ showAmount($maxCap, 2, currencyFormat: false) }} {{ $general->cur_text }}</h3>
                         <small class="text-primary">@lang('Maximum Earnings')</small>
                     </div>
                     <div class="icon-box variant-purple mb-0">
@@ -64,7 +64,7 @@
                 </div>
                 
                 <p class="mt-3 text-muted small mb-0">
-                    @lang('You have received') <strong>{{ showAmount($receivedAmount, 2) }} {{ $general->cur_text }}</strong> @lang('out of') <strong>{{ showAmount($maxCap, 2) }} {{ $general->cur_text }}</strong>. @lang('Daily profit will stop automatically once 100% is reached.')
+                    @lang('You have received') <strong>{{ showAmount($receivedAmount, 2, currencyFormat: false) }} {{ $general->cur_text }}</strong> @lang('out of') <strong>{{ showAmount($maxCap, 2, currencyFormat: false) }} {{ $general->cur_text }}</strong>. @lang('Daily profit will stop automatically once 100% is reached.')
                 </p>
             </div>
 
@@ -92,7 +92,7 @@
                                             <small class="text-muted">{{ showDateTime($trx->created_at, 'h:i A') }}</small>
                                         </div>
                                     </td>
-                                    <td class="fw-bold text-success">+{{ showAmount($trx->amount) }} {{ $general->cur_text }}</td>
+                                    <td class="fw-bold text-success">+{{ showAmount($trx->amount, currencyFormat: false) }} {{ $general->cur_text }}</td>
                                     <td class="text-muted">{{ __($trx->details) }}</td>
                                     <td><span class="badge bg-success bg-opacity-25 text-success">@lang('Received')</span></td>
                                 </tr>
