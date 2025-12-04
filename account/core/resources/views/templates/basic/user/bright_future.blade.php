@@ -2,257 +2,266 @@
 @section('content')
     @php $general = gs(); @endphp
     <style>
-        /* --- Premium Theme Variables --- */
         :root {
-            /* Dark Mode (Default) */
-            --bg-body: #0f172a;
-            --bg-card: rgba(30, 41, 59, 0.7);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --input-bg: rgba(255, 255, 255, 0.03);
-            --input-border: rgba(255, 255, 255, 0.1);
-            --input-focus: rgba(139, 92, 246, 0.5);
-            --primary-grad: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            --shape-color-1: #4f46e5;
-            --shape-color-2: #c026d3;
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            --glass-blur: blur(20px);
+            --bg-dark: #1e293b; /* Match the dark card background */
+            --bg-darker: #0f172a;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #8b5cf6; /* Purple accent from image */
+            --success-color: #10b981;
+            --card-radius: 16px;
         }
 
-        /* --- Main Card Wrapper --- */
-        .premium-card {
-            background: var(--bg-card);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            margin-bottom: 30px;
-            padding: 30px;
-            color: var(--text-primary);
+        .bright-future-wrapper {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-light);
         }
 
-        .premium-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .premium-title {
-            font-size: 1.75rem;
+        /* Main Page Title */
+        .page-title {
+            font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(to right, #fff, #e2e8f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            color: #fff;
         }
 
-        /* --- Stats Grid --- */
-        .stats-grid {
+        /* Stats Cards Row */
+        .stats-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        .stat-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px;
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--card-radius);
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(139, 92, 246, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 100px; height: 100px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-            transform: translate(30%, -30%);
-            border-radius: 50%;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 10px;
+        .stat-box .label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
 
-        .stat-value {
-            font-size: 2rem;
+        .stat-box .value {
+            font-size: 1.75rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #fff;
+            margin-bottom: 4px;
+            line-height: 1.2;
         }
         
-        .stat-sub {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 5px;
+        .stat-box .currency {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
-        /* --- Progress Section --- */
-        .progress-section {
-            margin-bottom: 40px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid var(--border-color);
+        .stat-box .sub-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+            padding-top: 12px;
+        }
+
+        /* Progress Section */
+        .progress-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            margin-bottom: 30px;
         }
 
         .progress-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
-            color: var(--text-primary);
-            font-weight: 600;
         }
 
-        .progress-track {
-            width: 100%;
-            height: 12px;
+        .progress-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .progress-percentage {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .progress-container {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--primary-grad);
-            border-radius: 10px;
-            position: relative;
-            transition: width 1s ease-in-out;
-        }
-
-        .progress-bar-fill::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent);
-            background-size: 1rem 1rem;
-            animation: progress-stripes 1s linear infinite;
-        }
-
-        @keyframes progress-stripes {
-            0% { background-position: 1rem 0; }
-            100% { background-position: 0 0; }
-        }
-
-        /* --- Transaction Table --- */
-        .table-custom {
+            height: 10px;
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
         }
 
-        .table-custom th {
-            color: var(--text-secondary);
-            font-weight: 600;
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
+        .progress-bar {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            height: 100%;
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s ease;
         }
 
-        .table-custom td {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 20px 15px;
-            color: var(--text-primary);
-            border-top: 1px solid transparent;
-            border-bottom: 1px solid transparent;
-            transition: all 0.2s;
-        }
-        
-        .table-custom tr td:first-child {
-            border-top-left-radius: 12px;
-            border-bottom-left-radius: 12px;
-            border-left: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .table-custom tr td:last-child {
-            border-top-right-radius: 12px;
-            border-bottom-right-radius: 12px;
-            border-right: 1px solid rgba(255,255,255,0.05);
+        .progress-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        .table-custom tr:hover td {
+        .progress-desc strong {
+            color: #fff;
+        }
+
+        /* History Section */
+        .history-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .history-container {
             background: rgba(255, 255, 255, 0.05);
-            transform: scale(1.01);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--card-radius);
+            overflow: hidden;
         }
 
-        .trx-badge {
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .custom-table th {
+            text-align: left;
+            padding: 18px 24px;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .custom-table td {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            vertical-align: middle;
+        }
+
+        .custom-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .trx-id {
+            font-family: monospace;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9rem;
+        }
+        
+        .date-time span:last-child {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        .amount-text {
+            color: var(--success-color);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .status-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-            background: rgba(46, 204, 113, 0.2);
-            color: #2ecc71;
+            display: inline-block;
         }
 
+        @media (max-width: 768px) {
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+            .custom-table th, .custom-table td {
+                padding: 15px;
+            }
+            .custom-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
     </style>
 
-    <div class="premium-card">
-        <div class="premium-header">
-            <h3 class="premium-title">@lang('Bright Future Plan')</h3>
+    <div class="bright-future-wrapper">
+        <h2 class="page-title">@lang('Bright Future Plan')</h2>
+
+        <div class="stats-row">
+            <!-- Total Received -->
+            <div class="stat-box">
+                <div class="label">@lang('Total Received')</div>
+                <div class="value">{{ $general->cur_sym }}{{ showAmount($receivedAmount, 2) }}</div>
+                <div class="currency">{{ $general->cur_text }}</div>
+                <div class="sub-text">@lang('From Daily Profit')</div>
+            </div>
+
+            <!-- Remaining Cap -->
+            <div class="stat-box">
+                <div class="label">@lang('Remaining Cap')</div>
+                <div class="value">{{ $general->cur_sym }}{{ showAmount($remainingAmount, 2) }}</div>
+                <div class="currency">{{ $general->cur_text }}</div>
+                <div class="sub-text">@lang('Until Max Cap Reached')</div>
+            </div>
+
+            <!-- Target Goal -->
+            <div class="stat-box">
+                <div class="label">@lang('Target Goal')</div>
+                <div class="value">{{ $general->cur_sym }}{{ showAmount($maxCap, 2) }}</div>
+                <div class="currency">{{ $general->cur_text }}</div>
+                <div class="sub-text">@lang('Maximum Earnings')</div>
+            </div>
         </div>
 
-        <div class="stats-grid">
-            <!-- Received Amount -->
-            <div class="stat-card">
-                <div class="stat-label">@lang('Total Received')</div>
-                <div class="stat-value">{{ $general->cur_sym }}{{ showAmount($receivedAmount, 2) }}</div>
-                <div class="stat-sub">@lang('From Daily Profit')</div>
-            </div>
-
-            <!-- Remaining Amount -->
-            <div class="stat-card">
-                <div class="stat-label">@lang('Remaining Cap')</div>
-                <div class="stat-value">{{ $general->cur_sym }}{{ showAmount($remainingAmount, 2) }}</div>
-                <div class="stat-sub">@lang('Until Max Cap Reached')</div>
-            </div>
-
-            <!-- Max Cap -->
-            <div class="stat-card">
-                <div class="stat-label">@lang('Target Goal')</div>
-                <div class="stat-value">{{ $general->cur_sym }}{{ showAmount($maxCap, 2) }}</div>
-                <div class="stat-sub">@lang('Maximum Earnings')</div>
-            </div>
-        </div>
-
-        <!-- Progress Bar Section -->
-        <div class="progress-section">
+        <!-- Progress -->
+        <div class="progress-card">
             <div class="progress-header">
-                <span>@lang('Plan Progress')</span>
-                <span>{{ round($progress, 1) }}%</span>
+                <div class="progress-title">@lang('Plan Progress')</div>
+                <div class="progress-percentage">{{ round($progress, 1) }}%</div>
             </div>
-            <div class="progress-track">
-                <div class="progress-bar-fill" style="width: {{ $progress }}%;"></div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: {{ $progress }}%"></div>
             </div>
-            <p class="mt-3 text-white-50 small">
-                @lang('You have received') <strong class="text-white">{{ $general->cur_sym }}{{ showAmount($receivedAmount) }}</strong> @lang('out of') <strong class="text-white">{{ $general->cur_sym }}{{ showAmount($maxCap) }}</strong>. @lang('Daily profit will stop automatically once 100% is reached.')
-            </p>
+            <div class="progress-desc">
+                @lang('You have received') <strong>{{ $general->cur_sym }}{{ showAmount($receivedAmount, 2) }} {{ $general->cur_text }}</strong> @lang('out of') <strong>{{ $general->cur_sym }}{{ showAmount($maxCap, 2) }} {{ $general->cur_text }}</strong>. @lang('Daily profit will stop automatically once 100% is reached.')
+            </div>
         </div>
 
-        <!-- Transaction History -->
-        <h4 class="mb-4 text-white">@lang('Profit History')</h4>
-        <div class="table-responsive">
-            <table class="table-custom">
+        <!-- History -->
+        <h3 class="history-title">@lang('Profit History')</h3>
+        <div class="history-container">
+            <table class="custom-table">
                 <thead>
                     <tr>
                         <th>@lang('Transaction ID')</th>
@@ -265,20 +274,31 @@
                 <tbody>
                     @forelse($transactions as $trx)
                         <tr>
-                            <td class="fw-bold">#{{ $trx->trx }}</td>
-                            <td>{{ showDateTime($trx->created_at) }}</td>
-                            <td class="fw-bold text-success">+{{ showAmount($trx->amount) }} {{ $general->cur_text }}</td>
-                            <td>{{ __($trx->details) }}</td>
-                            <td><span class="trx-badge">@lang('Received')</span></td>
+                            <td><span class="trx-id">#{{ $trx->trx }}</span></td>
+                            <td>
+                                <div class="date-time">
+                                    <span>{{ showDateTime($trx->created_at, 'Y-m-d') }}</span>
+                                    <span>{{ showDateTime($trx->created_at, 'h:i A') }}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="amount-text">
+                                    +{{ showAmount($trx->amount) }}<br>
+                                    <span style="font-size: 0.8rem; opacity: 0.7;">{{ $general->cur_text }}</span>
+                                </div>
+                            </td>
+                            <td style="max-width: 300px; line-height: 1.4;">{{ __($trx->details) }}</td>
+                            <td><span class="status-badge">@lang('Received')</span></td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">@lang('No daily profit received yet.')</td>
+                            <td colspan="5" class="text-center text-muted py-4">@lang('No daily profit received yet.')</td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
+
         @if($transactions->hasPages())
             <div class="mt-4">
                 {{ paginateLinks($transactions) }}
