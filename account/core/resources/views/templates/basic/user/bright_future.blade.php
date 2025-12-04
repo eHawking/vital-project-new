@@ -13,7 +13,7 @@
         <div class="bright-future-wrapper">
             <div class="premium-card mb-4">
                 <div class="premium-header d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="premium-title mb-0 text-white">@lang('Bright Future Plan')</h3>
+                    <h3 class="premium-title mb-0">@lang('Bright Future Plan')</h3>
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
                 <div class="premium-card stat-item">
                     <div class="stat-info">
                         <h6 class="text-muted text-uppercase">@lang('Total Received')</h6>
-                        <h3 class="text-white">{{ $general->cur_sym }}{{ showAmount($receivedAmount, 2) }}</h3>
+                        <h3>{{ $general->cur_sym }}{{ showAmount($receivedAmount, 2) }}</h3>
                         <small class="text-success">@lang('From Daily Profit')</small>
                     </div>
                     <div class="icon-box variant-green mb-0">
@@ -36,7 +36,7 @@
                 <div class="premium-card stat-item">
                     <div class="stat-info">
                         <h6 class="text-muted text-uppercase">@lang('Remaining Cap')</h6>
-                        <h3 class="text-white">{{ $general->cur_sym }}{{ showAmount($remainingAmount, 2) }}</h3>
+                        <h3>{{ $general->cur_sym }}{{ showAmount($remainingAmount, 2) }}</h3>
                         <small class="text-warning">@lang('Until Max Cap Reached')</small>
                     </div>
                     <div class="icon-box variant-orange mb-0">
@@ -48,7 +48,7 @@
                 <div class="premium-card stat-item">
                     <div class="stat-info">
                         <h6 class="text-muted text-uppercase">@lang('Target Goal')</h6>
-                        <h3 class="text-white">{{ $general->cur_sym }}{{ showAmount($maxCap, 2) }}</h3>
+                        <h3>{{ $general->cur_sym }}{{ showAmount($maxCap, 2) }}</h3>
                         <small class="text-primary">@lang('Maximum Earnings')</small>
                     </div>
                     <div class="icon-box variant-purple mb-0">
@@ -60,26 +60,26 @@
             <!-- Progress Card -->
             <div class="premium-card mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="text-white mb-0">@lang('Plan Progress')</h5>
+                    <h5 class="mb-0">@lang('Plan Progress')</h5>
                     <span class="badge bg-primary">{{ round($progress, 1) }}%</span>
                 </div>
                 
-                <div class="progress" style="height: 12px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                <div class="progress" style="height: 12px; background: rgba(128,128,128,0.1); border-radius: 10px;">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-gradient-primary" role="progressbar" style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 
                 <p class="mt-3 text-muted small mb-0">
-                    @lang('You have received') <strong class="text-white">{{ $general->cur_sym }}{{ showAmount($receivedAmount, 2) }} {{ $general->cur_text }}</strong> @lang('out of') <strong class="text-white">{{ $general->cur_sym }}{{ showAmount($maxCap, 2) }} {{ $general->cur_text }}</strong>. @lang('Daily profit will stop automatically once 100% is reached.')
+                    @lang('You have received') <strong>{{ $general->cur_sym }}{{ showAmount($receivedAmount, 2) }} {{ $general->cur_text }}</strong> @lang('out of') <strong>{{ $general->cur_sym }}{{ showAmount($maxCap, 2) }} {{ $general->cur_text }}</strong>. @lang('Daily profit will stop automatically once 100% is reached.')
                 </p>
             </div>
 
             <!-- History Table -->
             <div class="premium-card">
-                <h5 class="text-white mb-4">@lang('Profit History')</h5>
+                <h5 class="mb-4">@lang('Profit History')</h5>
                 <div class="table-responsive">
-                    <table class="table table-custom text-white">
+                    <table class="table table-custom">
                         <thead>
-                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <tr style="border-bottom: 1px solid rgba(128,128,128,0.1);">
                                 <th class="text-muted">@lang('Transaction ID')</th>
                                 <th class="text-muted">@lang('Date')</th>
                                 <th class="text-muted">@lang('Amount')</th>
@@ -89,16 +89,16 @@
                         </thead>
                         <tbody>
                             @forelse($transactions as $trx)
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                    <td class="fw-bold text-white">#{{ $trx->trx }}</td>
+                                <tr style="border-bottom: 1px solid rgba(128,128,128,0.05);">
+                                    <td class="fw-bold">#{{ $trx->trx }}</td>
                                     <td>
                                         <div class="d-flex flex-column">
-                                            <span class="text-white">{{ showDateTime($trx->created_at, 'Y-m-d') }}</span>
+                                            <span>{{ showDateTime($trx->created_at, 'Y-m-d') }}</span>
                                             <small class="text-muted">{{ showDateTime($trx->created_at, 'h:i A') }}</small>
                                         </div>
                                     </td>
                                     <td class="fw-bold text-success">+{{ showAmount($trx->amount) }} {{ $general->cur_text }}</td>
-                                    <td class="text-white-50">{{ __($trx->details) }}</td>
+                                    <td class="text-muted">{{ __($trx->details) }}</td>
                                     <td><span class="badge bg-success bg-opacity-25 text-success">@lang('Received')</span></td>
                                 </tr>
                             @empty

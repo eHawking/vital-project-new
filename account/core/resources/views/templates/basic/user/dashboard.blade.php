@@ -262,19 +262,29 @@
 
         <!-- Bright Future Plan (Conditional) -->
         @if(auth()->user()->bright_future_plan == 1)
-        <div class="premium-card stat-item">
-            <div class="stat-info">
-                <h6>@lang('Bright Future Plan')</h6>
-                <h3>{{ getAmount(auth()->user()->bright_future_balance) }}</h3>
+        @php
+            $bfMaxCap = 400000;
+            $bfReceived = auth()->user()->bright_future_balance;
+            $bfProgress = min(100, ($bfReceived / $bfMaxCap) * 100);
+        @endphp
+        <a href="{{ route('user.bright.future.plan') }}" class="premium-card stat-item text-decoration-none" style="display: block; color: inherit;">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="stat-info">
+                    <h6>@lang('Bright Future Plan')</h6>
+                    <h3>{{ getAmount(auth()->user()->bright_future_balance) }}</h3>
+                </div>
+                <div class="icon-box variant-green mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
             </div>
-            <div class="icon-box variant-green mb-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            <div class="progress mt-3" style="height: 6px; background: rgba(128,128,128,0.1);">
+                <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: {{ $bfProgress }}%" aria-valuenow="{{ $bfProgress }}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="progress mt-3" style="height: 6px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <small class="text-muted">Status: <span class="text-success">Active</span></small>
+                <small class="text-primary">{{ round($bfProgress, 1) }}%</small>
             </div>
-            <small class="text-muted mt-1 d-block">Status: <span class="text-success">Active</span></small>
-        </div>
+        </a>
         @endif
 
         <!-- BV Points -->
