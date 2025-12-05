@@ -7,6 +7,49 @@
 @include($activeTemplate . 'css.mobile-fixes')
 
 <style>
+    /* Theme Text Colors - Explicit definitions */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff;
+    }
+    [data-theme="light"] h1,
+    [data-theme="light"] h2,
+    [data-theme="light"] h3,
+    [data-theme="light"] h4,
+    [data-theme="light"] h5,
+    [data-theme="light"] h6 {
+        color: #1a1f2e;
+    }
+    
+    .stat-card h3,
+    .stat-card p,
+    .mobile-card-item strong,
+    .mobile-card-item small {
+        color: #ffffff;
+    }
+    [data-theme="light"] .stat-card h3,
+    [data-theme="light"] .stat-card p,
+    [data-theme="light"] .mobile-card-item strong,
+    [data-theme="light"] .mobile-card-item small {
+        color: #1a1f2e;
+    }
+    
+    .stat-card .text-muted,
+    .inner-dashboard-container > .mb-4 .text-muted {
+        color: rgba(255,255,255,0.6) !important;
+    }
+    [data-theme="light"] .stat-card .text-muted,
+    [data-theme="light"] .inner-dashboard-container > .mb-4 .text-muted {
+        color: #6c757d !important;
+    }
+    
+    /* Premium Card Text */
+    .premium-card h5 {
+        color: #ffffff;
+    }
+    [data-theme="light"] .premium-card h5 {
+        color: #1a1f2e;
+    }
+
     /* Mobile Full Width Adjustments */
     @media (max-width: 768px) {
         .inner-dashboard-container,
@@ -64,16 +107,22 @@
     }
     .table-custom th {
         background: rgba(128,128,128,0.05) !important;
-        color: var(--text-muted) !important;
+        color: rgba(255,255,255,0.6) !important;
         font-weight: 600;
         padding: 12px 15px;
         border-bottom: 1px solid rgba(128,128,128,0.1) !important;
     }
+    [data-theme="light"] .table-custom th {
+        color: #6c757d !important;
+    }
     .table-custom td {
-        color: var(--text-primary) !important;
+        color: #ffffff !important;
         padding: 12px 15px;
         border-bottom: 1px solid rgba(128,128,128,0.05) !important;
         vertical-align: middle;
+    }
+    [data-theme="light"] .table-custom td {
+        color: #1a1f2e !important;
     }
     .table-custom tbody tr:hover {
         background: rgba(128,128,128,0.03) !important;
@@ -86,10 +135,18 @@
         border-radius: 12px;
         padding: 15px;
         margin-bottom: 10px;
+        color: #ffffff;
     }
     [data-theme="light"] .mobile-card-item {
         background: #f8f9fa;
         border: 1px solid rgba(0,0,0,0.1);
+        color: #1a1f2e;
+    }
+    .mobile-card-item .text-muted {
+        color: rgba(255,255,255,0.6) !important;
+    }
+    [data-theme="light"] .mobile-card-item .text-muted {
+        color: #6c757d !important;
     }
 
     /* Premium Pagination */
@@ -103,7 +160,7 @@
         border-radius: 10px;
         background: #242938;
         border: 1px solid rgba(128,128,128,0.2);
-        color: var(--text-primary);
+        color: #ffffff;
         text-decoration: none;
         font-weight: 500;
         transition: all 0.3s ease;
@@ -111,6 +168,7 @@
     [data-theme="light"] .premium-pagination .page-btn {
         background: #f8f9fa;
         border: 1px solid rgba(0,0,0,0.1);
+        color: #1a1f2e;
     }
     .premium-pagination .page-btn:hover {
         background: var(--color-primary);
@@ -127,8 +185,11 @@
         pointer-events: none;
     }
     .premium-pagination .page-dots {
-        color: var(--text-muted);
+        color: rgba(255,255,255,0.5);
         padding: 0 5px;
+    }
+    [data-theme="light"] .premium-pagination .page-dots {
+        color: #6c757d;
     }
 </style>
 
