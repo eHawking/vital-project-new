@@ -6,228 +6,114 @@
 @include($activeTemplate . 'css.modern-finance-theme')
 @include($activeTemplate . 'css.mobile-fixes')
 
-<style>
-    /* Mobile Full Width Adjustments */
-    @media (max-width: 768px) {
-        .inner-dashboard-container,
-        .container-fluid.px-4,
-        .container-fluid {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-            padding-top: 10px !important;
-            width: 100% !important;
-            margin: 0 !important;
-        }
-        .premium-card {
-            width: 100% !important;
-            margin-bottom: 15px;
-            border-radius: 12px !important;
-        }
-        .stats-grid {
-            grid-template-columns: 1fr !important;
-        }
-    }
-
-    /* Stats Grid */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin-bottom: 25px;
-    }
-    @media (max-width: 992px) {
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    /* Stat Card */
-    .stat-card {
-        background: #1a1f2e;
-        border: 1px solid rgba(128,128,128,0.2);
-        border-radius: 16px;
-        padding: 20px;
-    }
-    [data-theme="light"] .stat-card {
-        background: #ffffff;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-
-    /* Premium Card Solid */
-    .premium-card-solid {
-        background: #1a1f2e;
-        border: 1px solid rgba(128,128,128,0.2);
-        border-radius: 16px;
-        overflow: hidden;
-    }
-    [data-theme="light"] .premium-card-solid {
-        background: #ffffff;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-
-    /* Table Custom */
-    .table-custom {
-        margin-bottom: 0;
-    }
-    .table-custom th {
-        background: rgba(128,128,128,0.05) !important;
-        color: var(--text-muted) !important;
-        font-weight: 600;
-        padding: 15px;
-        border-bottom: 1px solid rgba(128,128,128,0.1) !important;
-    }
-    .table-custom td {
-        background: transparent !important;
-        color: var(--text-primary) !important;
-        padding: 15px;
-        border-bottom: 1px solid rgba(128,128,128,0.05) !important;
-        vertical-align: middle;
-    }
-    .table-custom tbody tr:hover {
-        background: rgba(128,128,128,0.03) !important;
-    }
-
-    /* Mobile Card Item */
-    .mobile-card-item {
-        background: #242938;
-        border: 1px solid rgba(128,128,128,0.2);
-        border-radius: 12px;
-        padding: 15px;
-        margin-bottom: 12px;
-    }
-    [data-theme="light"] .mobile-card-item {
-        background: #f8f9fa;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-
-    /* Premium Pagination */
-    .premium-pagination .page-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 38px;
-        height: 38px;
-        padding: 0 12px;
-        background: #242938;
-        border: 1px solid rgba(128,128,128,0.2);
-        color: var(--text-primary);
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    [data-theme="light"] .premium-pagination .page-btn {
-        background: #f8f9fa;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
-    .premium-pagination .page-btn:hover {
-        background: var(--color-primary);
-        color: #fff;
-        border-color: var(--color-primary);
-    }
-    .premium-pagination .page-btn.active {
-        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
-        color: #fff;
-        border-color: transparent;
-    }
-    .premium-pagination .page-btn.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    .premium-pagination .page-dots {
-        color: var(--text-muted);
-        padding: 0 5px;
-    }
-</style>
-
-<div class="container-fluid px-4 py-4 inner-dashboard-container">
-    <!-- Page Header -->
-    <div class="mb-4">
-        <h4 class="m-0"><i class="bi bi-shop-window"></i> @lang('Shops & Franchises')</h4>
-        <p class="text-muted small m-0">@lang('View all vendors, shops, and franchises in your network')</p>
+<div class="row mb-4">
+    <div class="col-12">
+        <!-- Page Header -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div>
+                <h4 class="text-white m-0"><i class="bi bi-shop-window"></i> @lang('Shops & Franchises')</h4>
+                <p class="text-white-50 small m-0">@lang('View all vendors, shops, and franchises in your network')</p>
+            </div>
+        </div>
     </div>
+</div>
 
-    <!-- Stats Cards -->
-    <div class="stats-grid">
-        <div class="stat-card">
+<!-- Stats Cards -->
+<div class="row justify-content-center mb-4 g-3">
+    <div class="col-lg-4 col-md-6">
+        <div class="premium-card stat-item h-100">
             <div class="d-flex align-items-center justify-content-between">
                 <div>
-                    <p class="text-muted mb-1 small">@lang('Total Shops')</p>
-                    <h3 class="m-0 fw-bold">{{ $shops }}</h3>
+                    <h6 class="text-white-50 mb-1">@lang('Total Shops')</h6>
+                    <h3 class="text-white m-0">{{ $shops }}</h3>
                 </div>
                 <div class="icon-box variant-blue" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                    <i class="bi bi-shop fs-4"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <p class="text-muted mb-1 small">@lang('Total Franchises')</p>
-                    <h3 class="m-0 fw-bold">{{ $franchises }}</h3>
-                </div>
-                <div class="icon-box variant-purple" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                    <i class="bi bi-building fs-4"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <p class="text-muted mb-1 small">@lang('Total Vendors')</p>
-                    <h3 class="m-0 fw-bold">{{ $vendors }}</h3>
-                </div>
-                <div class="icon-box variant-pink" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-                    <i class="bi bi-people-fill fs-4"></i>
+                    <i class="bi bi-shop fs-3"></i>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Vendors Table -->
-    <div class="premium-card-solid">
-        <div class="p-3 border-bottom" style="border-color: rgba(128,128,128,0.1) !important;">
-            <h5 class="m-0"><i class="bi bi-list-ul me-2"></i> @lang('Vendors List')</h5>
+    <div class="col-lg-4 col-md-6">
+        <div class="premium-card stat-item h-100">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-white-50 mb-1">@lang('Total Franchises')</h6>
+                    <h3 class="text-white m-0">{{ $franchises }}</h3>
+                </div>
+                <div class="icon-box variant-purple" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                    <i class="bi bi-building fs-3"></i>
+                </div>
+            </div>
         </div>
-        
-        <!-- Desktop Table View -->
-        <div class="table-responsive d-none d-md-block">
-            <table class="table table-custom">
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="premium-card stat-item h-100">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-white-50 mb-1">@lang('Total Vendors')</h6>
+                    <h3 class="text-white m-0">{{ $vendors }}</h3>
+                </div>
+                <div class="icon-box variant-pink" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+                    <i class="bi bi-people-fill fs-3"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Vendors Table -->
+<div class="premium-card mb-4">
+    <div class="card-header bg-transparent border-bottom border-secondary border-opacity-25 p-3">
+        <h5 class="title text-white m-0"><i class="bi bi-list-ul"></i> @lang('Vendors List')</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table transection-table-2">
                 <thead>
                     <tr>
-                        <th><i class="bi bi-hash me-1"></i> @lang('No.')</th>
-                        <th><i class="bi bi-person-badge me-1"></i> @lang('Username')</th>
-                        <th><i class="bi bi-card-text me-1"></i> @lang('Vendor ID')</th>
-                        <th><i class="bi bi-shop me-1"></i> @lang('Vendor Name')</th>
-                        <th><i class="bi bi-tag me-1"></i> @lang('Type')</th>
-                        <th><i class="bi bi-geo-alt me-1"></i> @lang('City')</th>
-                        <th><i class="bi bi-pin-map me-1"></i> @lang('Location')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-hash"></i> @lang('No.')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-person-badge"></i> @lang('Username')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-card-text"></i> @lang('Vendor ID')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-shop"></i> @lang('Vendor Name')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-tag"></i> @lang('Type')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-geo-alt"></i> @lang('City')</th>
+                        <th style="background: rgba(255,255,255,0.1); color: #fff;"><i class="bi bi-pin-map"></i> @lang('Location')</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($sellers as $key => $seller)
-                        <tr>
-                            <td class="fw-bold">{{ $sellers->firstItem() + $key }}</td>
-                            <td><strong class="text-primary">{{ $seller->username }}</strong></td>
-                            <td><span class="badge bg-info bg-opacity-25 text-info rounded-pill">{{ $seller->vendor_id }}</span></td>
-                            <td>{{ optional($seller->primaryShop)->name ?? 'N/A' }}</td>
-                            <td>
+                        <tr style="background: rgba(255,255,255,0.05);">
+                            <td data-label="@lang('No.')" class="text-white">{{ $sellers->firstItem() + $key }}</td>
+                            <td data-label="@lang('Username')" class="text-white">
+                                <strong class="text-info">{{ $seller->username }}</strong>
+                            </td>
+                            <td data-label="@lang('Vendor ID')" class="text-white">
+                                <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-25 rounded-pill">{{ $seller->vendor_id }}</span>
+                            </td>
+                            <td data-label="@lang('Vendor Name')" class="text-white">
+                                {{ optional($seller->primaryShop)->name ?? 'N/A' }}
+                            </td>
+                            <td data-label="@lang('Type')" class="text-white">
                                 @if($seller->vendor_type == 'Shop')
-                                    <span class="badge bg-success bg-opacity-25 text-success rounded-pill"><i class="bi bi-shop me-1"></i> {{ $seller->vendor_type }}</span>
+                                    <span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25 rounded-pill"><i class="bi bi-shop"></i> {{ $seller->vendor_type }}</span>
                                 @elseif($seller->vendor_type == 'Franchise')
-                                    <span class="badge bg-primary bg-opacity-25 text-primary rounded-pill"><i class="bi bi-building me-1"></i> {{ $seller->vendor_type }}</span>
+                                    <span class="badge bg-primary bg-opacity-25 text-primary border border-primary border-opacity-25 rounded-pill"><i class="bi bi-building"></i> {{ $seller->vendor_type }}</span>
                                 @else
-                                    <span class="badge bg-warning bg-opacity-25 text-warning rounded-pill"><i class="bi bi-person me-1"></i> {{ $seller->vendor_type }}</span>
+                                    <span class="badge bg-warning bg-opacity-25 text-warning border border-warning border-opacity-25 rounded-pill"><i class="bi bi-person"></i> {{ $seller->vendor_type }}</span>
                                 @endif
                             </td>
-                            <td><i class="bi bi-geo-alt-fill text-muted me-1"></i> {{ $seller->city }}</td>
-                            <td><small class="text-muted">{{ optional($seller->primaryShop)->address ?? 'N/A' }}</small></td>
+                            <td data-label="@lang('City')" class="text-white">
+                                <i class="bi bi-geo-alt-fill text-white-50"></i> {{ $seller->city }}
+                            </td>
+                            <td data-label="@lang('Location')" class="text-white">
+                                <small class="text-white-50">{{ optional($seller->primaryShop)->address ?? 'N/A' }}</small>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center text-muted py-4">
+                            <td colspan="7" class="text-center text-white-50">
                                 <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>
                                 @lang('No records found')
                             </td>
@@ -236,89 +122,10 @@
                 </tbody>
             </table>
         </div>
-
-        <!-- Mobile Card View -->
-        <div class="d-block d-md-none p-3">
-            @forelse($sellers as $key => $seller)
-                <div class="mobile-card-item">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                        <div>
-                            <span class="text-muted small">#{{ $sellers->firstItem() + $key }}</span>
-                            <h6 class="mb-0 text-primary fw-bold">{{ $seller->username }}</h6>
-                            <small class="text-muted">{{ optional($seller->primaryShop)->name ?? 'N/A' }}</small>
-                        </div>
-                        @if($seller->vendor_type == 'Shop')
-                            <span class="badge bg-success bg-opacity-25 text-success rounded-pill"><i class="bi bi-shop"></i> {{ $seller->vendor_type }}</span>
-                        @elseif($seller->vendor_type == 'Franchise')
-                            <span class="badge bg-primary bg-opacity-25 text-primary rounded-pill"><i class="bi bi-building"></i> {{ $seller->vendor_type }}</span>
-                        @else
-                            <span class="badge bg-warning bg-opacity-25 text-warning rounded-pill"><i class="bi bi-person"></i> {{ $seller->vendor_type }}</span>
-                        @endif
-                    </div>
-                    <div class="row g-2">
-                        <div class="col-6">
-                            <small class="text-muted">@lang('Vendor ID'):</small><br>
-                            <span class="badge bg-info bg-opacity-25 text-info rounded-pill">{{ $seller->vendor_id }}</span>
-                        </div>
-                        <div class="col-6">
-                            <small class="text-muted">@lang('City'):</small><br>
-                            <strong><i class="bi bi-geo-alt-fill text-muted"></i> {{ $seller->city }}</strong>
-                        </div>
-                        <div class="col-12">
-                            <small class="text-muted">@lang('Location'):</small><br>
-                            <span>{{ optional($seller->primaryShop)->address ?? 'N/A' }}</span>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="text-center py-4 text-muted">
-                    <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i><br>
-                    @lang('No records found')
-                </div>
-            @endforelse
-        </div>
-
-        <!-- Premium Pagination -->
         @if($sellers->hasPages())
-            <div class="premium-pagination p-3">
-                <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
-                    @if ($sellers->onFirstPage())
-                        <span class="page-btn disabled"><i class="bi bi-chevron-left"></i></span>
-                    @else
-                        <a href="{{ $sellers->previousPageUrl() }}" class="page-btn"><i class="bi bi-chevron-left"></i></a>
-                    @endif
-
-                    @php
-                        $currentPage = $sellers->currentPage();
-                        $lastPage = $sellers->lastPage();
-                        $start = max(1, $currentPage - 2);
-                        $end = min($lastPage, $currentPage + 2);
-                    @endphp
-
-                    @if($start > 1)
-                        <a href="{{ $sellers->url(1) }}" class="page-btn">1</a>
-                        @if($start > 2)<span class="page-dots">...</span>@endif
-                    @endif
-
-                    @for ($i = $start; $i <= $end; $i++)
-                        <a href="{{ $sellers->url($i) }}" class="page-btn {{ $i == $currentPage ? 'active' : '' }}">{{ $i }}</a>
-                    @endfor
-
-                    @if($end < $lastPage)
-                        @if($end < $lastPage - 1)<span class="page-dots">...</span>@endif
-                        <a href="{{ $sellers->url($lastPage) }}" class="page-btn">{{ $lastPage }}</a>
-                    @endif
-
-                    @if ($sellers->hasMorePages())
-                        <a href="{{ $sellers->nextPageUrl() }}" class="page-btn"><i class="bi bi-chevron-right"></i></a>
-                    @else
-                        <span class="page-btn disabled"><i class="bi bi-chevron-right"></i></span>
-                    @endif
-                </div>
-                <div class="text-center mt-2">
-                    <small class="text-muted">@lang('Page') {{ $sellers->currentPage() }} @lang('of') {{ $sellers->lastPage() }} ({{ $sellers->total() }} @lang('items'))</small>
-                </div>
-            </div>
+        <div class="p-3">
+            {{ $sellers->links() }}
+        </div>
         @endif
     </div>
 </div>

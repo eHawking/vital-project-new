@@ -4,182 +4,183 @@
     @include($activeTemplate . 'css.modern-finance-theme')
     @include($activeTemplate . 'css.mobile-fixes')
 
-<style>
-    /* Mobile Full Width Adjustments */
-    @media (max-width: 768px) {
-        .user-data-container {
-            padding-left: 10px !important;
-            padding-right: 10px !important;
+    <style>
+        /* Mobile Full Width Adjustments */
+        @media (max-width: 768px) {
+            .user-data-container {
+                padding: 10px !important;
+            }
+            .premium-form-card {
+                border-radius: 16px !important;
+            }
         }
-        .premium-card {
-            border-radius: 16px !important;
+
+        /* Premium Form Card */
+        .premium-form-card {
+            background: #1a1f2e;
+            border: 1px solid rgba(128,128,128,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
-    }
+        [data-theme="light"] .premium-form-card {
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
 
-    /* Premium Form Styling */
-    .premium-form-card {
-        background: #1a1f2e;
-        border: 1px solid rgba(128,128,128,0.2);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
-    [data-theme="light"] .premium-form-card {
-        background: #ffffff;
-        border: 1px solid rgba(0,0,0,0.1);
-    }
+        /* Premium Header */
+        .premium-form-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+            padding: 30px;
+            text-align: center;
+        }
+        .premium-form-header h4 {
+            color: #fff !important;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .premium-form-header p {
+            color: rgba(255,255,255,0.8);
+            margin: 0;
+        }
+        .premium-form-header .header-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+        .premium-form-header .header-icon i {
+            font-size: 32px;
+            color: #fff;
+        }
 
-    .premium-form-header {
-        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
-        padding: 30px;
-        text-align: center;
-    }
-    .premium-form-header h4 {
-        color: #fff !important;
-        margin-bottom: 8px;
-        font-weight: 600;
-    }
-    .premium-form-header p {
-        color: rgba(255,255,255,0.8) !important;
-        margin: 0;
-    }
-    .premium-form-header .icon-circle {
-        width: 70px;
-        height: 70px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 15px;
-    }
-    .premium-form-header .icon-circle i {
-        font-size: 32px;
-        color: #fff;
-    }
+        /* Form Body */
+        .premium-form-body {
+            padding: 30px;
+            background: #1a1f2e;
+        }
+        [data-theme="light"] .premium-form-body {
+            background: #ffffff;
+        }
 
-    .premium-form-body {
-        padding: 30px;
-    }
+        /* Form Labels */
+        .premium-label {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
 
-    .premium-form-label {
-        color: var(--text-muted) !important;
-        font-size: 13px;
-        font-weight: 500;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
+        /* Form Inputs */
+        .premium-input {
+            background: #242938 !important;
+            border: 1px solid rgba(128,128,128,0.2) !important;
+            color: var(--text-primary) !important;
+            border-radius: 10px !important;
+            padding: 12px 15px !important;
+            transition: all 0.3s ease;
+        }
+        [data-theme="light"] .premium-input {
+            background: #f8f9fa !important;
+            border: 1px solid rgba(0,0,0,0.1) !important;
+        }
+        .premium-input:focus {
+            border-color: var(--color-primary) !important;
+            box-shadow: 0 0 0 3px rgba(var(--rgb-primary), 0.15) !important;
+        }
+        .premium-input::placeholder {
+            color: var(--text-muted) !important;
+        }
 
-    .premium-form-input {
-        background: #242938 !important;
-        border: 1px solid rgba(128,128,128,0.2) !important;
-        color: var(--text-primary) !important;
-        border-radius: 10px !important;
-        padding: 12px 15px !important;
-        transition: all 0.3s ease;
-    }
-    [data-theme="light"] .premium-form-input {
-        background: #f8f9fa !important;
-        border: 1px solid rgba(0,0,0,0.1) !important;
-    }
-    .premium-form-input:focus {
-        border-color: var(--color-primary) !important;
-        box-shadow: 0 0 0 3px rgba(var(--rgb-primary), 0.1) !important;
-    }
-    .premium-form-input::placeholder {
-        color: var(--text-muted) !important;
-    }
+        /* Input Group */
+        .premium-input-group .input-group-text {
+            background: #242938 !important;
+            border: 1px solid rgba(128,128,128,0.2) !important;
+            border-right: none !important;
+            color: var(--text-primary) !important;
+            border-radius: 10px 0 0 10px !important;
+            padding: 12px 15px;
+        }
+        [data-theme="light"] .premium-input-group .input-group-text {
+            background: #f8f9fa !important;
+            border: 1px solid rgba(0,0,0,0.1) !important;
+            border-right: none !important;
+        }
+        .premium-input-group .premium-input {
+            border-radius: 0 10px 10px 0 !important;
+        }
 
-    .input-group .premium-form-input {
-        border-radius: 0 10px 10px 0 !important;
-    }
-    .input-group .input-group-text {
-        background: #242938 !important;
-        border: 1px solid rgba(128,128,128,0.2) !important;
-        border-right: none !important;
-        color: var(--text-primary) !important;
-        border-radius: 10px 0 0 10px !important;
-        padding: 12px 15px !important;
-    }
-    [data-theme="light"] .input-group .input-group-text {
-        background: #f8f9fa !important;
-        border: 1px solid rgba(0,0,0,0.1) !important;
-        border-right: none !important;
-    }
+        /* Select2 Styling */
+        .select2-container--default .select2-selection--single {
+            background: #242938 !important;
+            border: 1px solid rgba(128,128,128,0.2) !important;
+            border-radius: 10px !important;
+            height: 48px !important;
+            padding: 8px 15px;
+        }
+        [data-theme="light"] .select2-container--default .select2-selection--single {
+            background: #f8f9fa !important;
+            border: 1px solid rgba(0,0,0,0.1) !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: var(--text-primary) !important;
+            line-height: 30px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 46px !important;
+        }
+        .select2-dropdown {
+            background: #242938 !important;
+            border: 1px solid rgba(128,128,128,0.2) !important;
+        }
+        [data-theme="light"] .select2-dropdown {
+            background: #ffffff !important;
+            border: 1px solid rgba(0,0,0,0.1) !important;
+        }
+        .select2-container--default .select2-results__option {
+            color: var(--text-primary) !important;
+            padding: 10px 15px;
+        }
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background: var(--color-primary) !important;
+            color: #fff !important;
+        }
 
-    .premium-submit-btn {
-        background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%) !important;
-        border: none !important;
-        padding: 14px 30px !important;
-        font-weight: 600 !important;
-        border-radius: 12px !important;
-        color: #fff !important;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(var(--rgb-primary), 0.3);
-    }
-    .premium-submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(var(--rgb-primary), 0.4);
-    }
+        /* Submit Button */
+        .premium-submit-btn {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%) !important;
+            border: none !important;
+            padding: 14px 30px !important;
+            font-weight: 600 !important;
+            border-radius: 12px !important;
+            color: #fff !important;
+            transition: all 0.3s ease;
+        }
+        .premium-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(var(--rgb-primary), 0.4);
+        }
 
-    /* Select2 Premium Styling */
-    .select2-container--default .select2-selection--single {
-        background: #242938 !important;
-        border: 1px solid rgba(128,128,128,0.2) !important;
-        border-radius: 10px !important;
-        height: 48px !important;
-        padding: 8px 15px !important;
-    }
-    [data-theme="light"] .select2-container--default .select2-selection--single {
-        background: #f8f9fa !important;
-        border: 1px solid rgba(0,0,0,0.1) !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: var(--text-primary) !important;
-        line-height: 30px !important;
-        padding-left: 0 !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 46px !important;
-    }
-    .select2-dropdown {
-        background: #242938 !important;
-        border: 1px solid rgba(128,128,128,0.2) !important;
-        border-radius: 10px !important;
-    }
-    [data-theme="light"] .select2-dropdown {
-        background: #ffffff !important;
-        border: 1px solid rgba(0,0,0,0.1) !important;
-    }
-    .select2-container--default .select2-results__option {
-        color: var(--text-primary) !important;
-        padding: 10px 15px !important;
-    }
-    .select2-container--default .select2-results__option--highlighted[aria-selected] {
-        background: var(--color-primary) !important;
-        color: #fff !important;
-    }
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        background: #1a1f2e !important;
-        border: 1px solid rgba(128,128,128,0.2) !important;
-        color: var(--text-primary) !important;
-        border-radius: 8px !important;
-    }
-    [data-theme="light"] .select2-container--default .select2-search--dropdown .select2-search__field {
-        background: #f8f9fa !important;
-        border: 1px solid rgba(0,0,0,0.1) !important;
-    }
-</style>
+        /* Error State */
+        .premium-input.is-invalid {
+            border-color: #dc3545 !important;
+        }
+    </style>
 
-    <div class="container padding-bottom padding-top user-data-container">
+    <div class="container py-5 user-data-container">
         <div class="row justify-content-center">
             <div class="col-md-8 col-xl-6">
                 <div class="premium-form-card">
                     <!-- Premium Header -->
                     <div class="premium-form-header">
-                        <div class="icon-circle">
-                            <i class="bi bi-person-badge-fill"></i>
+                        <div class="header-icon">
+                            <i class="bi bi-person-badge"></i>
                         </div>
                         <h4>@lang('Complete Your Profile')</h4>
                         <p>@lang('Please provide your details to continue')</p>
@@ -189,15 +190,14 @@
                     <div class="premium-form-body">
                         <form method="POST" action="{{ route('user.data.submit') }}">
                             @csrf
-                            <div class="row g-3">
+                            <div class="row g-4">
                                
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="premium-form-label">@lang('Country')</label>
-                                        <select name="country" class="form-control premium-form-input select2" required>
+                                        <label class="premium-label">@lang('Country')</label>
+                                        <select name="country" class="form-control premium-input select2" required>
                                             @foreach ($countries as $key => $country)
-                                                <option data-mobile_code="{{ $country->dial_code }}" value="{{ $country->country }}" data-code="{{ $key }}">{{ __($country->country) }}
-                                                </option>
+                                                <option data-mobile_code="{{ $country->dial_code }}" value="{{ $country->country }}" data-code="{{ $key }}">{{ __($country->country) }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -205,52 +205,58 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="premium-form-label">@lang('Mobile')</label>
-                                        <div class="input-group">
+                                        <label class="premium-label">@lang('Mobile')</label>
+                                        <div class="input-group premium-input-group">
                                             <span class="input-group-text mobile-code"></span>
                                             <input type="hidden" name="mobile_code">
                                             <input type="hidden" name="country_code">
-                                            <input type="number" name="mobile" value="{{ old('mobile') }}" class="form-control premium-form-input checkUser" required>
+                                            <input type="number" name="mobile" value="{{ old('mobile') }}" class="form-control premium-input checkUser" required>
                                         </div>
                                         <small class="text-danger mobileExist"></small>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <label class="premium-form-label">@lang('Address')</label>
-                                    <input type="text" class="form-control premium-form-input" name="address" value="{{ old('address') }}" required>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="premium-label">@lang('Address')</label>
+                                        <input type="text" class="form-control premium-input" name="address" value="{{ old('address') }}" required>
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
-                                    <label class="premium-form-label">@lang('State')</label>
-                                    <select name="state" class="form-control premium-form-input select2" required>
-                                        <option value="" disabled selected>@lang('Select State/Province')</option>
-                                        <option value="Punjab" {{ old('state')=='Punjab' ? 'selected' : '' }}>Punjab</option>
-                                        <option value="Sindh" {{ old('state')=='Sindh' ? 'selected' : '' }}>Sindh</option>
-                                        <option value="Khyber Pakhtunkhwa" {{ old('state')=='Khyber Pakhtunkhwa' ? 'selected' : '' }}>Khyber Pakhtunkhwa</option>
-                                        <option value="Balochistan" {{ old('state')=='Balochistan' ? 'selected' : '' }}>Balochistan</option>
-                                        <option value="Islamabad Capital Territory" {{ old('state')=='Islamabad Capital Territory' ? 'selected' : '' }}>Islamabad Capital Territory</option>
-                                        <option value="Azad Jammu and Kashmir" {{ old('state')=='Azad Jammu and Kashmir' ? 'selected' : '' }}>Azad Jammu and Kashmir</option>
-                                        <option value="Gilgit-Baltistan" {{ old('state')=='Gilgit-Baltistan' ? 'selected' : '' }}>Gilgit-Baltistan</option>
-                                    </select>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="premium-label">@lang('State')</label>
+                                        <select name="state" class="form-control premium-input select2" required>
+                                            <option value="" disabled selected>@lang('Select State/Province')</option>
+                                            <option value="Punjab" {{ old('state')=='Punjab' ? 'selected' : '' }}>Punjab</option>
+                                            <option value="Sindh" {{ old('state')=='Sindh' ? 'selected' : '' }}>Sindh</option>
+                                            <option value="Khyber Pakhtunkhwa" {{ old('state')=='Khyber Pakhtunkhwa' ? 'selected' : '' }}>Khyber Pakhtunkhwa</option>
+                                            <option value="Balochistan" {{ old('state')=='Balochistan' ? 'selected' : '' }}>Balochistan</option>
+                                            <option value="Islamabad Capital Territory" {{ old('state')=='Islamabad Capital Territory' ? 'selected' : '' }}>Islamabad Capital Territory</option>
+                                            <option value="Azad Jammu and Kashmir" {{ old('state')=='Azad Jammu and Kashmir' ? 'selected' : '' }}>Azad Jammu and Kashmir</option>
+                                            <option value="Gilgit-Baltistan" {{ old('state')=='Gilgit-Baltistan' ? 'selected' : '' }}>Gilgit-Baltistan</option>
+                                        </select>
+                                    </div>
                                 </div>
                                
-                                <div class="form-group col-sm-6">
-                                    <label class="premium-form-label">@lang('City')</label>
-                                    <input type="text" class="form-control premium-form-input" name="city" value="{{ old('city') }}" required>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="premium-label">@lang('City')</label>
+                                        <input type="text" class="form-control premium-input" name="city" value="{{ old('city') }}" required>
+                                    </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <label class="premium-form-label">@lang('CNIC Number')</label>
-                                    <div class="position-relative">
-                                        <input type="text" id="cnic_display" class="form-control premium-form-input checkUser" placeholder="XXXXX-XXXXXXX-X" maxlength="15" autocomplete="off" required>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="premium-label">@lang('CNIC Number')</label>
+                                        <input type="text" id="cnic_display" class="form-control premium-input checkUser" placeholder="XXXXX-XXXXXXX-X" maxlength="15" autocomplete="off" required>
                                         <input type="hidden" name="cnicnumber" id="cnicnumber" value="{{ old('cnicnumber') }}">
                                         <small class="text-danger cnicExist"></small>
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn w-100 premium-submit-btn mt-4">
+                            <button type="submit" class="btn premium-submit-btn w-100 mt-4">
                                 <i class="bi bi-check-circle me-2"></i> @lang('Submit')
                             </button>
                         </form>
